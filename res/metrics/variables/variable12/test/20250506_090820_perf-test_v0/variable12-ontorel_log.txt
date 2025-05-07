@@ -1,0 +1,218 @@
+> ============================ Trial for variable12 ontorel 
+min=1 max=1 inc=1
+> ============================ Input size : 1
+SET
+ pg_stat_statements_reset 
+--------------------------
+ 
+(1 row)
+
+> Loop number : 1
+SET
+SET
+SET
+SET
+SET
+SET
+SET
+SET
+SET
+                                                                                    QUERY PLAN                                                                                     
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+ Hash Left Join  (cost=8417.27..20527.17 rows=311122 width=20) (actual time=226.911..401.340 rows=311122 loops=1)
+   Hash Cond: (("Tfa45026200_1"."Tfa45026200_uid")::uuid = ("Tfa4502df00"."Tfa4502df00_uid")::uuid)
+   Buffers: shared hit=1196 read=2058
+   I/O Timings: shared read=98.423
+   ->  Unique  (cost=0.42..10249.06 rows=311122 width=16) (actual time=0.027..93.230 rows=311122 loops=1)
+         Buffers: shared hit=1196
+         ->  Index Only Scan using idx_tfa45026200_uid on "Tfa45026200" "Tfa45026200_1"  (cost=0.42..9471.25 rows=311122 width=16) (actual time=0.024..42.153 rows=311122 loops=1)
+               Heap Fetches: 0
+               Buffers: shared hit=1196
+   ->  Hash  (cost=7548.66..7548.66 rows=69455 width=16) (actual time=226.042..226.046 rows=69455 loops=1)
+         Buckets: 131072  Batches: 1  Memory Usage: 4280kB
+         Buffers: shared read=2058
+         I/O Timings: shared read=98.423
+         ->  Hash Join  (cost=1938.74..7548.66 rows=69455 width=16) (actual time=108.636..208.528 rows=69455 loops=1)
+               Hash Cond: (("Tfa45026200"."Tfa45026200_uid")::uuid = ("Tfa4502df00"."Tfa4502df00_uid")::uuid)
+               Buffers: shared read=2058
+               I/O Timings: shared read=98.423
+               ->  Seq Scan on "Tfa45026200"  (cost=0.00..4793.22 rows=311122 width=16) (actual time=0.021..36.550 rows=311122 loops=1)
+                     Buffers: shared read=1682
+                     I/O Timings: shared read=11.310
+               ->  Hash  (cost=1070.55..1070.55 rows=69455 width=16) (actual time=107.750..107.751 rows=69455 loops=1)
+                     Buckets: 131072  Batches: 1  Memory Usage: 4280kB
+                     Buffers: shared read=376
+                     I/O Timings: shared read=87.114
+                     ->  Seq Scan on "Tfa4502df00"  (cost=0.00..1070.55 rows=69455 width=16) (actual time=8.935..93.031 rows=69455 loops=1)
+                           Buffers: shared read=376
+                           I/O Timings: shared read=87.114
+ Settings: search_path = 'test_mimic'
+ Planning:
+   Buffers: shared hit=172 read=22
+   I/O Timings: shared read=9.059
+ Planning Time: 10.235 ms
+ Execution Time: 415.302 ms
+(33 rows)
+
+> Loop number : 2
+SET
+SET
+SET
+SET
+SET
+SET
+SET
+SET
+SET
+                                                                                    QUERY PLAN                                                                                     
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+ Hash Left Join  (cost=8417.27..20527.17 rows=311122 width=20) (actual time=130.726..300.429 rows=311122 loops=1)
+   Hash Cond: (("Tfa45026200_1"."Tfa45026200_uid")::uuid = ("Tfa4502df00"."Tfa4502df00_uid")::uuid)
+   Buffers: shared hit=3254
+   ->  Unique  (cost=0.42..10249.06 rows=311122 width=16) (actual time=0.027..90.603 rows=311122 loops=1)
+         Buffers: shared hit=1196
+         ->  Index Only Scan using idx_tfa45026200_uid on "Tfa45026200" "Tfa45026200_1"  (cost=0.42..9471.25 rows=311122 width=16) (actual time=0.025..39.066 rows=311122 loops=1)
+               Heap Fetches: 0
+               Buffers: shared hit=1196
+   ->  Hash  (cost=7548.66..7548.66 rows=69455 width=16) (actual time=129.845..129.849 rows=69455 loops=1)
+         Buckets: 131072  Batches: 1  Memory Usage: 4280kB
+         Buffers: shared hit=2058
+         ->  Hash Join  (cost=1938.74..7548.66 rows=69455 width=16) (actual time=20.215..113.650 rows=69455 loops=1)
+               Hash Cond: (("Tfa45026200"."Tfa45026200_uid")::uuid = ("Tfa4502df00"."Tfa4502df00_uid")::uuid)
+               Buffers: shared hit=2058
+               ->  Seq Scan on "Tfa45026200"  (cost=0.00..4793.22 rows=311122 width=16) (actual time=0.007..27.754 rows=311122 loops=1)
+                     Buffers: shared hit=1682
+               ->  Hash  (cost=1070.55..1070.55 rows=69455 width=16) (actual time=19.385..19.387 rows=69455 loops=1)
+                     Buckets: 131072  Batches: 1  Memory Usage: 4280kB
+                     Buffers: shared hit=376
+                     ->  Seq Scan on "Tfa4502df00"  (cost=0.00..1070.55 rows=69455 width=16) (actual time=0.005..6.629 rows=69455 loops=1)
+                           Buffers: shared hit=376
+ Settings: search_path = 'test_mimic'
+ Planning:
+   Buffers: shared hit=194
+ Planning Time: 1.067 ms
+ Execution Time: 314.299 ms
+(26 rows)
+
+> Loop number : 3
+SET
+SET
+SET
+SET
+SET
+SET
+SET
+SET
+SET
+                                                                                    QUERY PLAN                                                                                     
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+ Hash Left Join  (cost=8417.27..20527.17 rows=311122 width=20) (actual time=129.567..299.783 rows=311122 loops=1)
+   Hash Cond: (("Tfa45026200_1"."Tfa45026200_uid")::uuid = ("Tfa4502df00"."Tfa4502df00_uid")::uuid)
+   Buffers: shared hit=3254
+   ->  Unique  (cost=0.42..10249.06 rows=311122 width=16) (actual time=0.027..90.939 rows=311122 loops=1)
+         Buffers: shared hit=1196
+         ->  Index Only Scan using idx_tfa45026200_uid on "Tfa45026200" "Tfa45026200_1"  (cost=0.42..9471.25 rows=311122 width=16) (actual time=0.025..39.082 rows=311122 loops=1)
+               Heap Fetches: 0
+               Buffers: shared hit=1196
+   ->  Hash  (cost=7548.66..7548.66 rows=69455 width=16) (actual time=128.720..128.723 rows=69455 loops=1)
+         Buckets: 131072  Batches: 1  Memory Usage: 4280kB
+         Buffers: shared hit=2058
+         ->  Hash Join  (cost=1938.74..7548.66 rows=69455 width=16) (actual time=20.228..112.593 rows=69455 loops=1)
+               Hash Cond: (("Tfa45026200"."Tfa45026200_uid")::uuid = ("Tfa4502df00"."Tfa4502df00_uid")::uuid)
+               Buffers: shared hit=2058
+               ->  Seq Scan on "Tfa45026200"  (cost=0.00..4793.22 rows=311122 width=16) (actual time=0.006..27.719 rows=311122 loops=1)
+                     Buffers: shared hit=1682
+               ->  Hash  (cost=1070.55..1070.55 rows=69455 width=16) (actual time=19.378..19.380 rows=69455 loops=1)
+                     Buckets: 131072  Batches: 1  Memory Usage: 4280kB
+                     Buffers: shared hit=376
+                     ->  Seq Scan on "Tfa4502df00"  (cost=0.00..1070.55 rows=69455 width=16) (actual time=0.005..6.599 rows=69455 loops=1)
+                           Buffers: shared hit=376
+ Settings: search_path = 'test_mimic'
+ Planning:
+   Buffers: shared hit=194
+ Planning Time: 1.055 ms
+ Execution Time: 313.774 ms
+(26 rows)
+
+> Loop number : 4
+SET
+SET
+SET
+SET
+SET
+SET
+SET
+SET
+SET
+                                                                                    QUERY PLAN                                                                                     
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+ Hash Left Join  (cost=8417.27..20527.17 rows=311122 width=20) (actual time=129.978..298.898 rows=311122 loops=1)
+   Hash Cond: (("Tfa45026200_1"."Tfa45026200_uid")::uuid = ("Tfa4502df00"."Tfa4502df00_uid")::uuid)
+   Buffers: shared hit=3254
+   ->  Unique  (cost=0.42..10249.06 rows=311122 width=16) (actual time=0.028..90.564 rows=311122 loops=1)
+         Buffers: shared hit=1196
+         ->  Index Only Scan using idx_tfa45026200_uid on "Tfa45026200" "Tfa45026200_1"  (cost=0.42..9471.25 rows=311122 width=16) (actual time=0.026..38.965 rows=311122 loops=1)
+               Heap Fetches: 0
+               Buffers: shared hit=1196
+   ->  Hash  (cost=7548.66..7548.66 rows=69455 width=16) (actual time=129.122..129.126 rows=69455 loops=1)
+         Buckets: 131072  Batches: 1  Memory Usage: 4280kB
+         Buffers: shared hit=2058
+         ->  Hash Join  (cost=1938.74..7548.66 rows=69455 width=16) (actual time=20.536..112.655 rows=69455 loops=1)
+               Hash Cond: (("Tfa45026200"."Tfa45026200_uid")::uuid = ("Tfa4502df00"."Tfa4502df00_uid")::uuid)
+               Buffers: shared hit=2058
+               ->  Seq Scan on "Tfa45026200"  (cost=0.00..4793.22 rows=311122 width=16) (actual time=0.007..27.982 rows=311122 loops=1)
+                     Buffers: shared hit=1682
+               ->  Hash  (cost=1070.55..1070.55 rows=69455 width=16) (actual time=19.687..19.689 rows=69455 loops=1)
+                     Buckets: 131072  Batches: 1  Memory Usage: 4280kB
+                     Buffers: shared hit=376
+                     ->  Seq Scan on "Tfa4502df00"  (cost=0.00..1070.55 rows=69455 width=16) (actual time=0.005..6.817 rows=69455 loops=1)
+                           Buffers: shared hit=376
+ Settings: search_path = 'test_mimic'
+ Planning:
+   Buffers: shared hit=194
+ Planning Time: 1.069 ms
+ Execution Time: 313.002 ms
+(26 rows)
+
+> Loop number : 5
+SET
+SET
+SET
+SET
+SET
+SET
+SET
+SET
+SET
+                                                                                    QUERY PLAN                                                                                     
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+ Hash Left Join  (cost=8417.27..20527.17 rows=311122 width=20) (actual time=129.870..300.458 rows=311122 loops=1)
+   Hash Cond: (("Tfa45026200_1"."Tfa45026200_uid")::uuid = ("Tfa4502df00"."Tfa4502df00_uid")::uuid)
+   Buffers: shared hit=3254
+   ->  Unique  (cost=0.42..10249.06 rows=311122 width=16) (actual time=0.027..91.239 rows=311122 loops=1)
+         Buffers: shared hit=1196
+         ->  Index Only Scan using idx_tfa45026200_uid on "Tfa45026200" "Tfa45026200_1"  (cost=0.42..9471.25 rows=311122 width=16) (actual time=0.025..39.108 rows=311122 loops=1)
+               Heap Fetches: 0
+               Buffers: shared hit=1196
+   ->  Hash  (cost=7548.66..7548.66 rows=69455 width=16) (actual time=129.022..129.025 rows=69455 loops=1)
+         Buckets: 131072  Batches: 1  Memory Usage: 4280kB
+         Buffers: shared hit=2058
+         ->  Hash Join  (cost=1938.74..7548.66 rows=69455 width=16) (actual time=20.724..112.838 rows=69455 loops=1)
+               Hash Cond: (("Tfa45026200"."Tfa45026200_uid")::uuid = ("Tfa4502df00"."Tfa4502df00_uid")::uuid)
+               Buffers: shared hit=2058
+               ->  Seq Scan on "Tfa45026200"  (cost=0.00..4793.22 rows=311122 width=16) (actual time=0.006..27.818 rows=311122 loops=1)
+                     Buffers: shared hit=1682
+               ->  Hash  (cost=1070.55..1070.55 rows=69455 width=16) (actual time=19.872..19.873 rows=69455 loops=1)
+                     Buckets: 131072  Batches: 1  Memory Usage: 4280kB
+                     Buffers: shared hit=376
+                     ->  Seq Scan on "Tfa4502df00"  (cost=0.00..1070.55 rows=69455 width=16) (actual time=0.005..6.920 rows=69455 loops=1)
+                           Buffers: shared hit=376
+ Settings: search_path = 'test_mimic'
+ Planning:
+   Buffers: shared hit=194
+ Planning Time: 1.095 ms
+ Execution Time: 314.535 ms
+(26 rows)
+
+SET
+INSERT 0 1

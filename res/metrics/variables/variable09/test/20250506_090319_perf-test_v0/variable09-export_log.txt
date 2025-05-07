@@ -1,0 +1,16 @@
+---------------------------------------------------------------------------------
+BEGIN - mimic_iv variable variable09/ performance test perf-test 20250506_090319
+--------------------------------------------------------------------------------
+[INFO] Fin execu pour mimic 
+[INFO] Fin execu pour ontorel 
+[INFO] Fin execu pour ontorelMaterialized 
+[INFO] Fin execu pour ontorelView 
+--------------------------------------------------------------------------------
+END - mimic_iv var variable09/ performance test perf-test 20250506_090409
+      variant    : v0
+      Root  path : /home/local/USHERBROOKE/soua2803/benchFinal
+      Query path : /home/local/USHERBROOKE/soua2803/benchFinal/src/variable09/queries
+      Test  path : /home/local/USHERBROOKE/soua2803/benchFinal/src/variable09
+      Out   path : /home/local/USHERBROOKE/soua2803/benchFinal/tmp/mimic_iv/variable09/test/20250506_090319_perf-test_v0
+      Parameters : 1 min tuples, 1 max tuples, 1 increment
+--------------------------------------------------------------------------------

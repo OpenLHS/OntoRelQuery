@@ -1,0 +1,14 @@
+model,queryname,mintime,maxtime,meantime,rowcount
+Materialized-Path,Q01,161.56,503.58,230.32,311122
+Materialized-Path,Q02,486.38,1027.69,595.12,311122
+Materialized-Path,Q03,341.13,999.58,473.85,311122
+Materialized-Path,Q04,739.65,1357.97,865.57,311122
+Materialized-Path,Q05,188.31,558.66,263.59,311122
+Materialized-Path,Q06,1293.92,1792.12,1407.17,311122
+Materialized-Path,Q07,81.74,399.53,147.14,311122
+Materialized-Path,Q08,371.84,694.19,437.44,311122
+Materialized-Path,Q09,124.08,343.05,168.47,311122
+Materialized-Path,Q10,133.82,396.51,187.78,311122
+Materialized-Path,Q11,949.35,1591.42,1088.05,311122
+Materialized-Path,Q12,145.31,151.98,147.39,311122
+Materialized-Path,Q13,630.58,926.80,694.82,703893

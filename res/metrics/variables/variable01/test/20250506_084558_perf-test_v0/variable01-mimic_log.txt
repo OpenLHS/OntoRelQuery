@@ -1,0 +1,208 @@
+> ============================ Trial for variable01 mimic 
+min=1 max=1 inc=1
+> ============================ Input size : 1
+SET
+ pg_stat_statements_reset 
+--------------------------
+ 
+(1 row)
+
+> Loop number : 1
+SET
+SET
+SET
+SET
+SET
+SET
+SET
+SET
+SET
+                                                             QUERY PLAN                                                             
+------------------------------------------------------------------------------------------------------------------------------------
+ HashAggregate  (cost=51672.12..64599.43 rows=309868 width=16) (actual time=1140.032..1292.269 rows=311122 loops=1)
+   Group Key: admissions.hadm_id, patients.dod
+   Planned Partitions: 8  Batches: 9  Memory Usage: 11089kB  Disk Usage: 14880kB
+   Buffers: shared read=10544, temp read=2130 written=3842
+   I/O Timings: shared read=608.612, temp read=8.409 write=51.307
+   ->  Hash Join  (cost=9882.52..29400.36 rows=309868 width=20) (actual time=512.415..982.715 rows=311122 loops=1)
+         Hash Cond: (admissions.subject_id = patients.subject_id)
+         Buffers: shared read=10544, temp read=1131 written=1131
+         I/O Timings: shared read=608.612, temp read=4.447 write=20.836
+         ->  Seq Scan on admissions  (cost=0.00..14505.43 rows=309868 width=16) (actual time=4.262..325.198 rows=311122 loops=1)
+               Filter: ((admission_type)::text <> ALL ('{"AMBULATORY OBSERVATION","DIRECT OBSERVATION","EU OBSERVATION"}'::text[]))
+               Rows Removed by Filter: 120109
+               Buffers: shared read=8576
+               I/O Timings: shared read=224.102
+         ->  Hash  (cost=4965.12..4965.12 rows=299712 width=8) (actual time=505.597..505.599 rows=299712 loops=1)
+               Buckets: 262144  Batches: 2  Memory Usage: 7378kB
+               Buffers: shared read=1968, temp written=446
+               I/O Timings: shared read=384.509, temp write=7.978
+               ->  Seq Scan on patients  (cost=0.00..4965.12 rows=299712 width=8) (actual time=9.638..429.266 rows=299712 loops=1)
+                     Buffers: shared read=1968
+                     I/O Timings: shared read=384.509
+ Settings: search_path = 'test_mimic'
+ Planning:
+   Buffers: shared hit=249 read=23
+   I/O Timings: shared read=212.340
+ Planning Time: 213.805 ms
+ Execution Time: 1311.991 ms
+(27 rows)
+
+> Loop number : 2
+SET
+SET
+SET
+SET
+SET
+SET
+SET
+SET
+SET
+                                                             QUERY PLAN                                                             
+------------------------------------------------------------------------------------------------------------------------------------
+ HashAggregate  (cost=51672.12..64599.43 rows=309868 width=16) (actual time=534.442..691.638 rows=311122 loops=1)
+   Group Key: admissions.hadm_id, patients.dod
+   Planned Partitions: 8  Batches: 9  Memory Usage: 11089kB  Disk Usage: 14880kB
+   Buffers: shared hit=2001 read=8543, temp read=2130 written=3842
+   I/O Timings: shared read=34.692, temp read=8.639 write=42.710
+   ->  Hash Join  (cost=9882.52..29400.36 rows=309868 width=20) (actual time=115.788..391.491 rows=311122 loops=1)
+         Hash Cond: (admissions.subject_id = patients.subject_id)
+         Buffers: shared hit=2001 read=8543, temp read=1131 written=1131
+         I/O Timings: shared read=34.692, temp read=4.564 write=14.833
+         ->  Seq Scan on admissions  (cost=0.00..14505.43 rows=309868 width=16) (actual time=0.043..133.697 rows=311122 loops=1)
+               Filter: ((admission_type)::text <> ALL ('{"AMBULATORY OBSERVATION","DIRECT OBSERVATION","EU OBSERVATION"}'::text[]))
+               Rows Removed by Filter: 120109
+               Buffers: shared hit=33 read=8543
+               I/O Timings: shared read=34.692
+         ->  Hash  (cost=4965.12..4965.12 rows=299712 width=8) (actual time=113.279..113.281 rows=299712 loops=1)
+               Buckets: 262144  Batches: 2  Memory Usage: 7378kB
+               Buffers: shared hit=1968, temp written=446
+               I/O Timings: temp write=5.629
+               ->  Seq Scan on patients  (cost=0.00..4965.12 rows=299712 width=8) (actual time=0.013..46.991 rows=299712 loops=1)
+                     Buffers: shared hit=1968
+ Settings: search_path = 'test_mimic'
+ Planning:
+   Buffers: shared hit=272
+ Planning Time: 1.124 ms
+ Execution Time: 714.852 ms
+(25 rows)
+
+> Loop number : 3
+SET
+SET
+SET
+SET
+SET
+SET
+SET
+SET
+SET
+                                                             QUERY PLAN                                                             
+------------------------------------------------------------------------------------------------------------------------------------
+ HashAggregate  (cost=51672.12..64599.43 rows=309868 width=16) (actual time=533.754..684.325 rows=311122 loops=1)
+   Group Key: admissions.hadm_id, patients.dod
+   Planned Partitions: 8  Batches: 9  Memory Usage: 11089kB  Disk Usage: 14880kB
+   Buffers: shared hit=2033 read=8511, temp read=2130 written=3842
+   I/O Timings: shared read=32.488, temp read=8.587 write=42.386
+   ->  Hash Join  (cost=9882.52..29400.36 rows=309868 width=20) (actual time=116.812..390.538 rows=311122 loops=1)
+         Hash Cond: (admissions.subject_id = patients.subject_id)
+         Buffers: shared hit=2033 read=8511, temp read=1131 written=1131
+         I/O Timings: shared read=32.488, temp read=4.594 write=14.736
+         ->  Seq Scan on admissions  (cost=0.00..14505.43 rows=309868 width=16) (actual time=0.038..130.917 rows=311122 loops=1)
+               Filter: ((admission_type)::text <> ALL ('{"AMBULATORY OBSERVATION","DIRECT OBSERVATION","EU OBSERVATION"}'::text[]))
+               Rows Removed by Filter: 120109
+               Buffers: shared hit=65 read=8511
+               I/O Timings: shared read=32.488
+         ->  Hash  (cost=4965.12..4965.12 rows=299712 width=8) (actual time=114.141..114.142 rows=299712 loops=1)
+               Buckets: 262144  Batches: 2  Memory Usage: 7378kB
+               Buffers: shared hit=1968, temp written=446
+               I/O Timings: temp write=5.751
+               ->  Seq Scan on patients  (cost=0.00..4965.12 rows=299712 width=8) (actual time=0.012..47.715 rows=299712 loops=1)
+                     Buffers: shared hit=1968
+ Settings: search_path = 'test_mimic'
+ Planning:
+   Buffers: shared hit=272
+ Planning Time: 1.033 ms
+ Execution Time: 707.367 ms
+(25 rows)
+
+> Loop number : 4
+SET
+SET
+SET
+SET
+SET
+SET
+SET
+SET
+SET
+                                                             QUERY PLAN                                                             
+------------------------------------------------------------------------------------------------------------------------------------
+ HashAggregate  (cost=51672.12..64599.43 rows=309868 width=16) (actual time=537.287..688.943 rows=311122 loops=1)
+   Group Key: admissions.hadm_id, patients.dod
+   Planned Partitions: 8  Batches: 9  Memory Usage: 11089kB  Disk Usage: 14880kB
+   Buffers: shared hit=2065 read=8479, temp read=2130 written=3842
+   I/O Timings: shared read=32.001, temp read=8.667 write=42.585
+   ->  Hash Join  (cost=9882.52..29400.36 rows=309868 width=20) (actual time=116.453..391.859 rows=311122 loops=1)
+         Hash Cond: (admissions.subject_id = patients.subject_id)
+         Buffers: shared hit=2065 read=8479, temp read=1131 written=1131
+         I/O Timings: shared read=32.001, temp read=4.626 write=14.840
+         ->  Seq Scan on admissions  (cost=0.00..14505.43 rows=309868 width=16) (actual time=0.039..130.594 rows=311122 loops=1)
+               Filter: ((admission_type)::text <> ALL ('{"AMBULATORY OBSERVATION","DIRECT OBSERVATION","EU OBSERVATION"}'::text[]))
+               Rows Removed by Filter: 120109
+               Buffers: shared hit=97 read=8479
+               I/O Timings: shared read=32.001
+         ->  Hash  (cost=4965.12..4965.12 rows=299712 width=8) (actual time=113.841..113.843 rows=299712 loops=1)
+               Buckets: 262144  Batches: 2  Memory Usage: 7378kB
+               Buffers: shared hit=1968, temp written=446
+               I/O Timings: temp write=5.835
+               ->  Seq Scan on patients  (cost=0.00..4965.12 rows=299712 width=8) (actual time=0.013..47.039 rows=299712 loops=1)
+                     Buffers: shared hit=1968
+ Settings: search_path = 'test_mimic'
+ Planning:
+   Buffers: shared hit=272
+ Planning Time: 1.027 ms
+ Execution Time: 712.004 ms
+(25 rows)
+
+> Loop number : 5
+SET
+SET
+SET
+SET
+SET
+SET
+SET
+SET
+SET
+                                                             QUERY PLAN                                                             
+------------------------------------------------------------------------------------------------------------------------------------
+ HashAggregate  (cost=51672.12..64599.43 rows=309868 width=16) (actual time=533.080..684.735 rows=311122 loops=1)
+   Group Key: admissions.hadm_id, patients.dod
+   Planned Partitions: 8  Batches: 9  Memory Usage: 11089kB  Disk Usage: 14880kB
+   Buffers: shared hit=2097 read=8447, temp read=2130 written=3842
+   I/O Timings: shared read=31.934, temp read=8.653 write=42.702
+   ->  Hash Join  (cost=9882.52..29400.36 rows=309868 width=20) (actual time=115.840..387.963 rows=311122 loops=1)
+         Hash Cond: (admissions.subject_id = patients.subject_id)
+         Buffers: shared hit=2097 read=8447, temp read=1131 written=1131
+         I/O Timings: shared read=31.934, temp read=4.578 write=14.942
+         ->  Seq Scan on admissions  (cost=0.00..14505.43 rows=309868 width=16) (actual time=0.039..130.833 rows=311122 loops=1)
+               Filter: ((admission_type)::text <> ALL ('{"AMBULATORY OBSERVATION","DIRECT OBSERVATION","EU OBSERVATION"}'::text[]))
+               Rows Removed by Filter: 120109
+               Buffers: shared hit=129 read=8447
+               I/O Timings: shared read=31.934
+         ->  Hash  (cost=4965.12..4965.12 rows=299712 width=8) (actual time=113.197..113.199 rows=299712 loops=1)
+               Buckets: 262144  Batches: 2  Memory Usage: 7378kB
+               Buffers: shared hit=1968, temp written=446
+               I/O Timings: temp write=5.905
+               ->  Seq Scan on patients  (cost=0.00..4965.12 rows=299712 width=8) (actual time=0.014..47.488 rows=299712 loops=1)
+                     Buffers: shared hit=1968
+ Settings: search_path = 'test_mimic'
+ Planning:
+   Buffers: shared hit=272
+ Planning Time: 1.052 ms
+ Execution Time: 707.896 ms
+(25 rows)
+
+SET
+INSERT 0 1

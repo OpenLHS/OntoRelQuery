@@ -1,0 +1,5 @@
+model,queryname,mintime,maxtime,meantime,rowcount
+mimic,variable01,701.70,1309.73,825.82,311122
+ontorel,variable01,8075.95,12159.47,9557.71,311122
+ontorelMaterialized,variable01,162.34,578.14,246.05,311122
+ontorelView,variable01,7268.61,7631.91,7436.97,311122

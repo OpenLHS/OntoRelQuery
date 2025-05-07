@@ -1,0 +1,557 @@
+> ============================ Trial for variable05 mimic 
+min=1 max=1 inc=1
+> ============================ Input size : 1
+SET
+ pg_stat_statements_reset 
+--------------------------
+ 
+(1 row)
+
+> Loop number : 1
+SET
+SET
+SET
+SET
+SET
+SET
+SET
+SET
+SET
+                                                                                                                         QUERY PLAN                                                                                                                         
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+ Hash Left Join  (cost=190271.67..197299.67 rows=309868 width=16) (actual time=1643.529..1743.944 rows=311122 loops=1)
+   Hash Cond: (date_hosp_patient.hadm_id = nombre_ambulances_annee.hadm_id)
+   Buffers: shared hit=3 read=13512, temp read=4144 written=2173
+   I/O Timings: shared read=588.574, temp read=15.905 write=26.750
+   CTE date_hosp_patient
+     ->  Seq Scan on admissions  (cost=0.00..14505.43 rows=309868 width=16) (actual time=51.339..554.528 rows=311122 loops=1)
+           Filter: ((admission_type)::text <> ALL ('{"AMBULATORY OBSERVATION","DIRECT OBSERVATION","EU OBSERVATION"}'::text[]))
+           Rows Removed by Filter: 120109
+           Buffers: shared read=8576
+           I/O Timings: shared read=420.546
+   ->  CTE Scan on date_hosp_patient  (cost=0.00..6197.36 rows=309868 width=8) (actual time=51.346..88.448 rows=311122 loops=1)
+         Buffers: shared read=1, temp read=988
+         I/O Timings: shared read=7.798, temp read=4.298
+   ->  Hash  (cost=175763.75..175763.75 rows=200 width=12) (actual time=1592.147..1592.156 rows=35995 loops=1)
+         Buckets: 65536 (originally 1024)  Batches: 1 (originally 1)  Memory Usage: 2059kB
+         Buffers: shared hit=3 read=13511, temp read=3156 written=2173
+         I/O Timings: shared read=580.777, temp read=11.607 write=26.750
+         ->  Subquery Scan on nombre_ambulances_annee  (cost=173759.37..175763.75 rows=200 width=12) (actual time=1560.591..1586.110 rows=35995 loops=1)
+               Buffers: shared hit=3 read=13511, temp read=3156 written=2173
+               I/O Timings: shared read=580.777, temp read=11.607 write=26.750
+               ->  GroupAggregate  (cost=173759.37..175761.75 rows=200 width=12) (actual time=1560.586..1581.883 rows=35995 loops=1)
+                     Group Key: date_hosp_patient_1.hadm_id
+                     Buffers: shared hit=3 read=13511, temp read=3156 written=2173
+                     I/O Timings: shared read=580.777, temp read=11.607 write=26.750
+                     ->  Sort  (cost=173759.37..174426.16 rows=266717 width=12) (actual time=1560.542..1565.601 rows=61075 loops=1)
+                           Sort Key: date_hosp_patient_1.hadm_id, date_hosp_patient_2.admittime
+                           Sort Method: quicksort  Memory: 3922kB
+                           Buffers: shared hit=3 read=13511, temp read=3156 written=2173
+                           I/O Timings: shared read=580.777, temp read=11.607 write=26.750
+                           ->  Merge Join  (cost=72380.81..145161.07 rows=266717 width=12) (actual time=1235.885..1538.868 rows=61075 loops=1)
+                                 Merge Cond: (date_hosp_patient_2.subject_id = date_hosp_patient_1.subject_id)
+                                 Join Filter: ((EXTRACT(day FROM (date_hosp_patient_1.admittime - date_hosp_patient_2.admittime)) < '365'::numeric) AND (EXTRACT(day FROM (date_hosp_patient_1.admittime - date_hosp_patient_2.admittime)) > '0'::numeric))
+                                 Rows Removed by Join Filter: 331973
+                                 Buffers: shared read=13511, temp read=3156 written=2173
+                                 I/O Timings: shared read=580.777, temp read=11.607 write=26.750
+                                 ->  Sort  (cost=32622.48..32626.36 rows=1549 width=12) (actual time=1129.993..1137.400 rows=69455 loops=1)
+                                       Sort Key: date_hosp_patient_2.subject_id
+                                       Sort Method: external merge  Disk: 1504kB
+                                       Buffers: shared read=13511, temp read=1176 written=1177
+                                       I/O Timings: shared read=580.777, temp read=4.602 write=15.027
+                                       ->  Hash Join  (cost=25512.41..32540.41 rows=1549 width=12) (actual time=1019.503..1109.569 rows=69455 loops=1)
+                                             Hash Cond: (date_hosp_patient_2.hadm_id = edstays.hadm_id)
+                                             Buffers: shared read=13511, temp read=988 written=988
+                                             I/O Timings: shared read=580.777, temp read=4.075 write=12.871
+                                             ->  CTE Scan on date_hosp_patient date_hosp_patient_2  (cost=0.00..6197.36 rows=309868 width=16) (actual time=0.001..37.088 rows=311122 loops=1)
+                                                   Buffers: temp read=988 written=1
+                                                   I/O Timings: temp read=4.075 write=0.028
+                                             ->  Hash  (cost=25512.40..25512.40 rows=1 width=4) (actual time=1019.461..1019.465 rows=69455 loops=1)
+                                                   Buckets: 131072 (originally 1024)  Batches: 1 (originally 1)  Memory Usage: 3466kB
+                                                   Buffers: shared read=13511, temp written=987
+                                                   I/O Timings: shared read=580.777, temp write=12.843
+                                                   ->  Unique  (cost=25512.39..25512.40 rows=1 width=4) (actual time=992.523..1008.768 rows=69455 loops=1)
+                                                         Buffers: shared read=13511, temp written=987
+                                                         I/O Timings: shared read=580.777, temp write=12.843
+                                                         ->  Sort  (cost=25512.39..25512.40 rows=1 width=4) (actual time=992.520..996.527 rows=69494 loops=1)
+                                                               Sort Key: edstays.hadm_id
+                                                               Sort Method: quicksort  Memory: 3073kB
+                                                               Buffers: shared read=13511, temp written=987
+                                                               I/O Timings: shared read=580.777, temp write=12.843
+                                                               ->  Hash Join  (cost=13187.33..25512.38 rows=1 width=4) (actual time=266.441..976.444 rows=69494 loops=1)
+                                                                     Hash Cond: ((date_hosp_patient_3.hadm_id = edstays.hadm_id) AND (date_hosp_patient_3.subject_id = edstays.subject_id))
+                                                                     Buffers: shared read=13511, temp written=987
+                                                                     I/O Timings: shared read=580.777, temp write=12.843
+                                                                     ->  CTE Scan on date_hosp_patient date_hosp_patient_3  (cost=0.00..6197.36 rows=309868 width=8) (actual time=0.005..626.079 rows=311122 loops=1)
+                                                                           Buffers: shared read=8575, temp written=987
+                                                                           I/O Timings: shared read=412.749, temp write=12.843
+                                                                     ->  Hash  (cost=10249.59..10249.59 rows=155383 width=8) (actual time=264.764..264.766 rows=104951 loops=1)
+                                                                           Buckets: 262144  Batches: 1  Memory Usage: 6148kB
+                                                                           Buffers: shared read=4936
+                                                                           I/O Timings: shared read=168.028
+                                                                           ->  Seq Scan on edstays  (cost=0.00..10249.59 rows=155383 width=8) (actual time=11.135..229.110 rows=155752 loops=1)
+                                                                                 Filter: ((arrival_transport)::text = 'AMBULANCE'::text)
+                                                                                 Rows Removed by Filter: 269335
+                                                                                 Buffers: shared read=4936
+                                                                                 I/O Timings: shared read=168.028
+                                 ->  Materialize  (cost=39758.33..41307.67 rows=309868 width=16) (actual time=105.820..199.948 rows=564467 loops=1)
+                                       Buffers: temp read=1980 written=996
+                                       I/O Timings: temp read=7.006 write=11.723
+                                       ->  Sort  (cost=39758.33..40533.00 rows=309868 width=16) (actual time=105.817..142.623 rows=311122 loops=1)
+                                             Sort Key: date_hosp_patient_1.subject_id
+                                             Sort Method: external merge  Disk: 7936kB
+                                             Buffers: temp read=1980 written=996
+                                             I/O Timings: temp read=7.006 write=11.723
+                                             ->  CTE Scan on date_hosp_patient date_hosp_patient_1  (cost=0.00..6197.36 rows=309868 width=16) (actual time=0.006..36.459 rows=311122 loops=1)
+                                                   Buffers: temp read=988
+                                                   I/O Timings: temp read=3.751
+ Settings: search_path = 'test_mimic'
+ Planning:
+   Buffers: shared hit=228 read=13
+   I/O Timings: shared read=44.330
+ Planning Time: 45.759 ms
+ JIT:
+   Functions: 53
+   Options: Inlining false, Optimization false, Expressions true, Deforming true
+   Timing: Generation 2.477 ms, Inlining 0.000 ms, Optimization 1.127 ms, Emission 42.599 ms, Total 46.203 ms
+ Execution Time: 1820.792 ms
+(96 rows)
+
+> Loop number : 2
+SET
+SET
+SET
+SET
+SET
+SET
+SET
+SET
+SET
+                                                                                                                         QUERY PLAN                                                                                                                         
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+ Hash Left Join  (cost=190271.67..197299.67 rows=309868 width=16) (actual time=1070.555..1170.969 rows=311122 loops=1)
+   Hash Cond: (date_hosp_patient.hadm_id = nombre_ambulances_annee.hadm_id)
+   Buffers: shared hit=68 read=13447, temp read=4144 written=2173
+   I/O Timings: shared read=55.045, temp read=15.903 write=25.876
+   CTE date_hosp_patient
+     ->  Seq Scan on admissions  (cost=0.00..14505.43 rows=309868 width=16) (actual time=26.666..150.108 rows=311122 loops=1)
+           Filter: ((admission_type)::text <> ALL ('{"AMBULATORY OBSERVATION","DIRECT OBSERVATION","EU OBSERVATION"}'::text[]))
+           Rows Removed by Filter: 120109
+           Buffers: shared hit=33 read=8543
+           I/O Timings: shared read=35.198
+   ->  CTE Scan on date_hosp_patient  (cost=0.00..6197.36 rows=309868 width=8) (actual time=26.671..63.537 rows=311122 loops=1)
+         Buffers: shared read=1, temp read=988
+         I/O Timings: shared read=0.013, temp read=4.274
+   ->  Hash  (cost=175763.75..175763.75 rows=200 width=12) (actual time=1043.858..1043.868 rows=35995 loops=1)
+         Buckets: 65536 (originally 1024)  Batches: 1 (originally 1)  Memory Usage: 2059kB
+         Buffers: shared hit=68 read=13446, temp read=3156 written=2173
+         I/O Timings: shared read=55.032, temp read=11.630 write=25.876
+         ->  Subquery Scan on nombre_ambulances_annee  (cost=173759.37..175763.75 rows=200 width=12) (actual time=1012.683..1037.867 rows=35995 loops=1)
+               Buffers: shared hit=68 read=13446, temp read=3156 written=2173
+               I/O Timings: shared read=55.032, temp read=11.630 write=25.876
+               ->  GroupAggregate  (cost=173759.37..175761.75 rows=200 width=12) (actual time=1012.679..1033.546 rows=35995 loops=1)
+                     Group Key: date_hosp_patient_1.hadm_id
+                     Buffers: shared hit=68 read=13446, temp read=3156 written=2173
+                     I/O Timings: shared read=55.032, temp read=11.630 write=25.876
+                     ->  Sort  (cost=173759.37..174426.16 rows=266717 width=12) (actual time=1012.635..1017.401 rows=61075 loops=1)
+                           Sort Key: date_hosp_patient_1.hadm_id, date_hosp_patient_2.admittime
+                           Sort Method: quicksort  Memory: 3922kB
+                           Buffers: shared hit=68 read=13446, temp read=3156 written=2173
+                           I/O Timings: shared read=55.032, temp read=11.630 write=25.876
+                           ->  Merge Join  (cost=72380.81..145161.07 rows=266717 width=12) (actual time=685.209..990.880 rows=61075 loops=1)
+                                 Merge Cond: (date_hosp_patient_2.subject_id = date_hosp_patient_1.subject_id)
+                                 Join Filter: ((EXTRACT(day FROM (date_hosp_patient_1.admittime - date_hosp_patient_2.admittime)) < '365'::numeric) AND (EXTRACT(day FROM (date_hosp_patient_1.admittime - date_hosp_patient_2.admittime)) > '0'::numeric))
+                                 Rows Removed by Join Filter: 331973
+                                 Buffers: shared hit=65 read=13446, temp read=3156 written=2173
+                                 I/O Timings: shared read=55.032, temp read=11.630 write=25.876
+                                 ->  Sort  (cost=32622.48..32626.36 rows=1549 width=12) (actual time=579.673..587.137 rows=69455 loops=1)
+                                       Sort Key: date_hosp_patient_2.subject_id
+                                       Sort Method: external merge  Disk: 1504kB
+                                       Buffers: shared hit=65 read=13446, temp read=1176 written=1177
+                                       I/O Timings: shared read=55.032, temp read=4.604 write=14.815
+                                       ->  Hash Join  (cost=25512.41..32540.41 rows=1549 width=12) (actual time=466.626..558.495 rows=69455 loops=1)
+                                             Hash Cond: (date_hosp_patient_2.hadm_id = edstays.hadm_id)
+                                             Buffers: shared hit=65 read=13446, temp read=988 written=988
+                                             I/O Timings: shared read=55.032, temp read=4.010 write=12.164
+                                             ->  CTE Scan on date_hosp_patient date_hosp_patient_2  (cost=0.00..6197.36 rows=309868 width=16) (actual time=0.001..37.464 rows=311122 loops=1)
+                                                   Buffers: temp read=988 written=1
+                                                   I/O Timings: temp read=4.010 write=0.042
+                                             ->  Hash  (cost=25512.40..25512.40 rows=1 width=4) (actual time=466.589..466.595 rows=69455 loops=1)
+                                                   Buckets: 131072 (originally 1024)  Batches: 1 (originally 1)  Memory Usage: 3466kB
+                                                   Buffers: shared hit=65 read=13446, temp written=987
+                                                   I/O Timings: shared read=55.032, temp write=12.122
+                                                   ->  Unique  (cost=25512.39..25512.40 rows=1 width=4) (actual time=439.992..456.034 rows=69455 loops=1)
+                                                         Buffers: shared hit=65 read=13446, temp written=987
+                                                         I/O Timings: shared read=55.032, temp write=12.122
+                                                         ->  Sort  (cost=25512.39..25512.40 rows=1 width=4) (actual time=439.989..443.959 rows=69494 loops=1)
+                                                               Sort Key: edstays.hadm_id
+                                                               Sort Method: quicksort  Memory: 3073kB
+                                                               Buffers: shared hit=65 read=13446, temp written=987
+                                                               I/O Timings: shared read=55.032, temp write=12.122
+                                                               ->  Hash Join  (cost=13187.33..25512.38 rows=1 width=4) (actual time=107.890..423.641 rows=69494 loops=1)
+                                                                     Hash Cond: ((date_hosp_patient_3.hadm_id = edstays.hadm_id) AND (date_hosp_patient_3.subject_id = edstays.subject_id))
+                                                                     Buffers: shared hit=65 read=13446, temp written=987
+                                                                     I/O Timings: shared read=55.032, temp write=12.122
+                                                                     ->  CTE Scan on date_hosp_patient date_hosp_patient_3  (cost=0.00..6197.36 rows=309868 width=8) (actual time=0.004..244.675 rows=311122 loops=1)
+                                                                           Buffers: shared hit=33 read=8542, temp written=987
+                                                                           I/O Timings: shared read=35.185, temp write=12.122
+                                                                     ->  Hash  (cost=10249.59..10249.59 rows=155383 width=8) (actual time=106.187..106.189 rows=104951 loops=1)
+                                                                           Buckets: 262144  Batches: 1  Memory Usage: 6148kB
+                                                                           Buffers: shared hit=32 read=4904
+                                                                           I/O Timings: shared read=19.847
+                                                                           ->  Seq Scan on edstays  (cost=0.00..10249.59 rows=155383 width=8) (actual time=0.040..76.757 rows=155752 loops=1)
+                                                                                 Filter: ((arrival_transport)::text = 'AMBULANCE'::text)
+                                                                                 Rows Removed by Filter: 269335
+                                                                                 Buffers: shared hit=32 read=4904
+                                                                                 I/O Timings: shared read=19.847
+                                 ->  Materialize  (cost=39758.33..41307.67 rows=309868 width=16) (actual time=105.454..199.649 rows=564467 loops=1)
+                                       Buffers: temp read=1980 written=996
+                                       I/O Timings: temp read=7.026 write=11.062
+                                       ->  Sort  (cost=39758.33..40533.00 rows=309868 width=16) (actual time=105.450..142.309 rows=311122 loops=1)
+                                             Sort Key: date_hosp_patient_1.subject_id
+                                             Sort Method: external merge  Disk: 7936kB
+                                             Buffers: temp read=1980 written=996
+                                             I/O Timings: temp read=7.026 write=11.062
+                                             ->  CTE Scan on date_hosp_patient date_hosp_patient_1  (cost=0.00..6197.36 rows=309868 width=16) (actual time=0.007..36.473 rows=311122 loops=1)
+                                                   Buffers: temp read=988
+                                                   I/O Timings: temp read=3.727
+ Settings: search_path = 'test_mimic'
+ Planning:
+   Buffers: shared hit=241
+ Planning Time: 1.188 ms
+ JIT:
+   Functions: 53
+   Options: Inlining false, Optimization false, Expressions true, Deforming true
+   Timing: Generation 2.452 ms, Inlining 0.000 ms, Optimization 1.040 ms, Emission 25.781 ms, Total 29.272 ms
+ Execution Time: 1216.952 ms
+(95 rows)
+
+> Loop number : 3
+SET
+SET
+SET
+SET
+SET
+SET
+SET
+SET
+SET
+                                                                                                                         QUERY PLAN                                                                                                                         
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+ Hash Left Join  (cost=190271.67..197299.67 rows=309868 width=16) (actual time=1072.602..1173.643 rows=311122 loops=1)
+   Hash Cond: (date_hosp_patient.hadm_id = nombre_ambulances_annee.hadm_id)
+   Buffers: shared hit=132 read=13383, temp read=4144 written=2173
+   I/O Timings: shared read=51.324, temp read=16.067 write=25.514
+   CTE date_hosp_patient
+     ->  Seq Scan on admissions  (cost=0.00..14505.43 rows=309868 width=16) (actual time=26.799..148.338 rows=311122 loops=1)
+           Filter: ((admission_type)::text <> ALL ('{"AMBULATORY OBSERVATION","DIRECT OBSERVATION","EU OBSERVATION"}'::text[]))
+           Rows Removed by Filter: 120109
+           Buffers: shared hit=65 read=8511
+           I/O Timings: shared read=33.001
+   ->  CTE Scan on date_hosp_patient  (cost=0.00..6197.36 rows=309868 width=8) (actual time=26.804..63.786 rows=311122 loops=1)
+         Buffers: shared read=1, temp read=988
+         I/O Timings: shared read=0.012, temp read=4.271
+   ->  Hash  (cost=175763.75..175763.75 rows=200 width=12) (actual time=1045.770..1045.782 rows=35995 loops=1)
+         Buckets: 65536 (originally 1024)  Batches: 1 (originally 1)  Memory Usage: 2059kB
+         Buffers: shared hit=132 read=13382, temp read=3156 written=2173
+         I/O Timings: shared read=51.313, temp read=11.796 write=25.514
+         ->  Subquery Scan on nombre_ambulances_annee  (cost=173759.37..175763.75 rows=200 width=12) (actual time=1014.352..1039.762 rows=35995 loops=1)
+               Buffers: shared hit=132 read=13382, temp read=3156 written=2173
+               I/O Timings: shared read=51.313, temp read=11.796 write=25.514
+               ->  GroupAggregate  (cost=173759.37..175761.75 rows=200 width=12) (actual time=1014.348..1035.335 rows=35995 loops=1)
+                     Group Key: date_hosp_patient_1.hadm_id
+                     Buffers: shared hit=132 read=13382, temp read=3156 written=2173
+                     I/O Timings: shared read=51.313, temp read=11.796 write=25.514
+                     ->  Sort  (cost=173759.37..174426.16 rows=266717 width=12) (actual time=1014.302..1019.167 rows=61075 loops=1)
+                           Sort Key: date_hosp_patient_1.hadm_id, date_hosp_patient_2.admittime
+                           Sort Method: quicksort  Memory: 3922kB
+                           Buffers: shared hit=132 read=13382, temp read=3156 written=2173
+                           I/O Timings: shared read=51.313, temp read=11.796 write=25.514
+                           ->  Merge Join  (cost=72380.81..145161.07 rows=266717 width=12) (actual time=686.709..992.314 rows=61075 loops=1)
+                                 Merge Cond: (date_hosp_patient_2.subject_id = date_hosp_patient_1.subject_id)
+                                 Join Filter: ((EXTRACT(day FROM (date_hosp_patient_1.admittime - date_hosp_patient_2.admittime)) < '365'::numeric) AND (EXTRACT(day FROM (date_hosp_patient_1.admittime - date_hosp_patient_2.admittime)) > '0'::numeric))
+                                 Rows Removed by Join Filter: 331973
+                                 Buffers: shared hit=129 read=13382, temp read=3156 written=2173
+                                 I/O Timings: shared read=51.313, temp read=11.796 write=25.514
+                                 ->  Sort  (cost=32622.48..32626.36 rows=1549 width=12) (actual time=581.197..588.596 rows=69455 loops=1)
+                                       Sort Key: date_hosp_patient_2.subject_id
+                                       Sort Method: external merge  Disk: 1504kB
+                                       Buffers: shared hit=129 read=13382, temp read=1176 written=1177
+                                       I/O Timings: shared read=51.313, temp read=4.625 write=14.490
+                                       ->  Hash Join  (cost=25512.41..32540.41 rows=1549 width=12) (actual time=466.965..556.199 rows=69455 loops=1)
+                                             Hash Cond: (date_hosp_patient_2.hadm_id = edstays.hadm_id)
+                                             Buffers: shared hit=129 read=13382, temp read=988 written=988
+                                             I/O Timings: shared read=51.313, temp read=4.031 write=12.288
+                                             ->  CTE Scan on date_hosp_patient date_hosp_patient_2  (cost=0.00..6197.36 rows=309868 width=16) (actual time=0.001..37.365 rows=311122 loops=1)
+                                                   Buffers: temp read=988 written=1
+                                                   I/O Timings: temp read=4.031 write=0.037
+                                             ->  Hash  (cost=25512.40..25512.40 rows=1 width=4) (actual time=466.935..466.941 rows=69455 loops=1)
+                                                   Buckets: 131072 (originally 1024)  Batches: 1 (originally 1)  Memory Usage: 3466kB
+                                                   Buffers: shared hit=129 read=13382, temp written=987
+                                                   I/O Timings: shared read=51.313, temp write=12.250
+                                                   ->  Unique  (cost=25512.39..25512.40 rows=1 width=4) (actual time=440.270..456.313 rows=69455 loops=1)
+                                                         Buffers: shared hit=129 read=13382, temp written=987
+                                                         I/O Timings: shared read=51.313, temp write=12.250
+                                                         ->  Sort  (cost=25512.39..25512.40 rows=1 width=4) (actual time=440.267..444.220 rows=69494 loops=1)
+                                                               Sort Key: edstays.hadm_id
+                                                               Sort Method: quicksort  Memory: 3073kB
+                                                               Buffers: shared hit=129 read=13382, temp written=987
+                                                               I/O Timings: shared read=51.313, temp write=12.250
+                                                               ->  Hash Join  (cost=13187.33..25512.38 rows=1 width=4) (actual time=106.614..424.260 rows=69494 loops=1)
+                                                                     Hash Cond: ((date_hosp_patient_3.hadm_id = edstays.hadm_id) AND (date_hosp_patient_3.subject_id = edstays.subject_id))
+                                                                     Buffers: shared hit=129 read=13382, temp written=987
+                                                                     I/O Timings: shared read=51.313, temp write=12.250
+                                                                     ->  CTE Scan on date_hosp_patient date_hosp_patient_3  (cost=0.00..6197.36 rows=309868 width=8) (actual time=0.004..243.125 rows=311122 loops=1)
+                                                                           Buffers: shared hit=65 read=8510, temp written=987
+                                                                           I/O Timings: shared read=32.989, temp write=12.250
+                                                                     ->  Hash  (cost=10249.59..10249.59 rows=155383 width=8) (actual time=104.899..104.901 rows=104951 loops=1)
+                                                                           Buckets: 262144  Batches: 1  Memory Usage: 6148kB
+                                                                           Buffers: shared hit=64 read=4872
+                                                                           I/O Timings: shared read=18.323
+                                                                           ->  Seq Scan on edstays  (cost=0.00..10249.59 rows=155383 width=8) (actual time=0.039..75.294 rows=155752 loops=1)
+                                                                                 Filter: ((arrival_transport)::text = 'AMBULANCE'::text)
+                                                                                 Rows Removed by Filter: 269335
+                                                                                 Buffers: shared hit=64 read=4872
+                                                                                 I/O Timings: shared read=18.323
+                                 ->  Materialize  (cost=39758.33..41307.67 rows=309868 width=16) (actual time=105.433..199.766 rows=564467 loops=1)
+                                       Buffers: temp read=1980 written=996
+                                       I/O Timings: temp read=7.170 write=11.024
+                                       ->  Sort  (cost=39758.33..40533.00 rows=309868 width=16) (actual time=105.429..142.370 rows=311122 loops=1)
+                                             Sort Key: date_hosp_patient_1.subject_id
+                                             Sort Method: external merge  Disk: 7936kB
+                                             Buffers: temp read=1980 written=996
+                                             I/O Timings: temp read=7.170 write=11.024
+                                             ->  CTE Scan on date_hosp_patient date_hosp_patient_1  (cost=0.00..6197.36 rows=309868 width=16) (actual time=0.006..36.687 rows=311122 loops=1)
+                                                   Buffers: temp read=988
+                                                   I/O Timings: temp read=3.839
+ Settings: search_path = 'test_mimic'
+ Planning:
+   Buffers: shared hit=241
+ Planning Time: 1.166 ms
+ JIT:
+   Functions: 53
+   Options: Inlining false, Optimization false, Expressions true, Deforming true
+   Timing: Generation 2.425 ms, Inlining 0.000 ms, Optimization 1.033 ms, Emission 25.916 ms, Total 29.375 ms
+ Execution Time: 1219.558 ms
+(95 rows)
+
+> Loop number : 4
+SET
+SET
+SET
+SET
+SET
+SET
+SET
+SET
+SET
+                                                                                                                         QUERY PLAN                                                                                                                         
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+ Hash Left Join  (cost=190271.67..197299.67 rows=309868 width=16) (actual time=1072.783..1173.226 rows=311122 loops=1)
+   Hash Cond: (date_hosp_patient.hadm_id = nombre_ambulances_annee.hadm_id)
+   Buffers: shared hit=196 read=13319, temp read=4144 written=2173
+   I/O Timings: shared read=50.989, temp read=16.089 write=25.546
+   CTE date_hosp_patient
+     ->  Seq Scan on admissions  (cost=0.00..14505.43 rows=309868 width=16) (actual time=27.191..148.318 rows=311122 loops=1)
+           Filter: ((admission_type)::text <> ALL ('{"AMBULATORY OBSERVATION","DIRECT OBSERVATION","EU OBSERVATION"}'::text[]))
+           Rows Removed by Filter: 120109
+           Buffers: shared hit=97 read=8479
+           I/O Timings: shared read=32.742
+   ->  CTE Scan on date_hosp_patient  (cost=0.00..6197.36 rows=309868 width=8) (actual time=27.198..64.165 rows=311122 loops=1)
+         Buffers: shared read=1, temp read=988
+         I/O Timings: shared read=0.013, temp read=4.323
+   ->  Hash  (cost=175763.75..175763.75 rows=200 width=12) (actual time=1045.551..1045.562 rows=35995 loops=1)
+         Buckets: 65536 (originally 1024)  Batches: 1 (originally 1)  Memory Usage: 2059kB
+         Buffers: shared hit=196 read=13318, temp read=3156 written=2173
+         I/O Timings: shared read=50.976, temp read=11.766 write=25.546
+         ->  Subquery Scan on nombre_ambulances_annee  (cost=173759.37..175763.75 rows=200 width=12) (actual time=1014.309..1039.578 rows=35995 loops=1)
+               Buffers: shared hit=196 read=13318, temp read=3156 written=2173
+               I/O Timings: shared read=50.976, temp read=11.766 write=25.546
+               ->  GroupAggregate  (cost=173759.37..175761.75 rows=200 width=12) (actual time=1014.304..1035.340 rows=35995 loops=1)
+                     Group Key: date_hosp_patient_1.hadm_id
+                     Buffers: shared hit=196 read=13318, temp read=3156 written=2173
+                     I/O Timings: shared read=50.976, temp read=11.766 write=25.546
+                     ->  Sort  (cost=173759.37..174426.16 rows=266717 width=12) (actual time=1014.259..1019.176 rows=61075 loops=1)
+                           Sort Key: date_hosp_patient_1.hadm_id, date_hosp_patient_2.admittime
+                           Sort Method: quicksort  Memory: 3922kB
+                           Buffers: shared hit=196 read=13318, temp read=3156 written=2173
+                           I/O Timings: shared read=50.976, temp read=11.766 write=25.546
+                           ->  Merge Join  (cost=72380.81..145161.07 rows=266717 width=12) (actual time=685.732..992.398 rows=61075 loops=1)
+                                 Merge Cond: (date_hosp_patient_2.subject_id = date_hosp_patient_1.subject_id)
+                                 Join Filter: ((EXTRACT(day FROM (date_hosp_patient_1.admittime - date_hosp_patient_2.admittime)) < '365'::numeric) AND (EXTRACT(day FROM (date_hosp_patient_1.admittime - date_hosp_patient_2.admittime)) > '0'::numeric))
+                                 Rows Removed by Join Filter: 331973
+                                 Buffers: shared hit=193 read=13318, temp read=3156 written=2173
+                                 I/O Timings: shared read=50.976, temp read=11.766 write=25.546
+                                 ->  Sort  (cost=32622.48..32626.36 rows=1549 width=12) (actual time=580.018..587.464 rows=69455 loops=1)
+                                       Sort Key: date_hosp_patient_2.subject_id
+                                       Sort Method: external merge  Disk: 1504kB
+                                       Buffers: shared hit=193 read=13318, temp read=1176 written=1177
+                                       I/O Timings: shared read=50.976, temp read=4.666 write=14.356
+                                       ->  Hash Join  (cost=25512.41..32540.41 rows=1549 width=12) (actual time=467.800..559.144 rows=69455 loops=1)
+                                             Hash Cond: (date_hosp_patient_2.hadm_id = edstays.hadm_id)
+                                             Buffers: shared hit=193 read=13318, temp read=988 written=988
+                                             I/O Timings: shared read=50.976, temp read=4.071 write=12.169
+                                             ->  CTE Scan on date_hosp_patient date_hosp_patient_2  (cost=0.00..6197.36 rows=309868 width=16) (actual time=0.001..37.356 rows=311122 loops=1)
+                                                   Buffers: temp read=988 written=1
+                                                   I/O Timings: temp read=4.071 write=0.032
+                                             ->  Hash  (cost=25512.40..25512.40 rows=1 width=4) (actual time=467.770..467.775 rows=69455 loops=1)
+                                                   Buckets: 131072 (originally 1024)  Batches: 1 (originally 1)  Memory Usage: 3466kB
+                                                   Buffers: shared hit=193 read=13318, temp written=987
+                                                   I/O Timings: shared read=50.976, temp write=12.137
+                                                   ->  Unique  (cost=25512.39..25512.40 rows=1 width=4) (actual time=441.271..457.220 rows=69455 loops=1)
+                                                         Buffers: shared hit=193 read=13318, temp written=987
+                                                         I/O Timings: shared read=50.976, temp write=12.137
+                                                         ->  Sort  (cost=25512.39..25512.40 rows=1 width=4) (actual time=441.268..445.228 rows=69494 loops=1)
+                                                               Sort Key: edstays.hadm_id
+                                                               Sort Method: quicksort  Memory: 3073kB
+                                                               Buffers: shared hit=193 read=13318, temp written=987
+                                                               I/O Timings: shared read=50.976, temp write=12.137
+                                                               ->  Hash Join  (cost=13187.33..25512.38 rows=1 width=4) (actual time=109.384..425.264 rows=69494 loops=1)
+                                                                     Hash Cond: ((date_hosp_patient_3.hadm_id = edstays.hadm_id) AND (date_hosp_patient_3.subject_id = edstays.subject_id))
+                                                                     Buffers: shared hit=193 read=13318, temp written=987
+                                                                     I/O Timings: shared read=50.976, temp write=12.137
+                                                                     ->  CTE Scan on date_hosp_patient date_hosp_patient_3  (cost=0.00..6197.36 rows=309868 width=8) (actual time=0.004..242.264 rows=311122 loops=1)
+                                                                           Buffers: shared hit=97 read=8478, temp written=987
+                                                                           I/O Timings: shared read=32.729, temp write=12.137
+                                                                     ->  Hash  (cost=10249.59..10249.59 rows=155383 width=8) (actual time=107.645..107.647 rows=104951 loops=1)
+                                                                           Buckets: 262144  Batches: 1  Memory Usage: 6148kB
+                                                                           Buffers: shared hit=96 read=4840
+                                                                           I/O Timings: shared read=18.247
+                                                                           ->  Seq Scan on edstays  (cost=0.00..10249.59 rows=155383 width=8) (actual time=0.056..76.193 rows=155752 loops=1)
+                                                                                 Filter: ((arrival_transport)::text = 'AMBULANCE'::text)
+                                                                                 Rows Removed by Filter: 269335
+                                                                                 Buffers: shared hit=96 read=4840
+                                                                                 I/O Timings: shared read=18.247
+                                 ->  Materialize  (cost=39758.33..41307.67 rows=309868 width=16) (actual time=105.628..199.991 rows=564467 loops=1)
+                                       Buffers: temp read=1980 written=996
+                                       I/O Timings: temp read=7.100 write=11.190
+                                       ->  Sort  (cost=39758.33..40533.00 rows=309868 width=16) (actual time=105.624..142.430 rows=311122 loops=1)
+                                             Sort Key: date_hosp_patient_1.subject_id
+                                             Sort Method: external merge  Disk: 7936kB
+                                             Buffers: temp read=1980 written=996
+                                             I/O Timings: temp read=7.100 write=11.190
+                                             ->  CTE Scan on date_hosp_patient date_hosp_patient_1  (cost=0.00..6197.36 rows=309868 width=16) (actual time=0.006..36.491 rows=311122 loops=1)
+                                                   Buffers: temp read=988
+                                                   I/O Timings: temp read=3.843
+ Settings: search_path = 'test_mimic'
+ Planning:
+   Buffers: shared hit=241
+ Planning Time: 1.172 ms
+ JIT:
+   Functions: 53
+   Options: Inlining false, Optimization false, Expressions true, Deforming true
+   Timing: Generation 2.453 ms, Inlining 0.000 ms, Optimization 1.064 ms, Emission 26.284 ms, Total 29.801 ms
+ Execution Time: 1219.558 ms
+(95 rows)
+
+> Loop number : 5
+SET
+SET
+SET
+SET
+SET
+SET
+SET
+SET
+SET
+                                                                                                                         QUERY PLAN                                                                                                                         
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+ Hash Left Join  (cost=190271.67..197299.67 rows=309868 width=16) (actual time=1061.777..1162.371 rows=311122 loops=1)
+   Hash Cond: (date_hosp_patient.hadm_id = nombre_ambulances_annee.hadm_id)
+   Buffers: shared hit=260 read=13255, temp read=4144 written=2173
+   I/O Timings: shared read=50.613, temp read=16.129 write=25.419
+   CTE date_hosp_patient
+     ->  Seq Scan on admissions  (cost=0.00..14505.43 rows=309868 width=16) (actual time=26.749..147.918 rows=311122 loops=1)
+           Filter: ((admission_type)::text <> ALL ('{"AMBULATORY OBSERVATION","DIRECT OBSERVATION","EU OBSERVATION"}'::text[]))
+           Rows Removed by Filter: 120109
+           Buffers: shared hit=129 read=8447
+           I/O Timings: shared read=32.574
+   ->  CTE Scan on date_hosp_patient  (cost=0.00..6197.36 rows=309868 width=8) (actual time=26.754..63.711 rows=311122 loops=1)
+         Buffers: shared read=1, temp read=988
+         I/O Timings: shared read=0.014, temp read=4.349
+   ->  Hash  (cost=175763.75..175763.75 rows=200 width=12) (actual time=1034.987..1034.998 rows=35995 loops=1)
+         Buckets: 65536 (originally 1024)  Batches: 1 (originally 1)  Memory Usage: 2059kB
+         Buffers: shared hit=260 read=13254, temp read=3156 written=2173
+         I/O Timings: shared read=50.599, temp read=11.780 write=25.419
+         ->  Subquery Scan on nombre_ambulances_annee  (cost=173759.37..175763.75 rows=200 width=12) (actual time=1002.658..1028.897 rows=35995 loops=1)
+               Buffers: shared hit=260 read=13254, temp read=3156 written=2173
+               I/O Timings: shared read=50.599, temp read=11.780 write=25.419
+               ->  GroupAggregate  (cost=173759.37..175761.75 rows=200 width=12) (actual time=1002.654..1024.440 rows=35995 loops=1)
+                     Group Key: date_hosp_patient_1.hadm_id
+                     Buffers: shared hit=260 read=13254, temp read=3156 written=2173
+                     I/O Timings: shared read=50.599, temp read=11.780 write=25.419
+                     ->  Sort  (cost=173759.37..174426.16 rows=266717 width=12) (actual time=1002.607..1008.011 rows=61075 loops=1)
+                           Sort Key: date_hosp_patient_1.hadm_id, date_hosp_patient_2.admittime
+                           Sort Method: quicksort  Memory: 3922kB
+                           Buffers: shared hit=260 read=13254, temp read=3156 written=2173
+                           I/O Timings: shared read=50.599, temp read=11.780 write=25.419
+                           ->  Merge Join  (cost=72380.81..145161.07 rows=266717 width=12) (actual time=675.354..980.690 rows=61075 loops=1)
+                                 Merge Cond: (date_hosp_patient_2.subject_id = date_hosp_patient_1.subject_id)
+                                 Join Filter: ((EXTRACT(day FROM (date_hosp_patient_1.admittime - date_hosp_patient_2.admittime)) < '365'::numeric) AND (EXTRACT(day FROM (date_hosp_patient_1.admittime - date_hosp_patient_2.admittime)) > '0'::numeric))
+                                 Rows Removed by Join Filter: 331973
+                                 Buffers: shared hit=257 read=13254, temp read=3156 written=2173
+                                 I/O Timings: shared read=50.599, temp read=11.780 write=25.419
+                                 ->  Sort  (cost=32622.48..32626.36 rows=1549 width=12) (actual time=570.084..577.452 rows=69455 loops=1)
+                                       Sort Key: date_hosp_patient_2.subject_id
+                                       Sort Method: external merge  Disk: 1504kB
+                                       Buffers: shared hit=257 read=13254, temp read=1176 written=1177
+                                       I/O Timings: shared read=50.599, temp read=4.626 write=14.309
+                                       ->  Hash Join  (cost=25512.41..32540.41 rows=1549 width=12) (actual time=459.203..549.350 rows=69455 loops=1)
+                                             Hash Cond: (date_hosp_patient_2.hadm_id = edstays.hadm_id)
+                                             Buffers: shared hit=257 read=13254, temp read=988 written=988
+                                             I/O Timings: shared read=50.599, temp read=4.069 write=12.137
+                                             ->  CTE Scan on date_hosp_patient date_hosp_patient_2  (cost=0.00..6197.36 rows=309868 width=16) (actual time=0.001..37.391 rows=311122 loops=1)
+                                                   Buffers: temp read=988 written=1
+                                                   I/O Timings: temp read=4.069 write=0.026
+                                             ->  Hash  (cost=25512.40..25512.40 rows=1 width=4) (actual time=459.176..459.181 rows=69455 loops=1)
+                                                   Buckets: 131072 (originally 1024)  Batches: 1 (originally 1)  Memory Usage: 3466kB
+                                                   Buffers: shared hit=257 read=13254, temp written=987
+                                                   I/O Timings: shared read=50.599, temp write=12.111
+                                                   ->  Unique  (cost=25512.39..25512.40 rows=1 width=4) (actual time=432.603..448.571 rows=69455 loops=1)
+                                                         Buffers: shared hit=257 read=13254, temp written=987
+                                                         I/O Timings: shared read=50.599, temp write=12.111
+                                                         ->  Sort  (cost=25512.39..25512.40 rows=1 width=4) (actual time=432.600..436.552 rows=69494 loops=1)
+                                                               Sort Key: edstays.hadm_id
+                                                               Sort Method: quicksort  Memory: 3073kB
+                                                               Buffers: shared hit=257 read=13254, temp written=987
+                                                               I/O Timings: shared read=50.599, temp write=12.111
+                                                               ->  Hash Join  (cost=13187.33..25512.38 rows=1 width=4) (actual time=105.589..416.659 rows=69494 loops=1)
+                                                                     Hash Cond: ((date_hosp_patient_3.hadm_id = edstays.hadm_id) AND (date_hosp_patient_3.subject_id = edstays.subject_id))
+                                                                     Buffers: shared hit=257 read=13254, temp written=987
+                                                                     I/O Timings: shared read=50.599, temp write=12.111
+                                                                     ->  CTE Scan on date_hosp_patient date_hosp_patient_3  (cost=0.00..6197.36 rows=309868 width=8) (actual time=0.004..242.107 rows=311122 loops=1)
+                                                                           Buffers: shared hit=129 read=8446, temp written=987
+                                                                           I/O Timings: shared read=32.560, temp write=12.111
+                                                                     ->  Hash  (cost=10249.59..10249.59 rows=155383 width=8) (actual time=103.875..103.877 rows=104951 loops=1)
+                                                                           Buckets: 262144  Batches: 1  Memory Usage: 6148kB
+                                                                           Buffers: shared hit=128 read=4808
+                                                                           I/O Timings: shared read=18.039
+                                                                           ->  Seq Scan on edstays  (cost=0.00..10249.59 rows=155383 width=8) (actual time=0.038..75.167 rows=155752 loops=1)
+                                                                                 Filter: ((arrival_transport)::text = 'AMBULANCE'::text)
+                                                                                 Rows Removed by Filter: 269335
+                                                                                 Buffers: shared hit=128 read=4808
+                                                                                 I/O Timings: shared read=18.039
+                                 ->  Materialize  (cost=39758.33..41307.67 rows=309868 width=16) (actual time=105.195..199.492 rows=564467 loops=1)
+                                       Buffers: temp read=1980 written=996
+                                       I/O Timings: temp read=7.154 write=11.110
+                                       ->  Sort  (cost=39758.33..40533.00 rows=309868 width=16) (actual time=105.192..141.992 rows=311122 loops=1)
+                                             Sort Key: date_hosp_patient_1.subject_id
+                                             Sort Method: external merge  Disk: 7936kB
+                                             Buffers: temp read=1980 written=996
+                                             I/O Timings: temp read=7.154 write=11.110
+                                             ->  CTE Scan on date_hosp_patient date_hosp_patient_1  (cost=0.00..6197.36 rows=309868 width=16) (actual time=0.006..36.548 rows=311122 loops=1)
+                                                   Buffers: temp read=988
+                                                   I/O Timings: temp read=3.843
+ Settings: search_path = 'test_mimic'
+ Planning:
+   Buffers: shared hit=241
+ Planning Time: 1.165 ms
+ JIT:
+   Functions: 53
+   Options: Inlining false, Optimization false, Expressions true, Deforming true
+   Timing: Generation 2.439 ms, Inlining 0.000 ms, Optimization 1.062 ms, Emission 25.834 ms, Total 29.335 ms
+ Execution Time: 1208.206 ms
+(95 rows)
+
+SET
+INSERT 0 1

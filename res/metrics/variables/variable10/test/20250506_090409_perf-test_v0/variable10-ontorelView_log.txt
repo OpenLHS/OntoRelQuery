@@ -1,0 +1,196 @@
+> ============================ Trial for variable10 ontorelView 
+min=1 max=1 inc=1
+> ============================ Input size : 1
+SET
+ pg_stat_statements_reset 
+--------------------------
+ 
+(1 row)
+
+> Loop number : 1
+SET
+SET
+SET
+SET
+SET
+SET
+SET
+SET
+SET
+                                                                QUERY PLAN                                                                
+------------------------------------------------------------------------------------------------------------------------------------------
+ Hash Left Join  (cost=7173.34..13565.96 rows=311122 width=20) (actual time=100.960..203.773 rows=311122 loops=1)
+   Hash Cond: ((hospitalisation_vue.hospitalisation)::uuid = ("Tfa45030100"."Tfa45030100_uid")::uuid)
+   Buffers: shared hit=3620
+   ->  Seq Scan on hospitalisation_vue  (cost=0.00..4839.22 rows=311122 width=16) (actual time=0.006..23.537 rows=311122 loops=1)
+         Buffers: shared hit=1728
+   ->  Hash  (cost=6689.98..6689.98 rows=38669 width=20) (actual time=100.507..100.511 rows=38669 loops=1)
+         Buckets: 65536  Batches: 1  Memory Usage: 2476kB
+         Buffers: shared hit=1892
+         ->  Hash Join  (cost=1080.05..6689.98 rows=38669 width=20) (actual time=10.686..90.369 rows=38669 loops=1)
+               Hash Cond: (("Tfa45026200"."Tfa45026200_uid")::uuid = ("Tfa45030100"."Tfa45030100_uid")::uuid)
+               Buffers: shared hit=1892
+               ->  Seq Scan on "Tfa45026200"  (cost=0.00..4793.22 rows=311122 width=16) (actual time=0.013..23.920 rows=311122 loops=1)
+                     Buffers: shared hit=1682
+               ->  Hash  (cost=596.69..596.69 rows=38669 width=16) (actual time=10.242..10.244 rows=38669 loops=1)
+                     Buckets: 65536  Batches: 1  Memory Usage: 2325kB
+                     Buffers: shared hit=210
+                     ->  Seq Scan on "Tfa45030100"  (cost=0.00..596.69 rows=38669 width=16) (actual time=0.004..3.060 rows=38669 loops=1)
+                           Buffers: shared hit=210
+ Settings: search_path = 'test_mimic'
+ Planning:
+   Buffers: shared hit=228
+ Planning Time: 1.100 ms
+ Execution Time: 217.641 ms
+(23 rows)
+
+> Loop number : 2
+SET
+SET
+SET
+SET
+SET
+SET
+SET
+SET
+SET
+                                                                QUERY PLAN                                                                
+------------------------------------------------------------------------------------------------------------------------------------------
+ Hash Left Join  (cost=7173.34..13565.96 rows=311122 width=20) (actual time=97.196..204.339 rows=311122 loops=1)
+   Hash Cond: ((hospitalisation_vue.hospitalisation)::uuid = ("Tfa45030100"."Tfa45030100_uid")::uuid)
+   Buffers: shared hit=3620
+   ->  Seq Scan on hospitalisation_vue  (cost=0.00..4839.22 rows=311122 width=16) (actual time=0.006..23.587 rows=311122 loops=1)
+         Buffers: shared hit=1728
+   ->  Hash  (cost=6689.98..6689.98 rows=38669 width=20) (actual time=96.767..96.771 rows=38669 loops=1)
+         Buckets: 65536  Batches: 1  Memory Usage: 2476kB
+         Buffers: shared hit=1892
+         ->  Hash Join  (cost=1080.05..6689.98 rows=38669 width=20) (actual time=10.399..87.028 rows=38669 loops=1)
+               Hash Cond: (("Tfa45026200"."Tfa45026200_uid")::uuid = ("Tfa45030100"."Tfa45030100_uid")::uuid)
+               Buffers: shared hit=1892
+               ->  Seq Scan on "Tfa45026200"  (cost=0.00..4793.22 rows=311122 width=16) (actual time=0.014..23.593 rows=311122 loops=1)
+                     Buffers: shared hit=1682
+               ->  Hash  (cost=596.69..596.69 rows=38669 width=16) (actual time=9.955..9.957 rows=38669 loops=1)
+                     Buckets: 65536  Batches: 1  Memory Usage: 2325kB
+                     Buffers: shared hit=210
+                     ->  Seq Scan on "Tfa45030100"  (cost=0.00..596.69 rows=38669 width=16) (actual time=0.004..2.964 rows=38669 loops=1)
+                           Buffers: shared hit=210
+ Settings: search_path = 'test_mimic'
+ Planning:
+   Buffers: shared hit=228
+ Planning Time: 1.118 ms
+ Execution Time: 218.327 ms
+(23 rows)
+
+> Loop number : 3
+SET
+SET
+SET
+SET
+SET
+SET
+SET
+SET
+SET
+                                                                QUERY PLAN                                                                
+------------------------------------------------------------------------------------------------------------------------------------------
+ Hash Left Join  (cost=7173.34..13565.96 rows=311122 width=20) (actual time=99.040..204.390 rows=311122 loops=1)
+   Hash Cond: ((hospitalisation_vue.hospitalisation)::uuid = ("Tfa45030100"."Tfa45030100_uid")::uuid)
+   Buffers: shared hit=3620
+   ->  Seq Scan on hospitalisation_vue  (cost=0.00..4839.22 rows=311122 width=16) (actual time=0.006..23.757 rows=311122 loops=1)
+         Buffers: shared hit=1728
+   ->  Hash  (cost=6689.98..6689.98 rows=38669 width=20) (actual time=98.604..98.608 rows=38669 loops=1)
+         Buckets: 65536  Batches: 1  Memory Usage: 2476kB
+         Buffers: shared hit=1892
+         ->  Hash Join  (cost=1080.05..6689.98 rows=38669 width=20) (actual time=10.894..88.465 rows=38669 loops=1)
+               Hash Cond: (("Tfa45026200"."Tfa45026200_uid")::uuid = ("Tfa45030100"."Tfa45030100_uid")::uuid)
+               Buffers: shared hit=1892
+               ->  Seq Scan on "Tfa45026200"  (cost=0.00..4793.22 rows=311122 width=16) (actual time=0.015..23.778 rows=311122 loops=1)
+                     Buffers: shared hit=1682
+               ->  Hash  (cost=596.69..596.69 rows=38669 width=16) (actual time=10.447..10.449 rows=38669 loops=1)
+                     Buckets: 65536  Batches: 1  Memory Usage: 2325kB
+                     Buffers: shared hit=210
+                     ->  Seq Scan on "Tfa45030100"  (cost=0.00..596.69 rows=38669 width=16) (actual time=0.013..2.993 rows=38669 loops=1)
+                           Buffers: shared hit=210
+ Settings: search_path = 'test_mimic'
+ Planning:
+   Buffers: shared hit=228
+ Planning Time: 1.088 ms
+ Execution Time: 218.358 ms
+(23 rows)
+
+> Loop number : 4
+SET
+SET
+SET
+SET
+SET
+SET
+SET
+SET
+SET
+                                                                QUERY PLAN                                                                
+------------------------------------------------------------------------------------------------------------------------------------------
+ Hash Left Join  (cost=7173.34..13565.96 rows=311122 width=20) (actual time=96.629..200.052 rows=311122 loops=1)
+   Hash Cond: ((hospitalisation_vue.hospitalisation)::uuid = ("Tfa45030100"."Tfa45030100_uid")::uuid)
+   Buffers: shared hit=3620
+   ->  Seq Scan on hospitalisation_vue  (cost=0.00..4839.22 rows=311122 width=16) (actual time=0.006..23.605 rows=311122 loops=1)
+         Buffers: shared hit=1728
+   ->  Hash  (cost=6689.98..6689.98 rows=38669 width=20) (actual time=96.192..96.196 rows=38669 loops=1)
+         Buckets: 65536  Batches: 1  Memory Usage: 2476kB
+         Buffers: shared hit=1892
+         ->  Hash Join  (cost=1080.05..6689.98 rows=38669 width=20) (actual time=10.539..86.501 rows=38669 loops=1)
+               Hash Cond: (("Tfa45026200"."Tfa45026200_uid")::uuid = ("Tfa45030100"."Tfa45030100_uid")::uuid)
+               Buffers: shared hit=1892
+               ->  Seq Scan on "Tfa45026200"  (cost=0.00..4793.22 rows=311122 width=16) (actual time=0.015..23.514 rows=311122 loops=1)
+                     Buffers: shared hit=1682
+               ->  Hash  (cost=596.69..596.69 rows=38669 width=16) (actual time=10.090..10.092 rows=38669 loops=1)
+                     Buckets: 65536  Batches: 1  Memory Usage: 2325kB
+                     Buffers: shared hit=210
+                     ->  Seq Scan on "Tfa45030100"  (cost=0.00..596.69 rows=38669 width=16) (actual time=0.004..2.957 rows=38669 loops=1)
+                           Buffers: shared hit=210
+ Settings: search_path = 'test_mimic'
+ Planning:
+   Buffers: shared hit=228
+ Planning Time: 1.120 ms
+ Execution Time: 213.957 ms
+(23 rows)
+
+> Loop number : 5
+SET
+SET
+SET
+SET
+SET
+SET
+SET
+SET
+SET
+                                                                QUERY PLAN                                                                
+------------------------------------------------------------------------------------------------------------------------------------------
+ Hash Left Join  (cost=7173.34..13565.96 rows=311122 width=20) (actual time=97.575..205.213 rows=311122 loops=1)
+   Hash Cond: ((hospitalisation_vue.hospitalisation)::uuid = ("Tfa45030100"."Tfa45030100_uid")::uuid)
+   Buffers: shared hit=3620
+   ->  Seq Scan on hospitalisation_vue  (cost=0.00..4839.22 rows=311122 width=16) (actual time=0.005..23.540 rows=311122 loops=1)
+         Buffers: shared hit=1728
+   ->  Hash  (cost=6689.98..6689.98 rows=38669 width=20) (actual time=97.129..97.134 rows=38669 loops=1)
+         Buckets: 65536  Batches: 1  Memory Usage: 2476kB
+         Buffers: shared hit=1892
+         ->  Hash Join  (cost=1080.05..6689.98 rows=38669 width=20) (actual time=10.637..87.012 rows=38669 loops=1)
+               Hash Cond: (("Tfa45026200"."Tfa45026200_uid")::uuid = ("Tfa45030100"."Tfa45030100_uid")::uuid)
+               Buffers: shared hit=1892
+               ->  Seq Scan on "Tfa45026200"  (cost=0.00..4793.22 rows=311122 width=16) (actual time=0.014..23.435 rows=311122 loops=1)
+                     Buffers: shared hit=1682
+               ->  Hash  (cost=596.69..596.69 rows=38669 width=16) (actual time=10.189..10.191 rows=38669 loops=1)
+                     Buckets: 65536  Batches: 1  Memory Usage: 2325kB
+                     Buffers: shared hit=210
+                     ->  Seq Scan on "Tfa45030100"  (cost=0.00..596.69 rows=38669 width=16) (actual time=0.004..2.955 rows=38669 loops=1)
+                           Buffers: shared hit=210
+ Settings: search_path = 'test_mimic'
+ Planning:
+   Buffers: shared hit=228
+ Planning Time: 1.077 ms
+ Execution Time: 219.116 ms
+(23 rows)
+
+SET
+INSERT 0 1

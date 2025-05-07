@@ -1,0 +1,3 @@
+model,queryname,mintime,maxtime,meantime,rowcount
+ontorelMaterialized,variable01,162.34,578.14,246.05,311122
+ontorelMaterialized,variable02,489.40,1161.37,628.97,311122

@@ -1,0 +1,14 @@
+model,queryname,mintime,maxtime,meantime,rowcount
+ontorelMaterialized,variable01,162.34,578.14,246.05,311122
+ontorelMaterialized,variable02,489.40,1161.37,628.97,311122
+ontorelMaterialized,variable03,345.85,1124.84,504.40,311122
+ontorelMaterialized,variable04,747.70,1272.87,854.18,311122
+ontorelMaterialized,variable05,190.76,716.33,297.13,311122
+ontorelMaterialized,variable06,1233.61,1523.88,1300.13,311122
+ontorelMaterialized,variable07,76.78,560.27,173.71,311122
+ontorelMaterialized,variable08,362.57,718.12,434.27,311122
+ontorelMaterialized,variable09,126.01,600.39,221.70,311122
+ontorelMaterialized,variable10,128.36,453.68,207.86,311122
+ontorelMaterialized,variable11,887.61,1516.40,1022.38,311122
+ontorelMaterialized,variable12,149.97,449.26,214.41,311122
+ontorelMaterialized,variable13,575.77,923.65,646.49,703893

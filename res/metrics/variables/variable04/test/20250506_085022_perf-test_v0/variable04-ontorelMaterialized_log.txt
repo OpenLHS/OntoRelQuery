@@ -1,0 +1,344 @@
+> ============================ Trial for variable04 ontorelMaterialized 
+min=1 max=1 inc=1
+> ============================ Input size : 1
+SET
+ pg_stat_statements_reset 
+--------------------------
+ 
+(1 row)
+
+> Loop number : 1
+SET
+SET
+SET
+SET
+SET
+SET
+SET
+SET
+SET
+                                                                                                                                                                                                                                                                      QUERY PLAN                                                                                                                                                                                                                                                                      
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+ Hash Right Join  (cost=61150.62..89393.55 rows=311122 width=40) (actual time=1048.759..1257.989 rows=311122 loops=1)
+   Hash Cond: (((nombre_urgence.hospitalisation)::uuid = (date_admission_hospitalisation_par_patient_vue.hospitalisation)::uuid) AND ((nombre_urgence.patient)::uuid = (date_admission_hospitalisation_par_patient_vue.patient)::uuid))
+   Buffers: shared hit=2734 read=6208, temp read=7312 written=7350
+   I/O Timings: shared read=1350.153, temp read=28.309 write=92.541
+   ->  Subquery Scan on nombre_urgence  (cost=48621.57..70890.13 rows=166313 width=40) (actual time=794.534..892.971 rows=83966 loops=1)
+         Buffers: shared hit=2734 read=3584, temp read=5363 written=5401
+         I/O Timings: shared read=1224.457, temp read=20.717 write=67.564
+         ->  Finalize GroupAggregate  (cost=48621.57..69227.00 rows=166313 width=48) (actual time=794.532..883.910 rows=83966 loops=1)
+               Group Key: date_admission_hospitalisation_par_patient_vue_1.hospitalisation, date_admission_hospitalisation_par_patient_vue_1.patient, date_admission_hospitalisation_par_patient_vue_1.date_admission_hospitalisation
+               Buffers: shared hit=2734 read=3584, temp read=5363 written=5401
+               I/O Timings: shared read=1224.457, temp read=20.717 write=67.564
+               ->  Gather Merge  (cost=48621.57..66177.93 rows=138594 width=48) (actual time=794.524..854.245 rows=84910 loops=1)
+                     Workers Planned: 2
+                     Workers Launched: 2
+                     Buffers: shared hit=2734 read=3584, temp read=5363 written=5401
+                     I/O Timings: shared read=1224.457, temp read=20.717 write=67.564
+                     ->  Partial GroupAggregate  (cost=47621.54..49180.72 rows=69297 width=48) (actual time=787.915..814.699 rows=28303 loops=3)
+                           Group Key: date_admission_hospitalisation_par_patient_vue_1.hospitalisation, date_admission_hospitalisation_par_patient_vue_1.patient, date_admission_hospitalisation_par_patient_vue_1.date_admission_hospitalisation
+                           Buffers: shared hit=2734 read=3584, temp read=5363 written=5401
+                           I/O Timings: shared read=1224.457, temp read=20.717 write=67.564
+                           ->  Sort  (cost=47621.54..47794.78 rows=69297 width=40) (actual time=787.905..796.831 rows=73658 loops=3)
+                                 Sort Key: date_admission_hospitalisation_par_patient_vue_1.hospitalisation, date_admission_hospitalisation_par_patient_vue_1.patient, date_admission_hospitalisation_par_patient_vue_1.date_admission_hospitalisation
+                                 Sort Method: external merge  Disk: 3640kB
+                                 Buffers: shared hit=2734 read=3584, temp read=5363 written=5401
+                                 I/O Timings: shared read=1224.457, temp read=20.717 write=67.564
+                                 Worker 0:  Sort Method: external merge  Disk: 3648kB
+                                 Worker 1:  Sort Method: external merge  Disk: 3544kB
+                                 ->  Parallel Hash Join  (cost=8171.79..40152.89 rows=69297 width=40) (actual time=522.415..744.403 rows=73658 loops=3)
+                                       Hash Cond: ((date_visite_urgence_par_patient_vue.patient)::uuid = (date_admission_hospitalisation_par_patient_vue_1.patient)::uuid)
+                                       Join Filter: ((EXTRACT(day FROM ((date_admission_hospitalisation_par_patient_vue_1.date_admission_hospitalisation)::timestamp without time zone - (date_visite_urgence_par_patient_vue.date_visite_urgence)::timestamp without time zone)) < '365'::numeric) AND (EXTRACT(day FROM ((date_admission_hospitalisation_par_patient_vue_1.date_admission_hospitalisation)::timestamp without time zone - (date_visite_urgence_par_patient_vue.date_visite_urgence)::timestamp without time zone)) > '0'::numeric))
+                                       Rows Removed by Join Filter: 402446
+                                       Buffers: shared hit=2646 read=3584, temp read=4009 written=4044
+                                       I/O Timings: shared read=1224.457, temp read=16.019 write=51.395
+                                       ->  Parallel Seq Scan on date_visite_urgence_par_patient_vue  (cost=0.00..5355.20 rows=177120 width=24) (actual time=7.277..425.724 rows=141696 loops=3)
+                                             Buffers: shared read=3584
+                                             I/O Timings: shared read=1224.457
+                                       ->  Parallel Hash  (cost=4454.13..4454.13 rows=183013 width=40) (actual time=48.376..48.377 rows=103707 loops=3)
+                                             Buckets: 131072  Batches: 4  Memory Usage: 6560kB
+                                             Buffers: shared hit=2624, temp written=1732
+                                             I/O Timings: temp write=21.108
+                                             ->  Parallel Seq Scan on date_admission_hospitalisation_par_patient_vue date_admission_hospitalisation_par_patient_vue_1  (cost=0.00..4454.13 rows=183013 width=40) (actual time=0.011..15.501 rows=103707 loops=3)
+                                                   Buffers: shared hit=2624
+   ->  Hash  (cost=5735.22..5735.22 rows=311122 width=32) (actual time=252.175..252.177 rows=311122 loops=1)
+         Buckets: 131072  Batches: 4  Memory Usage: 5863kB
+         Buffers: shared read=2624, temp written=1482
+         I/O Timings: shared read=125.695, temp write=18.974
+         ->  Seq Scan on date_admission_hospitalisation_par_patient_vue  (cost=0.00..5735.22 rows=311122 width=32) (actual time=5.708..161.975 rows=311122 loops=1)
+               Buffers: shared read=2624
+               I/O Timings: shared read=125.695
+ Settings: search_path = 'test_mimic'
+ Planning:
+   Buffers: shared hit=216 read=5
+   I/O Timings: shared read=2.698
+ Planning Time: 3.796 ms
+ Execution Time: 1273.368 ms
+(55 rows)
+
+> Loop number : 2
+SET
+SET
+SET
+SET
+SET
+SET
+SET
+SET
+SET
+                                                                                                                                                                                                                                                                      QUERY PLAN                                                                                                                                                                                                                                                                      
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+ Hash Right Join  (cost=61150.62..89393.55 rows=311122 width=40) (actual time=523.179..734.945 rows=311122 loops=1)
+   Hash Cond: (((nombre_urgence.hospitalisation)::uuid = (date_admission_hospitalisation_par_patient_vue.hospitalisation)::uuid) AND ((nombre_urgence.patient)::uuid = (date_admission_hospitalisation_par_patient_vue.patient)::uuid))
+   Buffers: shared hit=8942, temp read=7312 written=7354
+   I/O Timings: temp read=28.738 write=89.705
+   ->  Subquery Scan on nombre_urgence  (cost=48621.57..70890.13 rows=166313 width=40) (actual time=392.156..491.652 rows=83966 loops=1)
+         Buffers: shared hit=6318, temp read=5363 written=5405
+         I/O Timings: temp read=21.060 write=65.968
+         ->  Finalize GroupAggregate  (cost=48621.57..69227.00 rows=166313 width=48) (actual time=392.154..482.677 rows=83966 loops=1)
+               Group Key: date_admission_hospitalisation_par_patient_vue_1.hospitalisation, date_admission_hospitalisation_par_patient_vue_1.patient, date_admission_hospitalisation_par_patient_vue_1.date_admission_hospitalisation
+               Buffers: shared hit=6318, temp read=5363 written=5405
+               I/O Timings: temp read=21.060 write=65.968
+               ->  Gather Merge  (cost=48621.57..66177.93 rows=138594 width=48) (actual time=392.147..453.124 rows=84925 loops=1)
+                     Workers Planned: 2
+                     Workers Launched: 2
+                     Buffers: shared hit=6318, temp read=5363 written=5405
+                     I/O Timings: temp read=21.060 write=65.968
+                     ->  Partial GroupAggregate  (cost=47621.54..49180.72 rows=69297 width=48) (actual time=386.062..414.921 rows=28308 loops=3)
+                           Group Key: date_admission_hospitalisation_par_patient_vue_1.hospitalisation, date_admission_hospitalisation_par_patient_vue_1.patient, date_admission_hospitalisation_par_patient_vue_1.date_admission_hospitalisation
+                           Buffers: shared hit=6318, temp read=5363 written=5405
+                           I/O Timings: temp read=21.060 write=65.968
+                           ->  Sort  (cost=47621.54..47794.78 rows=69297 width=40) (actual time=386.051..395.781 rows=73658 loops=3)
+                                 Sort Key: date_admission_hospitalisation_par_patient_vue_1.hospitalisation, date_admission_hospitalisation_par_patient_vue_1.patient, date_admission_hospitalisation_par_patient_vue_1.date_admission_hospitalisation
+                                 Sort Method: external merge  Disk: 3592kB
+                                 Buffers: shared hit=6318, temp read=5363 written=5405
+                                 I/O Timings: temp read=21.060 write=65.968
+                                 Worker 0:  Sort Method: external merge  Disk: 3656kB
+                                 Worker 1:  Sort Method: external merge  Disk: 3584kB
+                                 ->  Parallel Hash Join  (cost=8171.79..40152.89 rows=69297 width=40) (actual time=117.074..341.557 rows=73658 loops=3)
+                                       Hash Cond: ((date_visite_urgence_par_patient_vue.patient)::uuid = (date_admission_hospitalisation_par_patient_vue_1.patient)::uuid)
+                                       Join Filter: ((EXTRACT(day FROM ((date_admission_hospitalisation_par_patient_vue_1.date_admission_hospitalisation)::timestamp without time zone - (date_visite_urgence_par_patient_vue.date_visite_urgence)::timestamp without time zone)) < '365'::numeric) AND (EXTRACT(day FROM ((date_admission_hospitalisation_par_patient_vue_1.date_admission_hospitalisation)::timestamp without time zone - (date_visite_urgence_par_patient_vue.date_visite_urgence)::timestamp without time zone)) > '0'::numeric))
+                                       Rows Removed by Join Filter: 402446
+                                       Buffers: shared hit=6230, temp read=4009 written=4048
+                                       I/O Timings: temp read=16.209 write=49.308
+                                       ->  Parallel Seq Scan on date_visite_urgence_par_patient_vue  (cost=0.00..5355.20 rows=177120 width=24) (actual time=0.009..20.165 rows=141696 loops=3)
+                                             Buffers: shared hit=3584
+                                       ->  Parallel Hash  (cost=4454.13..4454.13 rows=183013 width=40) (actual time=49.155..49.157 rows=103707 loops=3)
+                                             Buckets: 131072  Batches: 4  Memory Usage: 6592kB
+                                             Buffers: shared hit=2624, temp written=1732
+                                             I/O Timings: temp write=21.605
+                                             ->  Parallel Seq Scan on date_admission_hospitalisation_par_patient_vue date_admission_hospitalisation_par_patient_vue_1  (cost=0.00..4454.13 rows=183013 width=40) (actual time=0.012..15.530 rows=103707 loops=3)
+                                                   Buffers: shared hit=2624
+   ->  Hash  (cost=5735.22..5735.22 rows=311122 width=32) (actual time=129.189..129.191 rows=311122 loops=1)
+         Buckets: 131072  Batches: 4  Memory Usage: 5863kB
+         Buffers: shared hit=2624, temp written=1482
+         I/O Timings: temp write=17.547
+         ->  Seq Scan on date_admission_hospitalisation_par_patient_vue  (cost=0.00..5735.22 rows=311122 width=32) (actual time=0.009..43.291 rows=311122 loops=1)
+               Buffers: shared hit=2624
+ Settings: search_path = 'test_mimic'
+ Planning:
+   Buffers: shared hit=221
+ Planning Time: 0.967 ms
+ Execution Time: 751.073 ms
+(52 rows)
+
+> Loop number : 3
+SET
+SET
+SET
+SET
+SET
+SET
+SET
+SET
+SET
+                                                                                                                                                                                                                                                                      QUERY PLAN                                                                                                                                                                                                                                                                      
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+ Hash Right Join  (cost=61150.62..89393.55 rows=311122 width=40) (actual time=521.261..733.380 rows=311122 loops=1)
+   Hash Cond: (((nombre_urgence.hospitalisation)::uuid = (date_admission_hospitalisation_par_patient_vue.hospitalisation)::uuid) AND ((nombre_urgence.patient)::uuid = (date_admission_hospitalisation_par_patient_vue.patient)::uuid))
+   Buffers: shared hit=8942, temp read=7313 written=7351
+   I/O Timings: temp read=28.593 write=89.490
+   ->  Subquery Scan on nombre_urgence  (cost=48621.57..70890.13 rows=166313 width=40) (actual time=388.817..486.541 rows=83966 loops=1)
+         Buffers: shared hit=6318, temp read=5364 written=5402
+         I/O Timings: temp read=21.008 write=65.536
+         ->  Finalize GroupAggregate  (cost=48621.57..69227.00 rows=166313 width=48) (actual time=388.815..477.576 rows=83966 loops=1)
+               Group Key: date_admission_hospitalisation_par_patient_vue_1.hospitalisation, date_admission_hospitalisation_par_patient_vue_1.patient, date_admission_hospitalisation_par_patient_vue_1.date_admission_hospitalisation
+               Buffers: shared hit=6318, temp read=5364 written=5402
+               I/O Timings: temp read=21.008 write=65.536
+               ->  Gather Merge  (cost=48621.57..66177.93 rows=138594 width=48) (actual time=388.805..447.905 rows=84922 loops=1)
+                     Workers Planned: 2
+                     Workers Launched: 2
+                     Buffers: shared hit=6318, temp read=5364 written=5402
+                     I/O Timings: temp read=21.008 write=65.536
+                     ->  Partial GroupAggregate  (cost=47621.54..49180.72 rows=69297 width=48) (actual time=383.451..411.101 rows=28307 loops=3)
+                           Group Key: date_admission_hospitalisation_par_patient_vue_1.hospitalisation, date_admission_hospitalisation_par_patient_vue_1.patient, date_admission_hospitalisation_par_patient_vue_1.date_admission_hospitalisation
+                           Buffers: shared hit=6318, temp read=5364 written=5402
+                           I/O Timings: temp read=21.008 write=65.536
+                           ->  Sort  (cost=47621.54..47794.78 rows=69297 width=40) (actual time=383.440..393.275 rows=73658 loops=3)
+                                 Sort Key: date_admission_hospitalisation_par_patient_vue_1.hospitalisation, date_admission_hospitalisation_par_patient_vue_1.patient, date_admission_hospitalisation_par_patient_vue_1.date_admission_hospitalisation
+                                 Sort Method: external merge  Disk: 3560kB
+                                 Buffers: shared hit=6318, temp read=5364 written=5402
+                                 I/O Timings: temp read=21.008 write=65.536
+                                 Worker 0:  Sort Method: external merge  Disk: 3664kB
+                                 Worker 1:  Sort Method: external merge  Disk: 3616kB
+                                 ->  Parallel Hash Join  (cost=8171.79..40152.89 rows=69297 width=40) (actual time=116.217..338.986 rows=73658 loops=3)
+                                       Hash Cond: ((date_visite_urgence_par_patient_vue.patient)::uuid = (date_admission_hospitalisation_par_patient_vue_1.patient)::uuid)
+                                       Join Filter: ((EXTRACT(day FROM ((date_admission_hospitalisation_par_patient_vue_1.date_admission_hospitalisation)::timestamp without time zone - (date_visite_urgence_par_patient_vue.date_visite_urgence)::timestamp without time zone)) < '365'::numeric) AND (EXTRACT(day FROM ((date_admission_hospitalisation_par_patient_vue_1.date_admission_hospitalisation)::timestamp without time zone - (date_visite_urgence_par_patient_vue.date_visite_urgence)::timestamp without time zone)) > '0'::numeric))
+                                       Rows Removed by Join Filter: 402446
+                                       Buffers: shared hit=6230, temp read=4009 written=4044
+                                       I/O Timings: temp read=16.243 write=49.205
+                                       ->  Parallel Seq Scan on date_visite_urgence_par_patient_vue  (cost=0.00..5355.20 rows=177120 width=24) (actual time=0.009..20.122 rows=141696 loops=3)
+                                             Buffers: shared hit=3584
+                                       ->  Parallel Hash  (cost=4454.13..4454.13 rows=183013 width=40) (actual time=48.536..48.538 rows=103707 loops=3)
+                                             Buckets: 131072  Batches: 4  Memory Usage: 6560kB
+                                             Buffers: shared hit=2624, temp written=1732
+                                             I/O Timings: temp write=21.578
+                                             ->  Parallel Seq Scan on date_admission_hospitalisation_par_patient_vue date_admission_hospitalisation_par_patient_vue_1  (cost=0.00..4454.13 rows=183013 width=40) (actual time=0.011..15.550 rows=103707 loops=3)
+                                                   Buffers: shared hit=2624
+   ->  Hash  (cost=5735.22..5735.22 rows=311122 width=32) (actual time=130.560..130.562 rows=311122 loops=1)
+         Buckets: 131072  Batches: 4  Memory Usage: 5863kB
+         Buffers: shared hit=2624, temp written=1482
+         I/O Timings: temp write=17.716
+         ->  Seq Scan on date_admission_hospitalisation_par_patient_vue  (cost=0.00..5735.22 rows=311122 width=32) (actual time=0.009..43.371 rows=311122 loops=1)
+               Buffers: shared hit=2624
+ Settings: search_path = 'test_mimic'
+ Planning:
+   Buffers: shared hit=221
+ Planning Time: 0.958 ms
+ Execution Time: 750.466 ms
+(52 rows)
+
+> Loop number : 4
+SET
+SET
+SET
+SET
+SET
+SET
+SET
+SET
+SET
+                                                                                                                                                                                                                                                                      QUERY PLAN                                                                                                                                                                                                                                                                      
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+ Hash Right Join  (cost=61150.62..89393.55 rows=311122 width=40) (actual time=521.484..731.868 rows=311122 loops=1)
+   Hash Cond: (((nombre_urgence.hospitalisation)::uuid = (date_admission_hospitalisation_par_patient_vue.hospitalisation)::uuid) AND ((nombre_urgence.patient)::uuid = (date_admission_hospitalisation_par_patient_vue.patient)::uuid))
+   Buffers: shared hit=8942, temp read=7311 written=7342
+   I/O Timings: temp read=28.614 write=88.306
+   ->  Subquery Scan on nombre_urgence  (cost=48621.57..70890.13 rows=166313 width=40) (actual time=388.804..487.585 rows=83966 loops=1)
+         Buffers: shared hit=6318, temp read=5362 written=5393
+         I/O Timings: temp read=21.012 write=64.288
+         ->  Finalize GroupAggregate  (cost=48621.57..69227.00 rows=166313 width=48) (actual time=388.802..478.531 rows=83966 loops=1)
+               Group Key: date_admission_hospitalisation_par_patient_vue_1.hospitalisation, date_admission_hospitalisation_par_patient_vue_1.patient, date_admission_hospitalisation_par_patient_vue_1.date_admission_hospitalisation
+               Buffers: shared hit=6318, temp read=5362 written=5393
+               I/O Timings: temp read=21.012 write=64.288
+               ->  Gather Merge  (cost=48621.57..66177.93 rows=138594 width=48) (actual time=388.795..448.784 rows=84933 loops=1)
+                     Workers Planned: 2
+                     Workers Launched: 2
+                     Buffers: shared hit=6318, temp read=5362 written=5393
+                     I/O Timings: temp read=21.012 write=64.288
+                     ->  Partial GroupAggregate  (cost=47621.54..49180.72 rows=69297 width=48) (actual time=382.277..409.223 rows=28311 loops=3)
+                           Group Key: date_admission_hospitalisation_par_patient_vue_1.hospitalisation, date_admission_hospitalisation_par_patient_vue_1.patient, date_admission_hospitalisation_par_patient_vue_1.date_admission_hospitalisation
+                           Buffers: shared hit=6318, temp read=5362 written=5393
+                           I/O Timings: temp read=21.012 write=64.288
+                           ->  Sort  (cost=47621.54..47794.78 rows=69297 width=40) (actual time=382.266..391.431 rows=73658 loops=3)
+                                 Sort Key: date_admission_hospitalisation_par_patient_vue_1.hospitalisation, date_admission_hospitalisation_par_patient_vue_1.patient, date_admission_hospitalisation_par_patient_vue_1.date_admission_hospitalisation
+                                 Sort Method: external merge  Disk: 3592kB
+                                 Buffers: shared hit=6318, temp read=5362 written=5393
+                                 I/O Timings: temp read=21.012 write=64.288
+                                 Worker 0:  Sort Method: external merge  Disk: 3696kB
+                                 Worker 1:  Sort Method: external merge  Disk: 3544kB
+                                 ->  Parallel Hash Join  (cost=8171.79..40152.89 rows=69297 width=40) (actual time=115.258..338.680 rows=73658 loops=3)
+                                       Hash Cond: ((date_visite_urgence_par_patient_vue.patient)::uuid = (date_admission_hospitalisation_par_patient_vue_1.patient)::uuid)
+                                       Join Filter: ((EXTRACT(day FROM ((date_admission_hospitalisation_par_patient_vue_1.date_admission_hospitalisation)::timestamp without time zone - (date_visite_urgence_par_patient_vue.date_visite_urgence)::timestamp without time zone)) < '365'::numeric) AND (EXTRACT(day FROM ((date_admission_hospitalisation_par_patient_vue_1.date_admission_hospitalisation)::timestamp without time zone - (date_visite_urgence_par_patient_vue.date_visite_urgence)::timestamp without time zone)) > '0'::numeric))
+                                       Rows Removed by Join Filter: 402446
+                                       Buffers: shared hit=6230, temp read=4008 written=4036
+                                       I/O Timings: temp read=16.137 write=48.074
+                                       ->  Parallel Seq Scan on date_visite_urgence_par_patient_vue  (cost=0.00..5355.20 rows=177120 width=24) (actual time=0.019..20.079 rows=141696 loops=3)
+                                             Buffers: shared hit=3584
+                                       ->  Parallel Hash  (cost=4454.13..4454.13 rows=183013 width=40) (actual time=48.388..48.389 rows=103707 loops=3)
+                                             Buckets: 131072  Batches: 4  Memory Usage: 6560kB
+                                             Buffers: shared hit=2624, temp written=1724
+                                             I/O Timings: temp write=20.832
+                                             ->  Parallel Seq Scan on date_admission_hospitalisation_par_patient_vue date_admission_hospitalisation_par_patient_vue_1  (cost=0.00..4454.13 rows=183013 width=40) (actual time=0.012..15.353 rows=103707 loops=3)
+                                                   Buffers: shared hit=2624
+   ->  Hash  (cost=5735.22..5735.22 rows=311122 width=32) (actual time=130.868..130.870 rows=311122 loops=1)
+         Buckets: 131072  Batches: 4  Memory Usage: 5863kB
+         Buffers: shared hit=2624, temp written=1482
+         I/O Timings: temp write=17.941
+         ->  Seq Scan on date_admission_hospitalisation_par_patient_vue  (cost=0.00..5735.22 rows=311122 width=32) (actual time=0.009..43.392 rows=311122 loops=1)
+               Buffers: shared hit=2624
+ Settings: search_path = 'test_mimic'
+ Planning:
+   Buffers: shared hit=221
+ Planning Time: 0.967 ms
+ Execution Time: 748.201 ms
+(52 rows)
+
+> Loop number : 5
+SET
+SET
+SET
+SET
+SET
+SET
+SET
+SET
+SET
+                                                                                                                                                                                                                                                                      QUERY PLAN                                                                                                                                                                                                                                                                      
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+ Hash Right Join  (cost=61150.62..89393.55 rows=311122 width=40) (actual time=520.433..735.307 rows=311122 loops=1)
+   Hash Cond: (((nombre_urgence.hospitalisation)::uuid = (date_admission_hospitalisation_par_patient_vue.hospitalisation)::uuid) AND ((nombre_urgence.patient)::uuid = (date_admission_hospitalisation_par_patient_vue.patient)::uuid))
+   Buffers: shared hit=8942, temp read=7310 written=7347
+   I/O Timings: temp read=28.560 write=88.982
+   ->  Subquery Scan on nombre_urgence  (cost=48621.57..70890.13 rows=166313 width=40) (actual time=389.240..487.679 rows=83966 loops=1)
+         Buffers: shared hit=6318, temp read=5361 written=5398
+         I/O Timings: temp read=20.850 write=65.262
+         ->  Finalize GroupAggregate  (cost=48621.57..69227.00 rows=166313 width=48) (actual time=389.238..478.597 rows=83966 loops=1)
+               Group Key: date_admission_hospitalisation_par_patient_vue_1.hospitalisation, date_admission_hospitalisation_par_patient_vue_1.patient, date_admission_hospitalisation_par_patient_vue_1.date_admission_hospitalisation
+               Buffers: shared hit=6318, temp read=5361 written=5398
+               I/O Timings: temp read=20.850 write=65.262
+               ->  Gather Merge  (cost=48621.57..66177.93 rows=138594 width=48) (actual time=389.230..448.972 rows=84865 loops=1)
+                     Workers Planned: 2
+                     Workers Launched: 2
+                     Buffers: shared hit=6318, temp read=5361 written=5398
+                     I/O Timings: temp read=20.850 write=65.262
+                     ->  Partial GroupAggregate  (cost=47621.54..49180.72 rows=69297 width=48) (actual time=383.401..410.290 rows=28288 loops=3)
+                           Group Key: date_admission_hospitalisation_par_patient_vue_1.hospitalisation, date_admission_hospitalisation_par_patient_vue_1.patient, date_admission_hospitalisation_par_patient_vue_1.date_admission_hospitalisation
+                           Buffers: shared hit=6318, temp read=5361 written=5398
+                           I/O Timings: temp read=20.850 write=65.262
+                           ->  Sort  (cost=47621.54..47794.78 rows=69297 width=40) (actual time=383.391..392.414 rows=73658 loops=3)
+                                 Sort Key: date_admission_hospitalisation_par_patient_vue_1.hospitalisation, date_admission_hospitalisation_par_patient_vue_1.patient, date_admission_hospitalisation_par_patient_vue_1.date_admission_hospitalisation
+                                 Sort Method: external merge  Disk: 3704kB
+                                 Buffers: shared hit=6318, temp read=5361 written=5398
+                                 I/O Timings: temp read=20.850 write=65.262
+                                 Worker 0:  Sort Method: external merge  Disk: 3584kB
+                                 Worker 1:  Sort Method: external merge  Disk: 3552kB
+                                 ->  Parallel Hash Join  (cost=8171.79..40152.89 rows=69297 width=40) (actual time=116.649..339.250 rows=73658 loops=3)
+                                       Hash Cond: ((date_visite_urgence_par_patient_vue.patient)::uuid = (date_admission_hospitalisation_par_patient_vue_1.patient)::uuid)
+                                       Join Filter: ((EXTRACT(day FROM ((date_admission_hospitalisation_par_patient_vue_1.date_admission_hospitalisation)::timestamp without time zone - (date_visite_urgence_par_patient_vue.date_visite_urgence)::timestamp without time zone)) < '365'::numeric) AND (EXTRACT(day FROM ((date_admission_hospitalisation_par_patient_vue_1.date_admission_hospitalisation)::timestamp without time zone - (date_visite_urgence_par_patient_vue.date_visite_urgence)::timestamp without time zone)) > '0'::numeric))
+                                       Rows Removed by Join Filter: 402446
+                                       Buffers: shared hit=6230, temp read=4006 written=4040
+                                       I/O Timings: temp read=16.063 write=48.954
+                                       ->  Parallel Seq Scan on date_visite_urgence_par_patient_vue  (cost=0.00..5355.20 rows=177120 width=24) (actual time=0.013..20.116 rows=141696 loops=3)
+                                             Buffers: shared hit=3584
+                                       ->  Parallel Hash  (cost=4454.13..4454.13 rows=183013 width=40) (actual time=48.970..48.972 rows=103707 loops=3)
+                                             Buckets: 131072  Batches: 4  Memory Usage: 6560kB
+                                             Buffers: shared hit=2624, temp written=1732
+                                             I/O Timings: temp write=20.899
+                                             ->  Parallel Seq Scan on date_admission_hospitalisation_par_patient_vue date_admission_hospitalisation_par_patient_vue_1  (cost=0.00..4454.13 rows=183013 width=40) (actual time=0.015..15.549 rows=103707 loops=3)
+                                                   Buffers: shared hit=2624
+   ->  Hash  (cost=5735.22..5735.22 rows=311122 width=32) (actual time=129.291..129.293 rows=311122 loops=1)
+         Buckets: 131072  Batches: 4  Memory Usage: 5863kB
+         Buffers: shared hit=2624, temp written=1482
+         I/O Timings: temp write=17.689
+         ->  Seq Scan on date_admission_hospitalisation_par_patient_vue  (cost=0.00..5735.22 rows=311122 width=32) (actual time=0.009..43.326 rows=311122 loops=1)
+               Buffers: shared hit=2624
+ Settings: search_path = 'test_mimic'
+ Planning:
+   Buffers: shared hit=221
+ Planning Time: 0.976 ms
+ Execution Time: 751.382 ms
+(52 rows)
+
+SET
+INSERT 0 1

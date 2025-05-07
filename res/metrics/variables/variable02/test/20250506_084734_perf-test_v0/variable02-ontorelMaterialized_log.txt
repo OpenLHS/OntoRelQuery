@@ -1,0 +1,169 @@
+> ============================ Trial for variable02 ontorelMaterialized 
+min=1 max=1 inc=1
+> ============================ Input size : 1
+SET
+ pg_stat_statements_reset 
+--------------------------
+ 
+(1 row)
+
+> Loop number : 1
+SET
+SET
+SET
+SET
+SET
+SET
+SET
+SET
+SET
+                                                                          QUERY PLAN                                                                          
+--------------------------------------------------------------------------------------------------------------------------------------------------------------
+ Hash Join  (cost=10420.52..30163.89 rows=311122 width=64) (actual time=444.343..1147.689 rows=311122 loops=1)
+   Hash Cond: ((date_admission_hospitalisation_par_patient_vue.patient)::uuid = (date_naissance_par_patient_vue.patient)::uuid)
+   Buffers: shared read=4544, temp read=2914 written=2914
+   I/O Timings: shared read=670.182, temp read=11.428 write=37.385
+   ->  Seq Scan on date_admission_hospitalisation_par_patient_vue  (cost=0.00..5735.22 rows=311122 width=40) (actual time=6.820..385.953 rows=311122 loops=1)
+         Buffers: shared read=2624
+         I/O Timings: shared read=347.431
+   ->  Hash  (cost=4917.12..4917.12 rows=299712 width=24) (actual time=436.645..436.646 rows=299712 loops=1)
+         Buckets: 131072  Batches: 4  Memory Usage: 5121kB
+         Buffers: shared read=1920, temp written=1207
+         I/O Timings: shared read=322.751, temp write=15.480
+         ->  Seq Scan on date_naissance_par_patient_vue  (cost=0.00..4917.12 rows=299712 width=24) (actual time=5.452..357.029 rows=299712 loops=1)
+               Buffers: shared read=1920
+               I/O Timings: shared read=322.751
+ Settings: search_path = 'test_mimic'
+ Planning:
+   Buffers: shared hit=135 read=11
+   I/O Timings: shared read=1.633
+ Planning Time: 2.403 ms
+ Execution Time: 1161.751 ms
+(20 rows)
+
+> Loop number : 2
+SET
+SET
+SET
+SET
+SET
+SET
+SET
+SET
+SET
+                                                                         QUERY PLAN                                                                          
+-------------------------------------------------------------------------------------------------------------------------------------------------------------
+ Hash Join  (cost=10420.52..30163.89 rows=311122 width=64) (actual time=115.778..475.732 rows=311122 loops=1)
+   Hash Cond: ((date_admission_hospitalisation_par_patient_vue.patient)::uuid = (date_naissance_par_patient_vue.patient)::uuid)
+   Buffers: shared hit=4544, temp read=2914 written=2914
+   I/O Timings: temp read=11.496 write=34.682
+   ->  Seq Scan on date_admission_hospitalisation_par_patient_vue  (cost=0.00..5735.22 rows=311122 width=40) (actual time=0.008..45.297 rows=311122 loops=1)
+         Buffers: shared hit=2624
+   ->  Hash  (cost=4917.12..4917.12 rows=299712 width=24) (actual time=114.917..114.918 rows=299712 loops=1)
+         Buckets: 131072  Batches: 4  Memory Usage: 5121kB
+         Buffers: shared hit=1920, temp written=1207
+         I/O Timings: temp write=14.316
+         ->  Seq Scan on date_naissance_par_patient_vue  (cost=0.00..4917.12 rows=299712 width=24) (actual time=0.016..38.885 rows=299712 loops=1)
+               Buffers: shared hit=1920
+ Settings: search_path = 'test_mimic'
+ Planning:
+   Buffers: shared hit=146
+ Planning Time: 0.692 ms
+ Execution Time: 489.473 ms
+(17 rows)
+
+> Loop number : 3
+SET
+SET
+SET
+SET
+SET
+SET
+SET
+SET
+SET
+                                                                         QUERY PLAN                                                                          
+-------------------------------------------------------------------------------------------------------------------------------------------------------------
+ Hash Join  (cost=10420.52..30163.89 rows=311122 width=64) (actual time=118.030..484.410 rows=311122 loops=1)
+   Hash Cond: ((date_admission_hospitalisation_par_patient_vue.patient)::uuid = (date_naissance_par_patient_vue.patient)::uuid)
+   Buffers: shared hit=4544, temp read=2914 written=2914
+   I/O Timings: temp read=11.504 write=35.033
+   ->  Seq Scan on date_admission_hospitalisation_par_patient_vue  (cost=0.00..5735.22 rows=311122 width=40) (actual time=0.008..45.423 rows=311122 loops=1)
+         Buffers: shared hit=2624
+   ->  Hash  (cost=4917.12..4917.12 rows=299712 width=24) (actual time=117.126..117.128 rows=299712 loops=1)
+         Buckets: 131072  Batches: 4  Memory Usage: 5121kB
+         Buffers: shared hit=1920, temp written=1207
+         I/O Timings: temp write=14.471
+         ->  Seq Scan on date_naissance_par_patient_vue  (cost=0.00..4917.12 rows=299712 width=24) (actual time=0.018..39.120 rows=299712 loops=1)
+               Buffers: shared hit=1920
+ Settings: search_path = 'test_mimic'
+ Planning:
+   Buffers: shared hit=146
+ Planning Time: 0.746 ms
+ Execution Time: 498.111 ms
+(17 rows)
+
+> Loop number : 4
+SET
+SET
+SET
+SET
+SET
+SET
+SET
+SET
+SET
+                                                                         QUERY PLAN                                                                          
+-------------------------------------------------------------------------------------------------------------------------------------------------------------
+ Hash Join  (cost=10420.52..30163.89 rows=311122 width=64) (actual time=116.658..486.690 rows=311122 loops=1)
+   Hash Cond: ((date_admission_hospitalisation_par_patient_vue.patient)::uuid = (date_naissance_par_patient_vue.patient)::uuid)
+   Buffers: shared hit=4544, temp read=2914 written=2914
+   I/O Timings: temp read=11.630 write=34.721
+   ->  Seq Scan on date_admission_hospitalisation_par_patient_vue  (cost=0.00..5735.22 rows=311122 width=40) (actual time=0.009..45.422 rows=311122 loops=1)
+         Buffers: shared hit=2624
+   ->  Hash  (cost=4917.12..4917.12 rows=299712 width=24) (actual time=115.793..115.794 rows=299712 loops=1)
+         Buckets: 131072  Batches: 4  Memory Usage: 5121kB
+         Buffers: shared hit=1920, temp written=1207
+         I/O Timings: temp write=14.338
+         ->  Seq Scan on date_naissance_par_patient_vue  (cost=0.00..4917.12 rows=299712 width=24) (actual time=0.015..38.986 rows=299712 loops=1)
+               Buffers: shared hit=1920
+ Settings: search_path = 'test_mimic'
+ Planning:
+   Buffers: shared hit=146
+ Planning Time: 0.725 ms
+ Execution Time: 500.465 ms
+(17 rows)
+
+> Loop number : 5
+SET
+SET
+SET
+SET
+SET
+SET
+SET
+SET
+SET
+                                                                         QUERY PLAN                                                                          
+-------------------------------------------------------------------------------------------------------------------------------------------------------------
+ Hash Join  (cost=10420.52..30163.89 rows=311122 width=64) (actual time=117.022..482.003 rows=311122 loops=1)
+   Hash Cond: ((date_admission_hospitalisation_par_patient_vue.patient)::uuid = (date_naissance_par_patient_vue.patient)::uuid)
+   Buffers: shared hit=4544, temp read=2914 written=2914
+   I/O Timings: temp read=11.602 write=34.668
+   ->  Seq Scan on date_admission_hospitalisation_par_patient_vue  (cost=0.00..5735.22 rows=311122 width=40) (actual time=0.009..45.321 rows=311122 loops=1)
+         Buffers: shared hit=2624
+   ->  Hash  (cost=4917.12..4917.12 rows=299712 width=24) (actual time=116.153..116.155 rows=299712 loops=1)
+         Buckets: 131072  Batches: 4  Memory Usage: 5121kB
+         Buffers: shared hit=1920, temp written=1207
+         I/O Timings: temp write=14.340
+         ->  Seq Scan on date_naissance_par_patient_vue  (cost=0.00..4917.12 rows=299712 width=24) (actual time=0.014..39.143 rows=299712 loops=1)
+               Buffers: shared hit=1920
+ Settings: search_path = 'test_mimic'
+ Planning:
+   Buffers: shared hit=146
+ Planning Time: 0.721 ms
+ Execution Time: 495.741 ms
+(17 rows)
+
+SET
+INSERT 0 1

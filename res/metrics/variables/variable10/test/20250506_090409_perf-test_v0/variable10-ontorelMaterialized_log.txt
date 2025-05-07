@@ -1,0 +1,161 @@
+> ============================ Trial for variable10 ontorelMaterialized 
+min=1 max=1 inc=1
+> ============================ Input size : 1
+SET
+ pg_stat_statements_reset 
+--------------------------
+ 
+(1 row)
+
+> Loop number : 1
+SET
+SET
+SET
+SET
+SET
+SET
+SET
+SET
+SET
+                                                                     QUERY PLAN                                                                      
+-----------------------------------------------------------------------------------------------------------------------------------------------------
+ Hash Left Join  (cost=1080.05..7472.67 rows=311122 width=20) (actual time=96.365..439.810 rows=311122 loops=1)
+   Hash Cond: ((hospitalisation_vue.hospitalisation)::uuid = (hospitalisation_soins_intensifs_vue.hospitalisation)::uuid)
+   Buffers: shared read=1938
+   I/O Timings: shared read=316.541
+   ->  Seq Scan on hospitalisation_vue  (cost=0.00..4839.22 rows=311122 width=16) (actual time=7.862..266.919 rows=311122 loops=1)
+         Buffers: shared read=1728
+         I/O Timings: shared read=242.112
+   ->  Hash  (cost=596.69..596.69 rows=38669 width=20) (actual time=88.070..88.072 rows=38669 loops=1)
+         Buckets: 65536  Batches: 1  Memory Usage: 2476kB
+         Buffers: shared read=210
+         I/O Timings: shared read=74.428
+         ->  Seq Scan on hospitalisation_soins_intensifs_vue  (cost=0.00..596.69 rows=38669 width=20) (actual time=5.694..78.868 rows=38669 loops=1)
+               Buffers: shared read=210
+               I/O Timings: shared read=74.428
+ Settings: search_path = 'test_mimic'
+ Planning:
+   Buffers: shared hit=108 read=2
+   I/O Timings: shared read=0.742
+ Planning Time: 1.381 ms
+ Execution Time: 453.831 ms
+(20 rows)
+
+> Loop number : 2
+SET
+SET
+SET
+SET
+SET
+SET
+SET
+SET
+SET
+                                                                     QUERY PLAN                                                                     
+----------------------------------------------------------------------------------------------------------------------------------------------------
+ Hash Left Join  (cost=1080.05..7472.67 rows=311122 width=20) (actual time=13.818..114.701 rows=311122 loops=1)
+   Hash Cond: ((hospitalisation_vue.hospitalisation)::uuid = (hospitalisation_soins_intensifs_vue.hospitalisation)::uuid)
+   Buffers: shared hit=1938
+   ->  Seq Scan on hospitalisation_vue  (cost=0.00..4839.22 rows=311122 width=16) (actual time=0.006..23.704 rows=311122 loops=1)
+         Buffers: shared hit=1728
+   ->  Hash  (cost=596.69..596.69 rows=38669 width=20) (actual time=13.390..13.391 rows=38669 loops=1)
+         Buckets: 65536  Batches: 1  Memory Usage: 2476kB
+         Buffers: shared hit=210
+         ->  Seq Scan on hospitalisation_soins_intensifs_vue  (cost=0.00..596.69 rows=38669 width=20) (actual time=0.011..5.005 rows=38669 loops=1)
+               Buffers: shared hit=210
+ Settings: search_path = 'test_mimic'
+ Planning:
+   Buffers: shared hit=110
+ Planning Time: 0.601 ms
+ Execution Time: 128.497 ms
+(15 rows)
+
+> Loop number : 3
+SET
+SET
+SET
+SET
+SET
+SET
+SET
+SET
+SET
+                                                                     QUERY PLAN                                                                     
+----------------------------------------------------------------------------------------------------------------------------------------------------
+ Hash Left Join  (cost=1080.05..7472.67 rows=311122 width=20) (actual time=14.052..120.031 rows=311122 loops=1)
+   Hash Cond: ((hospitalisation_vue.hospitalisation)::uuid = (hospitalisation_soins_intensifs_vue.hospitalisation)::uuid)
+   Buffers: shared hit=1938
+   ->  Seq Scan on hospitalisation_vue  (cost=0.00..4839.22 rows=311122 width=16) (actual time=0.007..23.803 rows=311122 loops=1)
+         Buffers: shared hit=1728
+   ->  Hash  (cost=596.69..596.69 rows=38669 width=20) (actual time=13.619..13.621 rows=38669 loops=1)
+         Buckets: 65536  Batches: 1  Memory Usage: 2476kB
+         Buffers: shared hit=210
+         ->  Seq Scan on hospitalisation_soins_intensifs_vue  (cost=0.00..596.69 rows=38669 width=20) (actual time=0.011..5.022 rows=38669 loops=1)
+               Buffers: shared hit=210
+ Settings: search_path = 'test_mimic'
+ Planning:
+   Buffers: shared hit=110
+ Planning Time: 0.612 ms
+ Execution Time: 133.969 ms
+(15 rows)
+
+> Loop number : 4
+SET
+SET
+SET
+SET
+SET
+SET
+SET
+SET
+SET
+                                                                     QUERY PLAN                                                                     
+----------------------------------------------------------------------------------------------------------------------------------------------------
+ Hash Left Join  (cost=1080.05..7472.67 rows=311122 width=20) (actual time=13.812..124.886 rows=311122 loops=1)
+   Hash Cond: ((hospitalisation_vue.hospitalisation)::uuid = (hospitalisation_soins_intensifs_vue.hospitalisation)::uuid)
+   Buffers: shared hit=1938
+   ->  Seq Scan on hospitalisation_vue  (cost=0.00..4839.22 rows=311122 width=16) (actual time=0.006..23.718 rows=311122 loops=1)
+         Buffers: shared hit=1728
+   ->  Hash  (cost=596.69..596.69 rows=38669 width=20) (actual time=13.363..13.365 rows=38669 loops=1)
+         Buckets: 65536  Batches: 1  Memory Usage: 2476kB
+         Buffers: shared hit=210
+         ->  Seq Scan on hospitalisation_soins_intensifs_vue  (cost=0.00..596.69 rows=38669 width=20) (actual time=0.011..4.837 rows=38669 loops=1)
+               Buffers: shared hit=210
+ Settings: search_path = 'test_mimic'
+ Planning:
+   Buffers: shared hit=110
+ Planning Time: 0.603 ms
+ Execution Time: 138.766 ms
+(15 rows)
+
+> Loop number : 5
+SET
+SET
+SET
+SET
+SET
+SET
+SET
+SET
+SET
+                                                                     QUERY PLAN                                                                     
+----------------------------------------------------------------------------------------------------------------------------------------------------
+ Hash Left Join  (cost=1080.05..7472.67 rows=311122 width=20) (actual time=23.646..165.248 rows=311122 loops=1)
+   Hash Cond: ((hospitalisation_vue.hospitalisation)::uuid = (hospitalisation_soins_intensifs_vue.hospitalisation)::uuid)
+   Buffers: shared hit=1938
+   ->  Seq Scan on hospitalisation_vue  (cost=0.00..4839.22 rows=311122 width=16) (actual time=0.011..33.159 rows=311122 loops=1)
+         Buffers: shared hit=1728
+   ->  Hash  (cost=596.69..596.69 rows=38669 width=20) (actual time=23.105..23.107 rows=38669 loops=1)
+         Buckets: 65536  Batches: 1  Memory Usage: 2476kB
+         Buffers: shared hit=210
+         ->  Seq Scan on hospitalisation_soins_intensifs_vue  (cost=0.00..596.69 rows=38669 width=20) (actual time=0.021..8.749 rows=38669 loops=1)
+               Buffers: shared hit=210
+ Settings: search_path = 'test_mimic'
+ Planning:
+   Buffers: shared hit=110
+ Planning Time: 0.874 ms
+ Execution Time: 184.968 ms
+(15 rows)
+
+SET
+INSERT 0 1

@@ -1,0 +1,2 @@
+model,queryname,mintime,maxtime,meantime,rowcount
+mimic,variable01,701.70,1309.73,825.82,311122

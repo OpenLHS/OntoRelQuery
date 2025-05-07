@@ -1,0 +1,447 @@
+> ============================ Trial for variable13 mimic 
+min=1 max=1 inc=1
+> ============================ Input size : 1
+SET
+ pg_stat_statements_reset 
+--------------------------
+ 
+(1 row)
+
+> Loop number : 1
+SET
+SET
+SET
+SET
+SET
+SET
+SET
+SET
+SET
+                                                                          QUERY PLAN                                                                           
+---------------------------------------------------------------------------------------------------------------------------------------------------------------
+ Merge Right Join  (cost=41858107.77..3774510306.18 rows=248816704026 width=32) (actual time=2227.020..2622.617 rows=703893 loops=1)
+   Merge Cond: (hosp_courante.hadm_id = prev.hadm_id)
+   Buffers: shared hit=59 read=15201, temp read=9420 written=8458
+   I/O Timings: shared read=294.294, temp read=34.417 write=104.405
+   CTE hosp_courante
+     ->  Seq Scan on admissions  (cost=0.00..14505.43 rows=309868 width=16) (actual time=339.357..456.312 rows=311122 loops=1)
+           Filter: ((admission_type)::text <> ALL ('{"AMBULATORY OBSERVATION","DIRECT OBSERVATION","EU OBSERVATION"}'::text[]))
+           Rows Removed by Filter: 120109
+           Buffers: shared hit=55 read=8521
+           I/O Timings: shared read=33.403
+   ->  Sort  (cost=66467.91..67245.31 rows=310962 width=8) (actual time=1241.521..1288.665 rows=310415 loops=1)
+         Sort Key: hosp_courante.hadm_id
+         Sort Method: external merge  Disk: 5488kB
+         Buffers: shared hit=59 read=15201, temp read=1679 written=2670
+         I/O Timings: shared read=294.294, temp read=6.405 write=35.645
+         ->  Hash Join  (cost=19349.44..33845.76 rows=310962 width=8) (actual time=744.124..1121.743 rows=310415 loops=1)
+               Hash Cond: (hosp_courante.hadm_id = drgcodes.hadm_id)
+               Buffers: shared hit=55 read=15201, temp read=993 written=1980
+               I/O Timings: shared read=294.294, temp read=3.994 write=27.454
+               ->  CTE Scan on hosp_courante  (cost=0.00..6197.36 rows=309868 width=4) (actual time=339.369..570.637 rows=311122 loops=1)
+                     Buffers: shared hit=55 read=8521, temp written=987
+                     I/O Timings: shared read=33.403, temp write=12.274
+               ->  Hash  (cost=14234.71..14234.71 rows=311738 width=8) (actual time=403.029..403.031 rows=311955 loops=1)
+                     Buckets: 262144  Batches: 2  Memory Usage: 8122kB
+                     Buffers: shared read=6680, temp written=534
+                     I/O Timings: shared read=260.891, temp write=8.754
+                     ->  Seq Scan on drgcodes  (cost=0.00..14234.71 rows=311738 width=8) (actual time=5.251..322.076 rows=311955 loops=1)
+                           Filter: ((drg_type)::text = 'HCFA'::text)
+                           Rows Removed by Filter: 292422
+                           Buffers: shared read=6680
+                           I/O Timings: shared read=260.891
+   ->  Materialize  (cost=41777134.44..42577285.92 rows=160030296 width=28) (actual time=985.429..1179.339 rows=703893 loops=1)
+         Buffers: temp read=7741 written=5788
+         I/O Timings: temp read=28.012 write=68.759
+         ->  Sort  (cost=41777134.44..42177210.18 rows=160030296 width=28) (actual time=985.424..1085.187 rows=703893 loops=1)
+               Sort Key: prev.hadm_id
+               Sort Method: external merge  Disk: 29024kB
+               Buffers: temp read=7741 written=5788
+               I/O Timings: temp read=28.012 write=68.759
+               ->  Merge Join  (cost=79516.65..8483431.19 rows=160030296 width=28) (actual time=262.378..711.877 rows=703893 loops=1)
+                     Merge Cond: (curr.subject_id = prev.subject_id)
+                     Join Filter: (prev.admittime < curr.admittime)
+                     Rows Removed by Join Filter: 1015017
+                     Buffers: temp read=4113 written=2147
+                     I/O Timings: temp read=15.351 write=25.229
+                     ->  Sort  (cost=39758.33..40533.00 rows=309868 width=16) (actual time=130.236..168.032 rows=311122 loops=1)
+                           Sort Key: curr.subject_id
+                           Sort Method: external merge  Disk: 7936kB
+                           Buffers: temp read=1980 written=997
+                           I/O Timings: temp read=7.274 write=11.856
+                           ->  CTE Scan on hosp_courante curr  (cost=0.00..6197.36 rows=309868 width=16) (actual time=0.034..43.112 rows=311122 loops=1)
+                                 Buffers: temp read=988 written=1
+                                 I/O Timings: temp read=3.592 write=0.019
+                     ->  Materialize  (cost=39758.33..41307.67 rows=309868 width=16) (actual time=132.070..289.662 rows=1718910 loops=1)
+                           Buffers: temp read=2133 written=1150
+                           I/O Timings: temp read=8.078 write=13.373
+                           ->  Sort  (cost=39758.33..40533.00 rows=309868 width=16) (actual time=132.066..170.178 rows=311122 loops=1)
+                                 Sort Key: prev.subject_id
+                                 Sort Method: external merge  Disk: 9160kB
+                                 Buffers: temp read=2133 written=1150
+                                 I/O Timings: temp read=8.078 write=13.373
+                                 ->  CTE Scan on hosp_courante prev  (cost=0.00..6197.36 rows=309868 width=16) (actual time=0.012..43.230 rows=311122 loops=1)
+                                       Buffers: temp read=988
+                                       I/O Timings: temp read=3.879
+ Settings: search_path = 'test_mimic'
+ Planning:
+   Buffers: shared hit=394 read=5
+   I/O Timings: shared read=21.324
+ Planning Time: 22.960 ms
+ JIT:
+   Functions: 37
+   Options: Inlining true, Optimization true, Expressions true, Deforming true
+   Timing: Generation 1.737 ms, Inlining 86.976 ms, Optimization 150.242 ms, Emission 102.243 ms, Total 341.198 ms
+ Execution Time: 2690.283 ms
+(74 rows)
+
+> Loop number : 2
+SET
+SET
+SET
+SET
+SET
+SET
+SET
+SET
+SET
+                                                                          QUERY PLAN                                                                           
+---------------------------------------------------------------------------------------------------------------------------------------------------------------
+ Merge Right Join  (cost=41858107.77..3774510306.18 rows=248816704026 width=32) (actual time=1951.805..2351.988 rows=703893 loops=1)
+   Merge Cond: (hosp_courante.hadm_id = prev.hadm_id)
+   Buffers: shared hit=124 read=15136, temp read=9420 written=8458
+   I/O Timings: shared read=59.946, temp read=34.520 write=100.967
+   CTE hosp_courante
+     ->  Seq Scan on admissions  (cost=0.00..14505.43 rows=309868 width=16) (actual time=339.711..451.332 rows=311122 loops=1)
+           Filter: ((admission_type)::text <> ALL ('{"AMBULATORY OBSERVATION","DIRECT OBSERVATION","EU OBSERVATION"}'::text[]))
+           Rows Removed by Filter: 120109
+           Buffers: shared hit=88 read=8488
+           I/O Timings: shared read=33.172
+   ->  Sort  (cost=66467.91..67245.31 rows=310962 width=8) (actual time=970.464..1018.248 rows=310415 loops=1)
+         Sort Key: hosp_courante.hadm_id
+         Sort Method: external merge  Disk: 5488kB
+         Buffers: shared hit=124 read=15136, temp read=1679 written=2670
+         I/O Timings: shared read=59.946, temp read=6.454 write=33.050
+         ->  Hash Join  (cost=19349.44..33845.76 rows=310962 width=8) (actual time=495.816..852.782 rows=310415 loops=1)
+               Hash Cond: (hosp_courante.hadm_id = drgcodes.hadm_id)
+               Buffers: shared hit=120 read=15136, temp read=993 written=1980
+               I/O Timings: shared read=59.946, temp read=3.983 write=24.927
+               ->  CTE Scan on hosp_courante  (cost=0.00..6197.36 rows=309868 width=4) (actual time=339.720..563.057 rows=311122 loops=1)
+                     Buffers: shared hit=88 read=8488, temp written=987
+                     I/O Timings: shared read=33.172, temp write=12.124
+               ->  Hash  (cost=14234.71..14234.71 rows=311738 width=8) (actual time=154.435..154.438 rows=311955 loops=1)
+                     Buckets: 262144  Batches: 2  Memory Usage: 8122kB
+                     Buffers: shared hit=32 read=6648, temp written=534
+                     I/O Timings: shared read=26.774, temp write=6.827
+                     ->  Seq Scan on drgcodes  (cost=0.00..14234.71 rows=311738 width=8) (actual time=0.060..85.101 rows=311955 loops=1)
+                           Filter: ((drg_type)::text = 'HCFA'::text)
+                           Rows Removed by Filter: 292422
+                           Buffers: shared hit=32 read=6648
+                           I/O Timings: shared read=26.774
+   ->  Materialize  (cost=41777134.44..42577285.92 rows=160030296 width=28) (actual time=981.265..1178.056 rows=703893 loops=1)
+         Buffers: temp read=7741 written=5788
+         I/O Timings: temp read=28.066 write=67.918
+         ->  Sort  (cost=41777134.44..42177210.18 rows=160030296 width=28) (actual time=981.261..1082.719 rows=703893 loops=1)
+               Sort Key: prev.hadm_id
+               Sort Method: external merge  Disk: 29024kB
+               Buffers: temp read=7741 written=5788
+               I/O Timings: temp read=28.066 write=67.918
+               ->  Merge Join  (cost=79516.65..8483431.19 rows=160030296 width=28) (actual time=263.241..709.865 rows=703893 loops=1)
+                     Merge Cond: (curr.subject_id = prev.subject_id)
+                     Join Filter: (prev.admittime < curr.admittime)
+                     Rows Removed by Join Filter: 1015017
+                     Buffers: temp read=4113 written=2147
+                     I/O Timings: temp read=15.191 write=24.747
+                     ->  Sort  (cost=39758.33..40533.00 rows=309868 width=16) (actual time=130.928..168.440 rows=311122 loops=1)
+                           Sort Key: curr.subject_id
+                           Sort Method: external merge  Disk: 7936kB
+                           Buffers: temp read=1980 written=997
+                           I/O Timings: temp read=7.271 write=11.524
+                           ->  CTE Scan on hosp_courante curr  (cost=0.00..6197.36 rows=309868 width=16) (actual time=0.031..43.989 rows=311122 loops=1)
+                                 Buffers: temp read=988 written=1
+                                 I/O Timings: temp read=3.691 write=0.018
+                     ->  Materialize  (cost=39758.33..41307.67 rows=309868 width=16) (actual time=132.243..289.511 rows=1718910 loops=1)
+                           Buffers: temp read=2133 written=1150
+                           I/O Timings: temp read=7.920 write=13.223
+                           ->  Sort  (cost=39758.33..40533.00 rows=309868 width=16) (actual time=132.239..170.879 rows=311122 loops=1)
+                                 Sort Key: prev.subject_id
+                                 Sort Method: external merge  Disk: 9160kB
+                                 Buffers: temp read=2133 written=1150
+                                 I/O Timings: temp read=7.920 write=13.223
+                                 ->  CTE Scan on hosp_courante prev  (cost=0.00..6197.36 rows=309868 width=16) (actual time=0.012..43.500 rows=311122 loops=1)
+                                       Buffers: temp read=988
+                                       I/O Timings: temp read=3.940
+ Settings: search_path = 'test_mimic'
+ Planning:
+   Buffers: shared hit=399
+ Planning Time: 1.555 ms
+ JIT:
+   Functions: 37
+   Options: Inlining true, Optimization true, Expressions true, Deforming true
+   Timing: Generation 1.760 ms, Inlining 88.256 ms, Optimization 149.420 ms, Emission 102.140 ms, Total 341.576 ms
+ Execution Time: 2422.032 ms
+(73 rows)
+
+> Loop number : 3
+SET
+SET
+SET
+SET
+SET
+SET
+SET
+SET
+SET
+                                                                          QUERY PLAN                                                                           
+---------------------------------------------------------------------------------------------------------------------------------------------------------------
+ Merge Right Join  (cost=41858107.77..3774510306.18 rows=248816704026 width=32) (actual time=1960.168..2357.938 rows=703893 loops=1)
+   Merge Cond: (hosp_courante.hadm_id = prev.hadm_id)
+   Buffers: shared hit=188 read=15072, temp read=9420 written=8458
+   I/O Timings: shared read=58.353, temp read=34.352 write=101.466
+   CTE hosp_courante
+     ->  Seq Scan on admissions  (cost=0.00..14505.43 rows=309868 width=16) (actual time=339.396..451.640 rows=311122 loops=1)
+           Filter: ((admission_type)::text <> ALL ('{"AMBULATORY OBSERVATION","DIRECT OBSERVATION","EU OBSERVATION"}'::text[]))
+           Rows Removed by Filter: 120109
+           Buffers: shared hit=120 read=8456
+           I/O Timings: shared read=33.144
+   ->  Sort  (cost=66467.91..67245.31 rows=310962 width=8) (actual time=977.851..1025.323 rows=310415 loops=1)
+         Sort Key: hosp_courante.hadm_id
+         Sort Method: external merge  Disk: 5488kB
+         Buffers: shared hit=188 read=15072, temp read=1679 written=2670
+         I/O Timings: shared read=58.353, temp read=6.335 write=33.411
+         ->  Hash Join  (cost=19349.44..33845.76 rows=310962 width=8) (actual time=493.944..858.443 rows=310415 loops=1)
+               Hash Cond: (hosp_courante.hadm_id = drgcodes.hadm_id)
+               Buffers: shared hit=184 read=15072, temp read=993 written=1980
+               I/O Timings: shared read=58.353, temp read=3.954 write=25.191
+               ->  CTE Scan on hosp_courante  (cost=0.00..6197.36 rows=309868 width=4) (actual time=339.406..564.049 rows=311122 loops=1)
+                     Buffers: shared hit=120 read=8456, temp written=987
+                     I/O Timings: shared read=33.144, temp write=12.307
+               ->  Hash  (cost=14234.71..14234.71 rows=311738 width=8) (actual time=152.854..152.856 rows=311955 loops=1)
+                     Buckets: 262144  Batches: 2  Memory Usage: 8122kB
+                     Buffers: shared hit=64 read=6616, temp written=534
+                     I/O Timings: shared read=25.210, temp write=6.833
+                     ->  Seq Scan on drgcodes  (cost=0.00..14234.71 rows=311738 width=8) (actual time=0.062..83.764 rows=311955 loops=1)
+                           Filter: ((drg_type)::text = 'HCFA'::text)
+                           Rows Removed by Filter: 292422
+                           Buffers: shared hit=64 read=6616
+                           I/O Timings: shared read=25.210
+   ->  Materialize  (cost=41777134.44..42577285.92 rows=160030296 width=28) (actual time=982.251..1177.325 rows=703893 loops=1)
+         Buffers: temp read=7741 written=5788
+         I/O Timings: temp read=28.017 write=68.055
+         ->  Sort  (cost=41777134.44..42177210.18 rows=160030296 width=28) (actual time=982.247..1082.398 rows=703893 loops=1)
+               Sort Key: prev.hadm_id
+               Sort Method: external merge  Disk: 29024kB
+               Buffers: temp read=7741 written=5788
+               I/O Timings: temp read=28.017 write=68.055
+               ->  Merge Join  (cost=79516.65..8483431.19 rows=160030296 width=28) (actual time=263.829..710.614 rows=703893 loops=1)
+                     Merge Cond: (curr.subject_id = prev.subject_id)
+                     Join Filter: (prev.admittime < curr.admittime)
+                     Rows Removed by Join Filter: 1015017
+                     Buffers: temp read=4113 written=2147
+                     I/O Timings: temp read=15.318 write=24.913
+                     ->  Sort  (cost=39758.33..40533.00 rows=309868 width=16) (actual time=131.206..168.734 rows=311122 loops=1)
+                           Sort Key: curr.subject_id
+                           Sort Method: external merge  Disk: 7936kB
+                           Buffers: temp read=1980 written=997
+                           I/O Timings: temp read=7.321 write=11.616
+                           ->  CTE Scan on hosp_courante curr  (cost=0.00..6197.36 rows=309868 width=16) (actual time=0.034..44.051 rows=311122 loops=1)
+                                 Buffers: temp read=988 written=1
+                                 I/O Timings: temp read=3.693 write=0.020
+                     ->  Materialize  (cost=39758.33..41307.67 rows=309868 width=16) (actual time=132.551..290.034 rows=1718910 loops=1)
+                           Buffers: temp read=2133 written=1150
+                           I/O Timings: temp read=7.997 write=13.298
+                           ->  Sort  (cost=39758.33..40533.00 rows=309868 width=16) (actual time=132.546..171.231 rows=311122 loops=1)
+                                 Sort Key: prev.subject_id
+                                 Sort Method: external merge  Disk: 9160kB
+                                 Buffers: temp read=2133 written=1150
+                                 I/O Timings: temp read=7.997 write=13.298
+                                 ->  CTE Scan on hosp_courante prev  (cost=0.00..6197.36 rows=309868 width=16) (actual time=0.011..43.553 rows=311122 loops=1)
+                                       Buffers: temp read=988
+                                       I/O Timings: temp read=3.969
+ Settings: search_path = 'test_mimic'
+ Planning:
+   Buffers: shared hit=399
+ Planning Time: 1.533 ms
+ JIT:
+   Functions: 37
+   Options: Inlining true, Optimization true, Expressions true, Deforming true
+   Timing: Generation 1.753 ms, Inlining 86.757 ms, Optimization 150.094 ms, Emission 102.619 ms, Total 341.222 ms
+ Execution Time: 2428.163 ms
+(73 rows)
+
+> Loop number : 4
+SET
+SET
+SET
+SET
+SET
+SET
+SET
+SET
+SET
+                                                                          QUERY PLAN                                                                           
+---------------------------------------------------------------------------------------------------------------------------------------------------------------
+ Merge Right Join  (cost=41858107.77..3774510306.18 rows=248816704026 width=32) (actual time=1972.351..2371.182 rows=703893 loops=1)
+   Merge Cond: (hosp_courante.hadm_id = prev.hadm_id)
+   Buffers: shared hit=252 read=15008, temp read=9420 written=8458
+   I/O Timings: shared read=57.718, temp read=34.986 write=102.813
+   CTE hosp_courante
+     ->  Seq Scan on admissions  (cost=0.00..14505.43 rows=309868 width=16) (actual time=337.869..451.275 rows=311122 loops=1)
+           Filter: ((admission_type)::text <> ALL ('{"AMBULATORY OBSERVATION","DIRECT OBSERVATION","EU OBSERVATION"}'::text[]))
+           Rows Removed by Filter: 120109
+           Buffers: shared hit=152 read=8424
+           I/O Timings: shared read=32.998
+   ->  Sort  (cost=66467.91..67245.31 rows=310962 width=8) (actual time=983.555..1031.140 rows=310415 loops=1)
+         Sort Key: hosp_courante.hadm_id
+         Sort Method: external merge  Disk: 5488kB
+         Buffers: shared hit=252 read=15008, temp read=1679 written=2670
+         I/O Timings: shared read=57.718, temp read=6.464 write=34.227
+         ->  Hash Join  (cost=19349.44..33845.76 rows=310962 width=8) (actual time=492.038..862.531 rows=310415 loops=1)
+               Hash Cond: (hosp_courante.hadm_id = drgcodes.hadm_id)
+               Buffers: shared hit=248 read=15008, temp read=993 written=1980
+               I/O Timings: shared read=57.718, temp read=4.042 write=25.823
+               ->  CTE Scan on hosp_courante  (cost=0.00..6197.36 rows=309868 width=4) (actual time=337.879..565.488 rows=311122 loops=1)
+                     Buffers: shared hit=152 read=8424, temp written=987
+                     I/O Timings: shared read=32.998, temp write=12.859
+               ->  Hash  (cost=14234.71..14234.71 rows=311738 width=8) (actual time=152.499..152.501 rows=311955 loops=1)
+                     Buckets: 262144  Batches: 2  Memory Usage: 8122kB
+                     Buffers: shared hit=96 read=6584, temp written=534
+                     I/O Timings: shared read=24.721, temp write=6.856
+                     ->  Seq Scan on drgcodes  (cost=0.00..14234.71 rows=311738 width=8) (actual time=0.061..83.738 rows=311955 loops=1)
+                           Filter: ((drg_type)::text = 'HCFA'::text)
+                           Rows Removed by Filter: 292422
+                           Buffers: shared hit=96 read=6584
+                           I/O Timings: shared read=24.721
+   ->  Materialize  (cost=41777134.44..42577285.92 rows=160030296 width=28) (actual time=988.732..1184.770 rows=703893 loops=1)
+         Buffers: temp read=7741 written=5788
+         I/O Timings: temp read=28.522 write=68.585
+         ->  Sort  (cost=41777134.44..42177210.18 rows=160030296 width=28) (actual time=988.727..1089.805 rows=703893 loops=1)
+               Sort Key: prev.hadm_id
+               Sort Method: external merge  Disk: 29024kB
+               Buffers: temp read=7741 written=5788
+               I/O Timings: temp read=28.522 write=68.585
+               ->  Merge Join  (cost=79516.65..8483431.19 rows=160030296 width=28) (actual time=267.667..715.504 rows=703893 loops=1)
+                     Merge Cond: (curr.subject_id = prev.subject_id)
+                     Join Filter: (prev.admittime < curr.admittime)
+                     Rows Removed by Join Filter: 1015017
+                     Buffers: temp read=4113 written=2147
+                     I/O Timings: temp read=15.691 write=25.160
+                     ->  Sort  (cost=39758.33..40533.00 rows=309868 width=16) (actual time=131.167..168.801 rows=311122 loops=1)
+                           Sort Key: curr.subject_id
+                           Sort Method: external merge  Disk: 7936kB
+                           Buffers: temp read=1980 written=997
+                           I/O Timings: temp read=7.425 write=11.661
+                           ->  CTE Scan on hosp_courante curr  (cost=0.00..6197.36 rows=309868 width=16) (actual time=0.035..44.119 rows=311122 loops=1)
+                                 Buffers: temp read=988 written=1
+                                 I/O Timings: temp read=3.752 write=0.021
+                     ->  Materialize  (cost=39758.33..41307.67 rows=309868 width=16) (actual time=136.424..294.165 rows=1718910 loops=1)
+                           Buffers: temp read=2133 written=1150
+                           I/O Timings: temp read=8.266 write=13.498
+                           ->  Sort  (cost=39758.33..40533.00 rows=309868 width=16) (actual time=136.419..175.265 rows=311122 loops=1)
+                                 Sort Key: prev.subject_id
+                                 Sort Method: external merge  Disk: 9160kB
+                                 Buffers: temp read=2133 written=1150
+                                 I/O Timings: temp read=8.266 write=13.498
+                                 ->  CTE Scan on hosp_courante prev  (cost=0.00..6197.36 rows=309868 width=16) (actual time=0.013..44.537 rows=311122 loops=1)
+                                       Buffers: temp read=988
+                                       I/O Timings: temp read=4.078
+ Settings: search_path = 'test_mimic'
+ Planning:
+   Buffers: shared hit=399
+ Planning Time: 1.512 ms
+ JIT:
+   Functions: 37
+   Options: Inlining true, Optimization true, Expressions true, Deforming true
+   Timing: Generation 1.740 ms, Inlining 86.057 ms, Optimization 149.811 ms, Emission 102.072 ms, Total 339.681 ms
+ Execution Time: 2443.413 ms
+(73 rows)
+
+> Loop number : 5
+SET
+SET
+SET
+SET
+SET
+SET
+SET
+SET
+SET
+                                                                          QUERY PLAN                                                                           
+---------------------------------------------------------------------------------------------------------------------------------------------------------------
+ Merge Right Join  (cost=41858107.77..3774510306.18 rows=248816704026 width=32) (actual time=1965.031..2364.222 rows=703893 loops=1)
+   Merge Cond: (hosp_courante.hadm_id = prev.hadm_id)
+   Buffers: shared hit=316 read=14944, temp read=9420 written=8458
+   I/O Timings: shared read=57.662, temp read=34.508 write=102.233
+   CTE hosp_courante
+     ->  Seq Scan on admissions  (cost=0.00..14505.43 rows=309868 width=16) (actual time=340.976..452.877 rows=311122 loops=1)
+           Filter: ((admission_type)::text <> ALL ('{"AMBULATORY OBSERVATION","DIRECT OBSERVATION","EU OBSERVATION"}'::text[]))
+           Rows Removed by Filter: 120109
+           Buffers: shared hit=184 read=8392
+           I/O Timings: shared read=32.888
+   ->  Sort  (cost=66467.91..67245.31 rows=310962 width=8) (actual time=979.442..1027.239 rows=310415 loops=1)
+         Sort Key: hosp_courante.hadm_id
+         Sort Method: external merge  Disk: 5488kB
+         Buffers: shared hit=316 read=14944, temp read=1679 written=2670
+         I/O Timings: shared read=57.662, temp read=6.411 write=33.720
+         ->  Hash Join  (cost=19349.44..33845.76 rows=310962 width=8) (actual time=499.603..859.477 rows=310415 loops=1)
+               Hash Cond: (hosp_courante.hadm_id = drgcodes.hadm_id)
+               Buffers: shared hit=312 read=14944, temp read=993 written=1980
+               I/O Timings: shared read=57.662, temp read=3.974 write=25.395
+               ->  CTE Scan on hosp_courante  (cost=0.00..6197.36 rows=309868 width=4) (actual time=340.986..565.400 rows=311122 loops=1)
+                     Buffers: shared hit=184 read=8392, temp written=987
+                     I/O Timings: shared read=32.888, temp write=12.289
+               ->  Hash  (cost=14234.71..14234.71 rows=311738 width=8) (actual time=156.953..156.955 rows=311955 loops=1)
+                     Buckets: 262144  Batches: 2  Memory Usage: 8122kB
+                     Buffers: shared hit=128 read=6552, temp written=534
+                     I/O Timings: shared read=24.774, temp write=7.024
+                     ->  Seq Scan on drgcodes  (cost=0.00..14234.71 rows=311738 width=8) (actual time=0.124..84.281 rows=311955 loops=1)
+                           Filter: ((drg_type)::text = 'HCFA'::text)
+                           Rows Removed by Filter: 292422
+                           Buffers: shared hit=128 read=6552
+                           I/O Timings: shared read=24.774
+   ->  Materialize  (cost=41777134.44..42577285.92 rows=160030296 width=28) (actual time=985.525..1181.393 rows=703893 loops=1)
+         Buffers: temp read=7741 written=5788
+         I/O Timings: temp read=28.098 write=68.513
+         ->  Sort  (cost=41777134.44..42177210.18 rows=160030296 width=28) (actual time=985.521..1086.206 rows=703893 loops=1)
+               Sort Key: prev.hadm_id
+               Sort Method: external merge  Disk: 29024kB
+               Buffers: temp read=7741 written=5788
+               I/O Timings: temp read=28.098 write=68.513
+               ->  Merge Join  (cost=79516.65..8483431.19 rows=160030296 width=28) (actual time=264.400..712.256 rows=703893 loops=1)
+                     Merge Cond: (curr.subject_id = prev.subject_id)
+                     Join Filter: (prev.admittime < curr.admittime)
+                     Rows Removed by Join Filter: 1015017
+                     Buffers: temp read=4113 written=2147
+                     I/O Timings: temp read=15.281 write=24.806
+                     ->  Sort  (cost=39758.33..40533.00 rows=309868 width=16) (actual time=131.695..169.356 rows=311122 loops=1)
+                           Sort Key: curr.subject_id
+                           Sort Method: external merge  Disk: 7936kB
+                           Buffers: temp read=1980 written=997
+                           I/O Timings: temp read=7.270 write=11.535
+                           ->  CTE Scan on hosp_courante curr  (cost=0.00..6197.36 rows=309868 width=16) (actual time=0.031..44.161 rows=311122 loops=1)
+                                 Buffers: temp read=988 written=1
+                                 I/O Timings: temp read=3.701 write=0.018
+                     ->  Materialize  (cost=39758.33..41307.67 rows=309868 width=16) (actual time=132.624..290.220 rows=1718910 loops=1)
+                           Buffers: temp read=2133 written=1150
+                           I/O Timings: temp read=8.011 write=13.271
+                           ->  Sort  (cost=39758.33..40533.00 rows=309868 width=16) (actual time=132.620..171.230 rows=311122 loops=1)
+                                 Sort Key: prev.subject_id
+                                 Sort Method: external merge  Disk: 9160kB
+                                 Buffers: temp read=2133 written=1150
+                                 I/O Timings: temp read=8.011 write=13.271
+                                 ->  CTE Scan on hosp_courante prev  (cost=0.00..6197.36 rows=309868 width=16) (actual time=0.012..43.713 rows=311122 loops=1)
+                                       Buffers: temp read=988
+                                       I/O Timings: temp read=4.115
+ Settings: search_path = 'test_mimic'
+ Planning:
+   Buffers: shared hit=399
+ Planning Time: 1.557 ms
+ JIT:
+   Functions: 37
+   Options: Inlining true, Optimization true, Expressions true, Deforming true
+   Timing: Generation 1.768 ms, Inlining 86.770 ms, Optimization 151.063 ms, Emission 103.206 ms, Total 342.807 ms
+ Execution Time: 2438.113 ms
+(73 rows)
+
+SET
+INSERT 0 1

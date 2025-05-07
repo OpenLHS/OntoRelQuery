@@ -1,0 +1,6 @@
+model,queryname,mintime,maxtime,meantime,rowcount
+ontorelView,variable01,7268.61,7631.91,7436.97,311122
+ontorelView,variable02,9157.85,9245.88,9217.33,311122
+ontorelView,variable03,5126.87,5225.70,5179.25,311122
+ontorelView,variable04,18379.57,20144.68,19603.90,311122
+ontorelView,variable05,9946.31,11811.49,10541.08,311122
