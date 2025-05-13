@@ -1,0 +1,261 @@
+ONTOLOGY :"MPHPO_ontorel-slim.owl"  
+
+PROPERTY :"BFO_0000051"   
+  LABEL @en 'has part' 
+
+PROPERTY :"BFO_0000054"   
+  LABEL @en 'realized in' 
+  DESCRIPTION @en 'Paraphrase of elucidation: a relation between a realizable entity and a process, where there is some material entity that is bearer of the realizable entity and participates in the process, and the realizable entity comes to be realized in the course of the process'
+
+PROPERTY :"BFO_0000055"   
+  LABEL @en 'realizes' 
+  DESCRIPTION @en 'Paraphrase of elucidation: a relation between a process and a realizable entity, where there is some material entity that is bearer of the realizable entity and participates in the process, and the realizable entity comes to be realized in the course of the process'
+
+PROPERTY :"HOSO_0000001"   
+  LABEL @en 'has participating performer' 
+
+PROPERTY :"HOSO_0000002"   
+  LABEL @en 'has participating recipient' 
+
+PROPERTY :"IAO_0000136"   
+  LABEL @en 'is about' 
+
+PROPERTY :"IAO_0000219"   
+  LABEL @en 'denotes' 
+  DESCRIPTION @en ''
+  ISA :"IAO_0000136"  
+
+PROPERTY :"IAO_0000235"   
+  LABEL @en 'denoted by' 
+
+PROPERTY :"OBI_0000299"   
+  LABEL @en 'has_specified_output' 
+
+PROPERTY :"OpenLHS-Core_0000004"   
+  LABEL @en 'is directed by' 
+
+PROPERTY :"OpenLHS-Core_0000070"   
+  LABEL @en 'component of' 
+
+PROPERTY :"RO_0000087"   
+  LABEL @en 'has role' 
+
+PROPERTY :"RO_0002087"   
+  LABEL @en 'immediately preceded by' 
+  DESCRIPTION @en 'X immediately_preceded_by Y iff: end(X) simultaneous_with start(Y)'
+
+PROPERTY :"RO_0002090"   
+  LABEL @en 'immediately precedes' 
+  DESCRIPTION @en 'X immediately_precedes_Y iff: end(X) simultaneous_with start(Y)'
+
+PROPERTY :"RO_0002180"   
+  LABEL @en 'has component' 
+  ISA :"BFO_0000051"  
+
+PROPERTY :"RO_0002350"   
+  LABEL @en 'member of' 
+
+PROPERTY :"RO_0002479"   
+  LABEL @en 'has part that occurs in' 
+
+PROPERTY :"Ontorel-Core_0000002"   
+  LABEL @en 'has textual value' 
+
+PROPERTY :"Ontorel-Core_0000003"   
+  LABEL @en 'has numerical value' 
+
+PROPERTY :"Ontorel-Core_0000004"   
+  LABEL @en 'has temporal value' 
+
+PROPERTY :"topDataProperty"  
+
+CLASS :"HOSO_0000003"   
+  LABEL @en 'healthcare service organism specification'  
+
+CLASS :"HOSO_0000124"   
+  LABEL @en 'healthcare organization clinical visit pathological condition impact statement'  
+  :"RO_0002180"  [1..*] :"HOSO_0000100" 
+  :"RO_0002180"  [1..*] :"HEPRO_0000017" 
+  :"RO_0002180"  [1..*] :"HOSO_0000126" 
+
+CLASS :"NCBITaxon_9606"   
+  LABEL @en 'Homo sapiens'  
+
+CLASS :"HOSO_0000126"   
+  LABEL @en 'pathological condition impact type on clinical visit'  
+
+CLASS :"HOSO_0000008"   
+  LABEL @en 'healthcare organization'  
+
+CLASS :"MPHPO_0000001"   
+  LABEL @en 'MPHPO pathological condition impact type on clinical visit ' 
+  DESCRIPTION @en 'Parent class with data property.' 
+  ISA :"HOSO_0000126"  
+  :"Ontorel-Core_0000002"  [1..1] :"string" 
+
+CLASS :"HOSO_0000009"   
+  LABEL @en 'healthcare provider'  
+  :"RO_0002350"  [1..*] :"HOSO_0000008" 
+
+CLASS :"HOSO_0000084"   
+  LABEL @en 'healthcare physician service identifier'  
+  :"IAO_0000219"  [1..1] :"HOSO_0000079" 
+  :"IAO_0000219"  [1..1] :"HOSO_0000008" 
+
+CLASS :"MPHPO_0000004"   
+  LABEL @en 'MPHPO HOSD ending temporal information ' 
+  DESCRIPTION @en 'Parent class with data property.' 
+  :"OpenLHS-Core_0000070"  [1..*] :"HOSO_0000056" 
+  :"Ontorel-Core_0000004"  [1..1] :"Ontorel-Core_0000001" 
+
+CLASS :"MPHPO_0000005"   
+  LABEL @en 'MPHPO living environment type ' 
+  DESCRIPTION @en 'Parent class with data property.' 
+  ISA :"IOIO_0000023"  
+  :"Ontorel-Core_0000002"  [1..1] :"string" 
+
+CLASS :"MPHPO_0000002"   
+  LABEL @en 'MPHPO pathological condition sub-group name ' 
+  DESCRIPTION @en 'Parent class with data property.' 
+  ISA :"HEPRO_0000017"  
+  :"Ontorel-Core_0000002"  [1..1] :"string" 
+
+CLASS :"HOSO_0000085"   
+  LABEL @en 'hospitalization starting with ICU stay'  
+  ISA :"HOSO_0000031"  
+
+CLASS :"MPHPO_0000003"   
+  LABEL @en 'MPHPO HOSD beginning temporal information' 
+  DESCRIPTION @en 'Parent class with data property.' 
+  :"OpenLHS-Core_0000070"  [1..*] :"HOSO_0000055" 
+  :"Ontorel-Core_0000004"  [1..1] :"Ontorel-Core_0000001" 
+
+CLASS :"IOIO_0000014"   
+  LABEL @en 'human identifier'  
+  :"IAO_0000219"  [1..*] :"NCBITaxon_9606" 
+
+CLASS :"MPHPO_0000009"   
+  LABEL @en 'MPHPO human birth date' 
+  DESCRIPTION @en 'Parent class with data property.' 
+  ISA :"IOIO_0000005"  
+  :"Ontorel-Core_0000004"  [1..1] :"Ontorel-Core_0000001" 
+
+CLASS :"IOIO_0000015"   
+  LABEL @en 'human biological sex statement'  
+  :"RO_0002180"  [1..*] :"IOIO_0000014" 
+  :"RO_0002180"  [1..*] :"IOIO_0000011" 
+
+CLASS :"MPHPO_0000006"   
+  LABEL @en 'MPHPO healthcare physician service identifier ' 
+  DESCRIPTION @en 'Parent class with data property.' 
+  ISA :"HOSO_0000084"  
+  :"Ontorel-Core_0000002"  [1..1] :"string" 
+
+CLASS :"HOSO_0000100"   
+  LABEL @en 'healthcare organization service delivery identifier'  
+  :"IAO_0000219"  [1..*] :"HOSO_0000011" 
+
+CLASS :"MPHPO_0000007"   
+  LABEL @en 'MPHPO hospitalization admission urgency level specification ' 
+  DESCRIPTION @en 'Parent class with data property.' 
+  ISA :"HOSO_0000074"  
+  :"Ontorel-Core_0000002"  [1..1] :"string" 
+
+CLASS :"IOIO_0000001"   
+  LABEL @en 'human birth statement'  
+  :"RO_0002180"  [1..*] :"IOIO_0000005" 
+  :"RO_0002180"  [1..*] :"IOIO_0000014" 
+
+CLASS :"IOIO_0000023"   
+  LABEL @en 'living environment type'  
+
+CLASS :"HOSO_0000080"   
+  LABEL @en 'living environment type prior to clinical visit statement'  
+  :"RO_0002180"  [1..*] :"IOIO_0000023" 
+  :"RO_0002180"  [1..*] :"HOSO_0000100" 
+
+CLASS :"HOSO_0000138"   
+  LABEL @en 'healthcare provider identifier'  
+  :"IAO_0000219"  [1..*] :"HOSO_0000009" 
+
+CLASS :"HOSO_0000137"   
+  LABEL @en 'human clinical visit specified patient'  
+  ISA :"NCBITaxon_9606"  
+  :"IAO_0000235"  [1..*] :"HOSO_0000003" 
+
+CLASS :"MPHPO_0000011"   
+  LABEL @en 'MPHPO human death date' 
+  DESCRIPTION @en 'Parent class with data property.' 
+  ISA :"IOIO_0000006"  
+  :"Ontorel-Core_0000004"  [1..1] :"Ontorel-Core_0000001" 
+
+CLASS :"MPHPO_0000010"   
+  LABEL @en 'MPHPO human biological sex information content entity' 
+  DESCRIPTION @en 'Parent class with data property.' 
+  ISA :"IOIO_0000011"  
+  :"Ontorel-Core_0000002"  [1..1] :"string" 
+
+CLASS :"IOIO_0000006"   
+  LABEL @en 'human death temporal information'  
+  :"OpenLHS-Core_0000070"  [1..*] :"IOIO_0000003" 
+
+CLASS :"HOSO_0000072"   
+  LABEL @en 'ED by ambulance initiated hospitalization'  
+  ISA :"HOSO_0000031"  
+
+CLASS :"HOSO_0000031"   
+  LABEL @en 'hospitalization'  
+  ISA :"HOSO_0000012"  
+
+CLASS :"HOSO_0000074"   
+  LABEL @en 'clinical visit agreement specification'  
+
+CLASS :"HOSO_0000011"   
+  LABEL @en 'healthcare organization service delivery'  
+
+CLASS :"HOSO_0000055"   
+  LABEL @en 'healthcare organization service delivery beginning statement'  
+  :"RO_0002180"  [1..*] :"HOSO_0000100" 
+
+CLASS :"HOSO_0000032"   
+  LABEL @en 'emergency department visit'  
+  ISA :"HOSO_0000012"  
+
+CLASS :"IOIO_0000003"   
+  LABEL @en 'human death statement'  
+  :"RO_0002180"  [1..*] :"IOIO_0000006" 
+  :"RO_0002180"  [1..*] :"IOIO_0000014" 
+
+CLASS :"HOSO_0000079"   
+  LABEL @en 'healthcare physician service' 
+  DESCRIPTION @en 'It is often a sub-organization of a department. Ex: General internal medicine service is under the medicine department.' 
+  ISA :"HOSO_0000008"  
+  :"RO_0002350"  [1..*] :"HOSO_0000008" 
+
+CLASS :"HOSO_0000012"   
+  LABEL @en 'healthcare organization clinical visit'  
+  ISA :"HOSO_0000011"  
+  :"OpenLHS-Core_0000004"  [1..*] :"HOSO_0000074" 
+  :"OpenLHS-Core_0000004"  [1..1] :"HOSO_0000003" 
+  :"RO_0002180"  [0..*] :"HOSO_0000012" 
+
+CLASS :"HOSO_0000056"   
+  LABEL @en 'healthcare organization service delivery ending statement'  
+  :"RO_0002180"  [1..*] :"HOSO_0000100" 
+
+CLASS :"HOSO_0000078"   
+  LABEL @en 'hospitalization admitting physician specification'  
+  ISA :"HOSO_0000074"  
+  :"BFO_0000051"  [1..*] :"HOSO_0000138" 
+
+CLASS :"IOIO_0000005"   
+  LABEL @en 'human birth temporal information'  
+  :"OpenLHS-Core_0000070"  [1..*] :"IOIO_0000001" 
+
+CLASS :"HEPRO_0000017"   
+  LABEL @en 'pathological condition sub-group name' 
+  DESCRIPTION @en 'We suppose that if an ICE is about a group of particular entities, it is also about each of these entities.' 
+
+CLASS :"IOIO_0000011"   
+  LABEL @en 'human biological sex information content entity'  
+

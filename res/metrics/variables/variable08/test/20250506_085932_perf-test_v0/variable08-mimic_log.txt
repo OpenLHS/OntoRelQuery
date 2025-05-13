@@ -1,0 +1,233 @@
+> ============================ Trial for variable08 mimic 
+min=1 max=1 inc=1
+> ============================ Input size : 1
+SET
+ pg_stat_statements_reset 
+--------------------------
+ 
+(1 row)
+
+> Loop number : 1
+SET
+SET
+SET
+SET
+SET
+SET
+SET
+SET
+SET
+                                                             QUERY PLAN                                                             
+------------------------------------------------------------------------------------------------------------------------------------
+ Hash Right Join  (cost=51505.30..67551.00 rows=309868 width=8) (actual time=635.535..1037.283 rows=311122 loops=1)
+   Hash Cond: (service.hadm_id = admissions.hadm_id)
+   Buffers: shared hit=161 read=11471, temp read=2377 written=4089
+   I/O Timings: shared read=213.453, temp read=9.405 write=45.494
+   ->  Subquery Scan on service  (cost=31915.52..42814.49 rows=377037 width=8) (actual time=443.887..643.382 rows=429844 loops=1)
+         Buffers: shared read=3056, temp read=1136 written=2848
+         I/O Timings: shared read=182.085, temp read=4.506 write=29.233
+         ->  HashAggregate  (cost=31915.52..39044.12 rows=377037 width=8) (actual time=443.885..595.545 rows=429844 loops=1)
+               Group Key: services.hadm_id, services.curr_service
+               Planned Partitions: 8  Batches: 9  Memory Usage: 10577kB  Disk Usage: 15016kB
+               Buffers: shared read=3056, temp read=1136 written=2848
+               I/O Timings: shared read=182.085, temp read=4.506 write=29.233
+               ->  Seq Scan on services  (cost=0.00..7736.29 rows=429853 width=8) (actual time=22.811..242.008 rows=429854 loops=1)
+                     Filter: (prev_service IS NULL)
+                     Rows Removed by Filter: 38175
+                     Buffers: shared read=3056
+                     I/O Timings: shared read=182.085
+   ->  Hash  (cost=14505.43..14505.43 rows=309868 width=4) (actual time=189.275..189.276 rows=311122 loops=1)
+         Buckets: 262144  Batches: 2  Memory Usage: 7500kB
+         Buffers: shared hit=161 read=8415, temp written=457
+         I/O Timings: shared read=31.368, temp write=6.024
+         ->  Seq Scan on admissions  (cost=0.00..14505.43 rows=309868 width=4) (actual time=0.034..123.579 rows=311122 loops=1)
+               Filter: ((admission_type)::text <> ALL ('{"AMBULATORY OBSERVATION","DIRECT OBSERVATION","EU OBSERVATION"}'::text[]))
+               Rows Removed by Filter: 120109
+               Buffers: shared hit=161 read=8415
+               I/O Timings: shared read=31.368
+ Settings: search_path = 'test_mimic'
+ Planning:
+   Buffers: shared hit=228 read=5
+   I/O Timings: shared read=46.890
+ Planning Time: 48.018 ms
+ Execution Time: 1057.810 ms
+(32 rows)
+
+> Loop number : 2
+SET
+SET
+SET
+SET
+SET
+SET
+SET
+SET
+SET
+                                                             QUERY PLAN                                                             
+------------------------------------------------------------------------------------------------------------------------------------
+ Hash Right Join  (cost=51505.30..67551.00 rows=309868 width=8) (actual time=455.693..862.571 rows=311122 loops=1)
+   Hash Cond: (service.hadm_id = admissions.hadm_id)
+   Buffers: shared hit=3249 read=8383, temp read=2377 written=4089
+   I/O Timings: shared read=31.243, temp read=9.379 write=46.239
+   ->  Subquery Scan on service  (cost=31915.52..42814.49 rows=377037 width=8) (actual time=261.894..465.566 rows=429844 loops=1)
+         Buffers: shared hit=3056, temp read=1136 written=2848
+         I/O Timings: temp read=4.502 write=27.972
+         ->  HashAggregate  (cost=31915.52..39044.12 rows=377037 width=8) (actual time=261.892..416.731 rows=429844 loops=1)
+               Group Key: services.hadm_id, services.curr_service
+               Planned Partitions: 8  Batches: 9  Memory Usage: 10577kB  Disk Usage: 15016kB
+               Buffers: shared hit=3056, temp read=1136 written=2848
+               I/O Timings: temp read=4.502 write=27.972
+               ->  Seq Scan on services  (cost=0.00..7736.29 rows=429853 width=8) (actual time=0.012..69.892 rows=429854 loops=1)
+                     Filter: (prev_service IS NULL)
+                     Rows Removed by Filter: 38175
+                     Buffers: shared hit=3056
+   ->  Hash  (cost=14505.43..14505.43 rows=309868 width=4) (actual time=191.432..191.434 rows=311122 loops=1)
+         Buckets: 262144  Batches: 2  Memory Usage: 7500kB
+         Buffers: shared hit=193 read=8383, temp written=457
+         I/O Timings: shared read=31.243, temp write=7.947
+         ->  Seq Scan on admissions  (cost=0.00..14505.43 rows=309868 width=4) (actual time=0.042..124.112 rows=311122 loops=1)
+               Filter: ((admission_type)::text <> ALL ('{"AMBULATORY OBSERVATION","DIRECT OBSERVATION","EU OBSERVATION"}'::text[]))
+               Rows Removed by Filter: 120109
+               Buffers: shared hit=193 read=8383
+               I/O Timings: shared read=31.243
+ Settings: search_path = 'test_mimic'
+ Planning:
+   Buffers: shared hit=233
+ Planning Time: 1.003 ms
+ Execution Time: 879.714 ms
+(30 rows)
+
+> Loop number : 3
+SET
+SET
+SET
+SET
+SET
+SET
+SET
+SET
+SET
+                                                             QUERY PLAN                                                             
+------------------------------------------------------------------------------------------------------------------------------------
+ Hash Right Join  (cost=51505.30..67551.00 rows=309868 width=8) (actual time=457.480..867.666 rows=311122 loops=1)
+   Hash Cond: (service.hadm_id = admissions.hadm_id)
+   Buffers: shared hit=3281 read=8351, temp read=2377 written=4089
+   I/O Timings: shared read=31.002, temp read=9.392 write=44.783
+   ->  Subquery Scan on service  (cost=31915.52..42814.49 rows=377037 width=8) (actual time=266.572..471.099 rows=429844 loops=1)
+         Buffers: shared hit=3056, temp read=1136 written=2848
+         I/O Timings: temp read=4.492 write=28.493
+         ->  HashAggregate  (cost=31915.52..39044.12 rows=377037 width=8) (actual time=266.570..422.122 rows=429844 loops=1)
+               Group Key: services.hadm_id, services.curr_service
+               Planned Partitions: 8  Batches: 9  Memory Usage: 10577kB  Disk Usage: 15016kB
+               Buffers: shared hit=3056, temp read=1136 written=2848
+               I/O Timings: temp read=4.492 write=28.493
+               ->  Seq Scan on services  (cost=0.00..7736.29 rows=429853 width=8) (actual time=0.013..69.905 rows=429854 loops=1)
+                     Filter: (prev_service IS NULL)
+                     Rows Removed by Filter: 38175
+                     Buffers: shared hit=3056
+   ->  Hash  (cost=14505.43..14505.43 rows=309868 width=4) (actual time=188.554..188.555 rows=311122 loops=1)
+         Buckets: 262144  Batches: 2  Memory Usage: 7500kB
+         Buffers: shared hit=225 read=8351, temp written=457
+         I/O Timings: shared read=31.002, temp write=5.992
+         ->  Seq Scan on admissions  (cost=0.00..14505.43 rows=309868 width=4) (actual time=0.070..123.472 rows=311122 loops=1)
+               Filter: ((admission_type)::text <> ALL ('{"AMBULATORY OBSERVATION","DIRECT OBSERVATION","EU OBSERVATION"}'::text[]))
+               Rows Removed by Filter: 120109
+               Buffers: shared hit=225 read=8351
+               I/O Timings: shared read=31.002
+ Settings: search_path = 'test_mimic'
+ Planning:
+   Buffers: shared hit=233
+ Planning Time: 0.969 ms
+ Execution Time: 884.734 ms
+(30 rows)
+
+> Loop number : 4
+SET
+SET
+SET
+SET
+SET
+SET
+SET
+SET
+SET
+                                                             QUERY PLAN                                                             
+------------------------------------------------------------------------------------------------------------------------------------
+ Hash Right Join  (cost=51505.30..67551.00 rows=309868 width=8) (actual time=451.498..859.992 rows=311122 loops=1)
+   Hash Cond: (service.hadm_id = admissions.hadm_id)
+   Buffers: shared hit=3313 read=8319, temp read=2377 written=4089
+   I/O Timings: shared read=31.258, temp read=9.403 write=44.145
+   ->  Subquery Scan on service  (cost=31915.52..42814.49 rows=377037 width=8) (actual time=259.833..463.611 rows=429844 loops=1)
+         Buffers: shared hit=3056, temp read=1136 written=2848
+         I/O Timings: temp read=4.508 write=27.809
+         ->  HashAggregate  (cost=31915.52..39044.12 rows=377037 width=8) (actual time=259.831..414.705 rows=429844 loops=1)
+               Group Key: services.hadm_id, services.curr_service
+               Planned Partitions: 8  Batches: 9  Memory Usage: 10577kB  Disk Usage: 15016kB
+               Buffers: shared hit=3056, temp read=1136 written=2848
+               I/O Timings: temp read=4.508 write=27.809
+               ->  Seq Scan on services  (cost=0.00..7736.29 rows=429853 width=8) (actual time=0.012..69.453 rows=429854 loops=1)
+                     Filter: (prev_service IS NULL)
+                     Rows Removed by Filter: 38175
+                     Buffers: shared hit=3056
+   ->  Hash  (cost=14505.43..14505.43 rows=309868 width=4) (actual time=189.181..189.182 rows=311122 loops=1)
+         Buckets: 262144  Batches: 2  Memory Usage: 7500kB
+         Buffers: shared hit=257 read=8319, temp written=457
+         I/O Timings: shared read=31.258, temp write=6.098
+         ->  Seq Scan on admissions  (cost=0.00..14505.43 rows=309868 width=4) (actual time=0.070..124.147 rows=311122 loops=1)
+               Filter: ((admission_type)::text <> ALL ('{"AMBULATORY OBSERVATION","DIRECT OBSERVATION","EU OBSERVATION"}'::text[]))
+               Rows Removed by Filter: 120109
+               Buffers: shared hit=257 read=8319
+               I/O Timings: shared read=31.258
+ Settings: search_path = 'test_mimic'
+ Planning:
+   Buffers: shared hit=233
+ Planning Time: 1.005 ms
+ Execution Time: 880.559 ms
+(30 rows)
+
+> Loop number : 5
+SET
+SET
+SET
+SET
+SET
+SET
+SET
+SET
+SET
+                                                             QUERY PLAN                                                             
+------------------------------------------------------------------------------------------------------------------------------------
+ Hash Right Join  (cost=51505.30..67551.00 rows=309868 width=8) (actual time=450.265..852.588 rows=311122 loops=1)
+   Hash Cond: (service.hadm_id = admissions.hadm_id)
+   Buffers: shared hit=3345 read=8287, temp read=2377 written=4089
+   I/O Timings: shared read=30.625, temp read=9.501 write=44.302
+   ->  Subquery Scan on service  (cost=31915.52..42814.49 rows=377037 width=8) (actual time=259.650..461.051 rows=429844 loops=1)
+         Buffers: shared hit=3056, temp read=1136 written=2848
+         I/O Timings: temp read=4.573 write=28.008
+         ->  HashAggregate  (cost=31915.52..39044.12 rows=377037 width=8) (actual time=259.648..412.295 rows=429844 loops=1)
+               Group Key: services.hadm_id, services.curr_service
+               Planned Partitions: 8  Batches: 9  Memory Usage: 10577kB  Disk Usage: 15016kB
+               Buffers: shared hit=3056, temp read=1136 written=2848
+               I/O Timings: temp read=4.573 write=28.008
+               ->  Seq Scan on services  (cost=0.00..7736.29 rows=429853 width=8) (actual time=0.013..69.865 rows=429854 loops=1)
+                     Filter: (prev_service IS NULL)
+                     Rows Removed by Filter: 38175
+                     Buffers: shared hit=3056
+   ->  Hash  (cost=14505.43..14505.43 rows=309868 width=4) (actual time=188.230..188.232 rows=311122 loops=1)
+         Buckets: 262144  Batches: 2  Memory Usage: 7500kB
+         Buffers: shared hit=289 read=8287, temp written=457
+         I/O Timings: shared read=30.625, temp write=6.068
+         ->  Seq Scan on admissions  (cost=0.00..14505.43 rows=309868 width=4) (actual time=0.069..123.392 rows=311122 loops=1)
+               Filter: ((admission_type)::text <> ALL ('{"AMBULATORY OBSERVATION","DIRECT OBSERVATION","EU OBSERVATION"}'::text[]))
+               Rows Removed by Filter: 120109
+               Buffers: shared hit=289 read=8287
+               I/O Timings: shared read=30.625
+ Settings: search_path = 'test_mimic'
+ Planning:
+   Buffers: shared hit=233
+ Planning Time: 1.001 ms
+ Execution Time: 872.937 ms
+(30 rows)
+
+SET
+INSERT 0 1

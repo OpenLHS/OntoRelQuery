@@ -1,0 +1,39 @@
+
+======================================================= 
+OntoRel Diagnostics
+======================================================= 
+
+--------------------------------------- 
+OWL to SQL datatypes
+--------------------------------------- 
+OWL Type langString does not exist in config file. The type TEXT will be used
+============ Reduction summary
+Creating join table for: IOIO_0000014 [1..*] IAO_0000219 NCBITaxon_9606
+Creating join table for: HOSO_0000124 [1..*] RO_0002180 HOSO_0000100
+Creating join table for: HOSO_0000124 [1..*] RO_0002180 HEPRO_0000017
+Creating join table for: HOSO_0000124 [1..*] RO_0002180 HOSO_0000126
+Creating join table for: HOSO_0000138 [1..*] IAO_0000219 HOSO_0000009
+Creating join table for: IOIO_0000006 [1..*] OpenLHS-Core_0000070 IOIO_0000003
+Creating join table for: HOSO_0000079 [1..*] RO_0002350 HOSO_0000008
+Creating join table for: MPHPO_0000004 [1..*] OpenLHS-Core_0000070 HOSO_0000056
+Creating join table for: HOSO_0000100 [1..*] IAO_0000219 HOSO_0000011
+Creating join table for: HOSO_0000055 [1..*] RO_0002180 HOSO_0000100
+Creating join table for: IOIO_0000001 [1..*] RO_0002180 IOIO_0000005
+Creating join table for: IOIO_0000001 [1..*] RO_0002180 IOIO_0000014
+Creating join table for: HOSO_0000084 [1..1] IAO_0000219 HOSO_0000079
+Creating join table for: HOSO_0000084 [1..1] IAO_0000219 HOSO_0000008
+Creating join table for: IOIO_0000015 [1..*] RO_0002180 IOIO_0000014
+Creating join table for: IOIO_0000015 [1..*] RO_0002180 IOIO_0000011
+Creating join table for: IOIO_0000005 [1..*] OpenLHS-Core_0000070 IOIO_0000001
+Creating join table for: HOSO_0000080 [1..*] RO_0002180 IOIO_0000023
+Creating join table for: HOSO_0000080 [1..*] RO_0002180 HOSO_0000100
+Creating join table for: IOIO_0000003 [1..*] RO_0002180 IOIO_0000006
+Creating join table for: IOIO_0000003 [1..*] RO_0002180 IOIO_0000014
+Creating join table for: HOSO_0000137 [1..*] IAO_0000235 HOSO_0000003
+Creating join table for: MPHPO_0000003 [1..*] OpenLHS-Core_0000070 HOSO_0000055
+Creating join table for: HOSO_0000012 [1..*] OpenLHS-Core_0000004 HOSO_0000074
+Creating join table for: HOSO_0000012 [1..1] OpenLHS-Core_0000004 HOSO_0000003
+Creating join table for: HOSO_0000012 [0..*] RO_0002180 HOSO_0000012
+Creating join table for: HOSO_0000056 [1..*] RO_0002180 HOSO_0000100
+Creating join table for: HOSO_0000078 [1..*] BFO_0000051 HOSO_0000138
+Creating join table for: HOSO_0000009 [1..*] RO_0002350 HOSO_0000008

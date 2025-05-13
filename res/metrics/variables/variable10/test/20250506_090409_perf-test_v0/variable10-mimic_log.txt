@@ -1,0 +1,312 @@
+> ============================ Trial for variable10 mimic 
+min=1 max=1 inc=1
+> ============================ Input size : 1
+SET
+ pg_stat_statements_reset 
+--------------------------
+ 
+(1 row)
+
+> Loop number : 1
+SET
+SET
+SET
+SET
+SET
+SET
+SET
+SET
+SET
+                                                                              QUERY PLAN                                                                               
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+ HashAggregate  (cost=78150.90..83670.42 rows=309868 width=8) (actual time=1677.897..1794.875 rows=311122 loops=1)
+   Group Key: admissions.hadm_id, CASE WHEN ((1) IS NOT NULL) THEN (1) ELSE 0 END
+   Planned Partitions: 4  Batches: 21  Memory Usage: 10289kB  Disk Usage: 7368kB
+   Buffers: shared hit=301 read=35231, temp read=796 written=1528
+   I/O Timings: shared read=2697.946, temp read=3.209 write=15.571
+   ->  Hash Left Join  (cost=44204.94..60720.83 rows=309868 width=8) (actual time=1350.824..1557.516 rows=311125 loops=1)
+         Hash Cond: (admissions.hadm_id = transfers.hadm_id)
+         Buffers: shared hit=301 read=35231
+         I/O Timings: shared read=2697.946
+         ->  Seq Scan on admissions  (cost=0.00..14505.43 rows=309868 width=4) (actual time=0.037..132.351 rows=311122 loops=1)
+               Filter: ((admission_type)::text <> ALL ('{"AMBULATORY OBSERVATION","DIRECT OBSERVATION","EU OBSERVATION"}'::text[]))
+               Rows Removed by Filter: 120109
+               Buffers: shared hit=96 read=8480
+               I/O Timings: shared read=34.422
+         ->  Hash  (cost=44050.59..44050.59 rows=12348 width=8) (actual time=1350.653..1352.172 rows=38672 loops=1)
+               Buckets: 65536 (originally 16384)  Batches: 1 (originally 1)  Memory Usage: 2023kB
+               Buffers: shared hit=205 read=26751
+               I/O Timings: shared read=2663.524
+               ->  Gather  (cost=31102.20..44050.59 rows=12348 width=8) (actual time=1284.505..1344.608 rows=38672 loops=1)
+                     Workers Planned: 2
+                     Workers Launched: 2
+                     Buffers: shared hit=205 read=26751
+                     I/O Timings: shared read=2663.524
+                     ->  Parallel Hash Join  (cost=30102.20..41815.79 rows=5145 width=8) (actual time=1280.568..1339.692 rows=12891 loops=3)
+                           Hash Cond: (admissions_1.hadm_id = transfers.hadm_id)
+                           Buffers: shared hit=205 read=26751
+                           I/O Timings: shared read=2663.524
+                           ->  Parallel Seq Scan on admissions admissions_1  (cost=0.00..11046.59 rows=129112 width=4) (actual time=0.076..41.707 rows=103707 loops=3)
+                                 Filter: ((admission_type)::text <> ALL ('{"AMBULATORY OBSERVATION","DIRECT OBSERVATION","EU OBSERVATION"}'::text[]))
+                                 Rows Removed by Filter: 40036
+                                 Buffers: shared hit=7 read=8575
+                                 I/O Timings: shared read=34.456
+                           ->  Parallel Hash  (cost=29994.57..29994.57 rows=8610 width=4) (actual time=1280.105..1280.106 rows=13043 loops=3)
+                                 Buckets: 65536 (originally 32768)  Batches: 1 (originally 1)  Memory Usage: 2336kB
+                                 Buffers: shared read=18176
+                                 I/O Timings: shared read=2629.068
+                                 ->  Parallel Seq Scan on transfers  (cost=0.00..29994.57 rows=8610 width=4) (actual time=13.808..1256.283 rows=13043 loops=3)
+                                       Filter: (((careunit)::text ~* '.*cu\).*'::text) AND ((eventtype)::text = 'admit'::text))
+                                       Rows Removed by Filter: 617281
+                                       Buffers: shared read=18176
+                                       I/O Timings: shared read=2629.068
+ Settings: search_path = 'test_mimic'
+ Planning:
+   Buffers: shared hit=284 read=32
+   I/O Timings: shared read=139.229
+ Planning Time: 141.175 ms
+ Execution Time: 1812.530 ms
+(47 rows)
+
+> Loop number : 2
+SET
+SET
+SET
+SET
+SET
+SET
+SET
+SET
+SET
+                                                                              QUERY PLAN                                                                               
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+ HashAggregate  (cost=78150.90..83670.42 rows=309868 width=8) (actual time=814.951..930.606 rows=311122 loops=1)
+   Group Key: admissions.hadm_id, CASE WHEN ((1) IS NOT NULL) THEN (1) ELSE 0 END
+   Planned Partitions: 4  Batches: 21  Memory Usage: 10289kB  Disk Usage: 7368kB
+   Buffers: shared hit=653 read=34879, temp read=796 written=1528
+   I/O Timings: shared read=154.950, temp read=3.177 write=16.011
+   ->  Hash Left Join  (cost=44204.94..60720.83 rows=309868 width=8) (actual time=492.650..696.505 rows=311125 loops=1)
+         Hash Cond: (admissions.hadm_id = transfers.hadm_id)
+         Buffers: shared hit=653 read=34879
+         I/O Timings: shared read=154.950
+         ->  Seq Scan on admissions  (cost=0.00..14505.43 rows=309868 width=4) (actual time=0.047..131.501 rows=311122 loops=1)
+               Filter: ((admission_type)::text <> ALL ('{"AMBULATORY OBSERVATION","DIRECT OBSERVATION","EU OBSERVATION"}'::text[]))
+               Rows Removed by Filter: 120109
+               Buffers: shared hit=224 read=8352
+               I/O Timings: shared read=34.368
+         ->  Hash  (cost=44050.59..44050.59 rows=12348 width=8) (actual time=492.469..493.843 rows=38672 loops=1)
+               Buckets: 65536 (originally 16384)  Batches: 1 (originally 1)  Memory Usage: 2023kB
+               Buffers: shared hit=429 read=26527
+               I/O Timings: shared read=120.582
+               ->  Gather  (cost=31102.20..44050.59 rows=12348 width=8) (actual time=424.328..486.203 rows=38672 loops=1)
+                     Workers Planned: 2
+                     Workers Launched: 2
+                     Buffers: shared hit=429 read=26527
+                     I/O Timings: shared read=120.582
+                     ->  Parallel Hash Join  (cost=30102.20..41815.79 rows=5145 width=8) (actual time=420.500..480.896 rows=12891 loops=3)
+                           Hash Cond: (admissions_1.hadm_id = transfers.hadm_id)
+                           Buffers: shared hit=429 read=26527
+                           I/O Timings: shared read=120.582
+                           ->  Parallel Seq Scan on admissions admissions_1  (cost=0.00..11046.59 rows=129112 width=4) (actual time=0.046..43.359 rows=103707 loops=3)
+                                 Filter: ((admission_type)::text <> ALL ('{"AMBULATORY OBSERVATION","DIRECT OBSERVATION","EU OBSERVATION"}'::text[]))
+                                 Rows Removed by Filter: 40036
+                                 Buffers: shared hit=135 read=8447
+                                 I/O Timings: shared read=39.133
+                           ->  Parallel Hash  (cost=29994.57..29994.57 rows=8610 width=4) (actual time=420.014..420.016 rows=13043 loops=3)
+                                 Buckets: 65536 (originally 32768)  Batches: 1 (originally 1)  Memory Usage: 2336kB
+                                 Buffers: shared hit=96 read=18080
+                                 I/O Timings: shared read=81.449
+                                 ->  Parallel Seq Scan on transfers  (cost=0.00..29994.57 rows=8610 width=4) (actual time=0.109..401.689 rows=13043 loops=3)
+                                       Filter: (((careunit)::text ~* '.*cu\).*'::text) AND ((eventtype)::text = 'admit'::text))
+                                       Rows Removed by Filter: 617281
+                                       Buffers: shared hit=96 read=18080
+                                       I/O Timings: shared read=81.449
+ Settings: search_path = 'test_mimic'
+ Planning:
+   Buffers: shared hit=316
+ Planning Time: 1.718 ms
+ Execution Time: 949.944 ms
+(46 rows)
+
+> Loop number : 3
+SET
+SET
+SET
+SET
+SET
+SET
+SET
+SET
+SET
+                                                                              QUERY PLAN                                                                               
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+ HashAggregate  (cost=78150.90..83670.42 rows=309868 width=8) (actual time=805.109..922.118 rows=311122 loops=1)
+   Group Key: admissions.hadm_id, CASE WHEN ((1) IS NOT NULL) THEN (1) ELSE 0 END
+   Planned Partitions: 4  Batches: 21  Memory Usage: 10289kB  Disk Usage: 7368kB
+   Buffers: shared hit=1005 read=34527, temp read=796 written=1528
+   I/O Timings: shared read=135.515, temp read=3.175 write=15.760
+   ->  Hash Left Join  (cost=44204.94..60720.83 rows=309868 width=8) (actual time=481.637..686.588 rows=311125 loops=1)
+         Hash Cond: (admissions.hadm_id = transfers.hadm_id)
+         Buffers: shared hit=1005 read=34527
+         I/O Timings: shared read=135.515
+         ->  Seq Scan on admissions  (cost=0.00..14505.43 rows=309868 width=4) (actual time=0.032..131.530 rows=311122 loops=1)
+               Filter: ((admission_type)::text <> ALL ('{"AMBULATORY OBSERVATION","DIRECT OBSERVATION","EU OBSERVATION"}'::text[]))
+               Rows Removed by Filter: 120109
+               Buffers: shared hit=352 read=8224
+               I/O Timings: shared read=33.677
+         ->  Hash  (cost=44050.59..44050.59 rows=12348 width=8) (actual time=481.457..482.803 rows=38672 loops=1)
+               Buckets: 65536 (originally 16384)  Batches: 1 (originally 1)  Memory Usage: 2023kB
+               Buffers: shared hit=653 read=26303
+               I/O Timings: shared read=101.837
+               ->  Gather  (cost=31102.20..44050.59 rows=12348 width=8) (actual time=416.208..475.381 rows=38672 loops=1)
+                     Workers Planned: 2
+                     Workers Launched: 2
+                     Buffers: shared hit=653 read=26303
+                     I/O Timings: shared read=101.837
+                     ->  Parallel Hash Join  (cost=30102.20..41815.79 rows=5145 width=8) (actual time=412.506..470.759 rows=12891 loops=3)
+                           Hash Cond: (admissions_1.hadm_id = transfers.hadm_id)
+                           Buffers: shared hit=653 read=26303
+                           I/O Timings: shared read=101.837
+                           ->  Parallel Seq Scan on admissions admissions_1  (cost=0.00..11046.59 rows=129112 width=4) (actual time=0.069..41.547 rows=103707 loops=3)
+                                 Filter: ((admission_type)::text <> ALL ('{"AMBULATORY OBSERVATION","DIRECT OBSERVATION","EU OBSERVATION"}'::text[]))
+                                 Rows Removed by Filter: 40036
+                                 Buffers: shared hit=263 read=8319
+                                 I/O Timings: shared read=33.745
+                           ->  Parallel Hash  (cost=29994.57..29994.57 rows=8610 width=4) (actual time=412.008..412.009 rows=13043 loops=3)
+                                 Buckets: 65536 (originally 32768)  Batches: 1 (originally 1)  Memory Usage: 2336kB
+                                 Buffers: shared hit=192 read=17984
+                                 I/O Timings: shared read=68.093
+                                 ->  Parallel Seq Scan on transfers  (cost=0.00..29994.57 rows=8610 width=4) (actual time=0.107..395.960 rows=13043 loops=3)
+                                       Filter: (((careunit)::text ~* '.*cu\).*'::text) AND ((eventtype)::text = 'admit'::text))
+                                       Rows Removed by Filter: 617281
+                                       Buffers: shared hit=192 read=17984
+                                       I/O Timings: shared read=68.093
+ Settings: search_path = 'test_mimic'
+ Planning:
+   Buffers: shared hit=316
+ Planning Time: 1.546 ms
+ Execution Time: 941.150 ms
+(46 rows)
+
+> Loop number : 4
+SET
+SET
+SET
+SET
+SET
+SET
+SET
+SET
+SET
+                                                                              QUERY PLAN                                                                               
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+ HashAggregate  (cost=78150.90..83670.42 rows=309868 width=8) (actual time=806.122..922.200 rows=311122 loops=1)
+   Group Key: admissions.hadm_id, CASE WHEN ((1) IS NOT NULL) THEN (1) ELSE 0 END
+   Planned Partitions: 4  Batches: 21  Memory Usage: 10289kB  Disk Usage: 7368kB
+   Buffers: shared hit=1357 read=34175, temp read=796 written=1528
+   I/O Timings: shared read=132.423, temp read=3.207 write=15.638
+   ->  Hash Left Join  (cost=44204.94..60720.83 rows=309868 width=8) (actual time=484.601..687.967 rows=311125 loops=1)
+         Hash Cond: (admissions.hadm_id = transfers.hadm_id)
+         Buffers: shared hit=1357 read=34175
+         I/O Timings: shared read=132.423
+         ->  Seq Scan on admissions  (cost=0.00..14505.43 rows=309868 width=4) (actual time=0.033..130.518 rows=311122 loops=1)
+               Filter: ((admission_type)::text <> ALL ('{"AMBULATORY OBSERVATION","DIRECT OBSERVATION","EU OBSERVATION"}'::text[]))
+               Rows Removed by Filter: 120109
+               Buffers: shared hit=480 read=8096
+               I/O Timings: shared read=33.115
+         ->  Hash  (cost=44050.59..44050.59 rows=12348 width=8) (actual time=484.435..485.747 rows=38672 loops=1)
+               Buckets: 65536 (originally 16384)  Batches: 1 (originally 1)  Memory Usage: 2023kB
+               Buffers: shared hit=877 read=26079
+               I/O Timings: shared read=99.308
+               ->  Gather  (cost=31102.20..44050.59 rows=12348 width=8) (actual time=418.661..478.336 rows=38672 loops=1)
+                     Workers Planned: 2
+                     Workers Launched: 2
+                     Buffers: shared hit=877 read=26079
+                     I/O Timings: shared read=99.308
+                     ->  Parallel Hash Join  (cost=30102.20..41815.79 rows=5145 width=8) (actual time=414.966..473.523 rows=12891 loops=3)
+                           Hash Cond: (admissions_1.hadm_id = transfers.hadm_id)
+                           Buffers: shared hit=877 read=26079
+                           I/O Timings: shared read=99.308
+                           ->  Parallel Seq Scan on admissions admissions_1  (cost=0.00..11046.59 rows=129112 width=4) (actual time=0.052..41.663 rows=103707 loops=3)
+                                 Filter: ((admission_type)::text <> ALL ('{"AMBULATORY OBSERVATION","DIRECT OBSERVATION","EU OBSERVATION"}'::text[]))
+                                 Rows Removed by Filter: 40036
+                                 Buffers: shared hit=391 read=8191
+                                 I/O Timings: shared read=33.129
+                           ->  Parallel Hash  (cost=29994.57..29994.57 rows=8610 width=4) (actual time=414.481..414.482 rows=13043 loops=3)
+                                 Buckets: 65536 (originally 32768)  Batches: 1 (originally 1)  Memory Usage: 2336kB
+                                 Buffers: shared hit=288 read=17888
+                                 I/O Timings: shared read=66.180
+                                 ->  Parallel Seq Scan on transfers  (cost=0.00..29994.57 rows=8610 width=4) (actual time=0.111..392.541 rows=13043 loops=3)
+                                       Filter: (((careunit)::text ~* '.*cu\).*'::text) AND ((eventtype)::text = 'admit'::text))
+                                       Rows Removed by Filter: 617281
+                                       Buffers: shared hit=288 read=17888
+                                       I/O Timings: shared read=66.180
+ Settings: search_path = 'test_mimic'
+ Planning:
+   Buffers: shared hit=316
+ Planning Time: 1.518 ms
+ Execution Time: 939.705 ms
+(46 rows)
+
+> Loop number : 5
+SET
+SET
+SET
+SET
+SET
+SET
+SET
+SET
+SET
+                                                                              QUERY PLAN                                                                               
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+ HashAggregate  (cost=78150.90..83670.42 rows=309868 width=8) (actual time=811.427..930.911 rows=311122 loops=1)
+   Group Key: admissions.hadm_id, CASE WHEN ((1) IS NOT NULL) THEN (1) ELSE 0 END
+   Planned Partitions: 4  Batches: 21  Memory Usage: 10289kB  Disk Usage: 7368kB
+   Buffers: shared hit=1709 read=33823, temp read=796 written=1528
+   I/O Timings: shared read=131.281, temp read=3.291 write=15.924
+   ->  Hash Left Join  (cost=44204.94..60720.83 rows=309868 width=8) (actual time=479.557..687.568 rows=311125 loops=1)
+         Hash Cond: (admissions.hadm_id = transfers.hadm_id)
+         Buffers: shared hit=1709 read=33823
+         I/O Timings: shared read=131.281
+         ->  Seq Scan on admissions  (cost=0.00..14505.43 rows=309868 width=4) (actual time=0.036..130.765 rows=311122 loops=1)
+               Filter: ((admission_type)::text <> ALL ('{"AMBULATORY OBSERVATION","DIRECT OBSERVATION","EU OBSERVATION"}'::text[]))
+               Rows Removed by Filter: 120109
+               Buffers: shared hit=608 read=7968
+               I/O Timings: shared read=32.435
+         ->  Hash  (cost=44050.59..44050.59 rows=12348 width=8) (actual time=479.388..480.769 rows=38672 loops=1)
+               Buckets: 65536 (originally 16384)  Batches: 1 (originally 1)  Memory Usage: 2023kB
+               Buffers: shared hit=1101 read=25855
+               I/O Timings: shared read=98.846
+               ->  Gather  (cost=31102.20..44050.59 rows=12348 width=8) (actual time=414.473..473.336 rows=38672 loops=1)
+                     Workers Planned: 2
+                     Workers Launched: 2
+                     Buffers: shared hit=1101 read=25855
+                     I/O Timings: shared read=98.846
+                     ->  Parallel Hash Join  (cost=30102.20..41815.79 rows=5145 width=8) (actual time=410.839..469.076 rows=12891 loops=3)
+                           Hash Cond: (admissions_1.hadm_id = transfers.hadm_id)
+                           Buffers: shared hit=1101 read=25855
+                           I/O Timings: shared read=98.846
+                           ->  Parallel Seq Scan on admissions admissions_1  (cost=0.00..11046.59 rows=129112 width=4) (actual time=0.058..41.551 rows=103707 loops=3)
+                                 Filter: ((admission_type)::text <> ALL ('{"AMBULATORY OBSERVATION","DIRECT OBSERVATION","EU OBSERVATION"}'::text[]))
+                                 Rows Removed by Filter: 40036
+                                 Buffers: shared hit=519 read=8063
+                                 I/O Timings: shared read=32.710
+                           ->  Parallel Hash  (cost=29994.57..29994.57 rows=8610 width=4) (actual time=410.347..410.348 rows=13043 loops=3)
+                                 Buckets: 65536 (originally 32768)  Batches: 1 (originally 1)  Memory Usage: 2336kB
+                                 Buffers: shared hit=384 read=17792
+                                 I/O Timings: shared read=66.136
+                                 ->  Parallel Seq Scan on transfers  (cost=0.00..29994.57 rows=8610 width=4) (actual time=0.100..391.806 rows=13043 loops=3)
+                                       Filter: (((careunit)::text ~* '.*cu\).*'::text) AND ((eventtype)::text = 'admit'::text))
+                                       Rows Removed by Filter: 617281
+                                       Buffers: shared hit=384 read=17792
+                                       I/O Timings: shared read=66.136
+ Settings: search_path = 'test_mimic'
+ Planning:
+   Buffers: shared hit=316
+ Planning Time: 1.530 ms
+ Execution Time: 948.481 ms
+(46 rows)
+
+SET
+INSERT 0 1

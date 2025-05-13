@@ -1,0 +1,359 @@
+> ============================ Trial for variable06 ontorelMaterialized 
+min=1 max=1 inc=1
+> ============================ Input size : 1
+SET
+ pg_stat_statements_reset 
+--------------------------
+ 
+(1 row)
+
+> Loop number : 1
+SET
+SET
+SET
+SET
+SET
+SET
+SET
+SET
+SET
+                                                                                                                                QUERY PLAN                                                                                                                                
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+ Hash Left Join  (cost=138776.69..153245.61 rows=311122 width=72) (actual time=1271.465..1509.292 rows=311122 loops=1)
+   Hash Cond: ((patient_hospitalisation_debut_fin_vue.hospitalisation)::uuid = (nombre_semaines.hospitalisation)::uuid)
+   Buffers: shared hit=5933 read=2944, temp read=10853 written=10897
+   I/O Timings: shared read=519.629, temp read=40.284 write=132.149
+   ->  Seq Scan on patient_hospitalisation_debut_fin_vue  (cost=0.00..6055.22 rows=311122 width=40) (actual time=48.928..91.776 rows=311122 loops=1)
+         Buffers: shared hit=2943 read=1
+         I/O Timings: shared read=8.599
+   ->  Hash  (cost=132152.66..132152.66 rows=311122 width=48) (actual time=1221.631..1234.978 rows=166997 loops=1)
+         Buckets: 131072  Batches: 4  Memory Usage: 3138kB
+         Buffers: shared hit=2990 read=2943, temp read=8537 written=9186
+         I/O Timings: shared read=511.030, temp read=31.226 write=111.671
+         ->  Subquery Scan on nombre_semaines  (cost=75859.31..132152.66 rows=311122 width=48) (actual time=731.395..1188.273 rows=166997 loops=1)
+               Buffers: shared hit=2990 read=2943, temp read=8537 written=8581
+               I/O Timings: shared read=511.030, temp read=31.226 write=103.293
+               ->  Finalize GroupAggregate  (cost=75859.31..129041.44 rows=311122 width=48) (actual time=731.389..1169.678 rows=166997 loops=1)
+                     Group Key: curr.hospitalisation
+                     Buffers: shared hit=2990 read=2943, temp read=8537 written=8581
+                     I/O Timings: shared read=511.030, temp read=31.226 write=103.293
+                     ->  Gather Merge  (cost=75859.31..121459.31 rows=285000 width=48) (actual time=731.367..1025.651 rows=166997 loops=1)
+                           Workers Planned: 1
+                           Workers Launched: 1
+                           Buffers: shared hit=2990 read=2943, temp read=8537 written=8581
+                           I/O Timings: shared read=511.030, temp read=31.226 write=103.293
+                           ->  Partial GroupAggregate  (cost=74859.30..88396.80 rows=285000 width=48) (actual time=711.550..948.173 rows=83498 loops=2)
+                                 Group Key: curr.hospitalisation
+                                 Buffers: shared hit=2990 read=2943, temp read=8537 written=8581
+                                 I/O Timings: shared read=511.030, temp read=31.226 write=103.293
+                                 ->  Sort  (cost=74859.30..75571.80 rows=285000 width=40) (actual time=711.490..767.227 rows=351948 loops=2)
+                                       Sort Key: curr.hospitalisation
+                                       Sort Method: external merge  Disk: 18032kB
+                                       Buffers: shared hit=2990 read=2943, temp read=8537 written=8581
+                                       I/O Timings: shared read=511.030, temp read=31.226 write=103.293
+                                       Worker 0:  Sort Method: external merge  Disk: 16448kB
+                                       ->  Parallel Hash Join  (cost=8670.79..41242.94 rows=285000 width=40) (actual time=413.234..561.170 rows=351948 loops=2)
+                                             Hash Cond: ((curr.patient)::uuid = (prev.patient)::uuid)
+                                             Join Filter: (((curr.hospitalisation)::uuid <> (prev.hospitalisation)::uuid) AND ((prev.date_admission_hospitalisation)::timestamp without time zone <= (curr.date_admission_hospitalisation)::timestamp without time zone))
+                                             Rows Removed by Join Filter: 507508
+                                             Buffers: shared hit=2953 read=2943, temp read=4227 written=4256
+                                             I/O Timings: shared read=511.030, temp read=16.496 write=53.074
+                                             ->  Parallel Seq Scan on patient_hospitalisation_debut_fin_vue curr  (cost=0.00..4774.13 rows=183013 width=40) (actual time=0.040..22.274 rows=155561 loops=2)
+                                                   Buffers: shared hit=2944
+                                             ->  Parallel Hash  (cost=4774.13..4774.13 rows=183013 width=48) (actual time=337.646..337.648 rows=155561 loops=2)
+                                                   Buckets: 131072  Batches: 4  Memory Usage: 7168kB
+                                                   Buffers: shared hit=1 read=2943, temp written=1960
+                                                   I/O Timings: shared read=511.030, temp write=25.951
+                                                   ->  Parallel Seq Scan on patient_hospitalisation_debut_fin_vue prev  (cost=0.00..4774.13 rows=183013 width=48) (actual time=7.267..283.755 rows=155561 loops=2)
+                                                         Buffers: shared hit=1 read=2943
+                                                         I/O Timings: shared read=511.030
+ Settings: search_path = 'test_mimic'
+ Planning:
+   Buffers: shared hit=185 read=5
+   I/O Timings: shared read=6.888
+ Planning Time: 8.058 ms
+ JIT:
+   Functions: 46
+   Options: Inlining false, Optimization false, Expressions true, Deforming true
+   Timing: Generation 3.339 ms, Inlining 0.000 ms, Optimization 1.424 ms, Emission 52.409 ms, Total 57.172 ms
+ Execution Time: 1557.367 ms
+(58 rows)
+
+> Loop number : 2
+SET
+SET
+SET
+SET
+SET
+SET
+SET
+SET
+SET
+                                                                                                                                QUERY PLAN                                                                                                                                
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+ Hash Left Join  (cost=138776.69..153245.61 rows=311122 width=72) (actual time=987.639..1223.593 rows=311122 loops=1)
+   Hash Cond: ((patient_hospitalisation_debut_fin_vue.hospitalisation)::uuid = (nombre_semaines.hospitalisation)::uuid)
+   Buffers: shared hit=8877, temp read=10856 written=10893
+   I/O Timings: temp read=40.067 write=129.957
+   ->  Seq Scan on patient_hospitalisation_debut_fin_vue  (cost=0.00..6055.22 rows=311122 width=40) (actual time=18.516..59.605 rows=311122 loops=1)
+         Buffers: shared hit=2944
+   ->  Hash  (cost=132152.66..132152.66 rows=311122 width=48) (actual time=968.228..981.436 rows=166997 loops=1)
+         Buckets: 131072  Batches: 4  Memory Usage: 3138kB
+         Buffers: shared hit=5933, temp read=8540 written=9182
+         I/O Timings: temp read=31.019 write=109.403
+         ->  Subquery Scan on nombre_semaines  (cost=75859.31..132152.66 rows=311122 width=48) (actual time=472.136..933.613 rows=166997 loops=1)
+               Buffers: shared hit=5933, temp read=8540 written=8577
+               I/O Timings: temp read=31.019 write=100.571
+               ->  Finalize GroupAggregate  (cost=75859.31..129041.44 rows=311122 width=48) (actual time=472.132..915.470 rows=166997 loops=1)
+                     Group Key: curr.hospitalisation
+                     Buffers: shared hit=5933, temp read=8540 written=8577
+                     I/O Timings: temp read=31.019 write=100.571
+                     ->  Gather Merge  (cost=75859.31..121459.31 rows=285000 width=48) (actual time=472.113..771.078 rows=166997 loops=1)
+                           Workers Planned: 1
+                           Workers Launched: 1
+                           Buffers: shared hit=5933, temp read=8540 written=8577
+                           I/O Timings: temp read=31.019 write=100.571
+                           ->  Partial GroupAggregate  (cost=74859.30..88396.80 rows=285000 width=48) (actual time=453.611..691.692 rows=83498 loops=2)
+                                 Group Key: curr.hospitalisation
+                                 Buffers: shared hit=5933, temp read=8540 written=8577
+                                 I/O Timings: temp read=31.019 write=100.571
+                                 ->  Sort  (cost=74859.30..75571.80 rows=285000 width=40) (actual time=453.553..510.259 rows=351948 loops=2)
+                                       Sort Key: curr.hospitalisation
+                                       Sort Method: external merge  Disk: 18168kB
+                                       Buffers: shared hit=5933, temp read=8540 written=8577
+                                       I/O Timings: temp read=31.019 write=100.571
+                                       Worker 0:  Sort Method: external merge  Disk: 16312kB
+                                       ->  Parallel Hash Join  (cost=8670.79..41242.94 rows=285000 width=40) (actual time=155.946..302.387 rows=351948 loops=2)
+                                             Hash Cond: ((curr.patient)::uuid = (prev.patient)::uuid)
+                                             Join Filter: (((curr.hospitalisation)::uuid <> (prev.hospitalisation)::uuid) AND ((prev.date_admission_hospitalisation)::timestamp without time zone <= (curr.date_admission_hospitalisation)::timestamp without time zone))
+                                             Rows Removed by Join Filter: 507508
+                                             Buffers: shared hit=5896, temp read=4230 written=4252
+                                             I/O Timings: temp read=16.344 write=50.636
+                                             ->  Parallel Seq Scan on patient_hospitalisation_debut_fin_vue curr  (cost=0.00..4774.13 rows=183013 width=40) (actual time=0.029..20.433 rows=155561 loops=2)
+                                                   Buffers: shared hit=2944
+                                             ->  Parallel Hash  (cost=4774.13..4774.13 rows=183013 width=48) (actual time=82.725..82.727 rows=155561 loops=2)
+                                                   Buckets: 131072  Batches: 4  Memory Usage: 7168kB
+                                                   Buffers: shared hit=2944, temp written=1956
+                                                   I/O Timings: temp write=23.428
+                                                   ->  Parallel Seq Scan on patient_hospitalisation_debut_fin_vue prev  (cost=0.00..4774.13 rows=183013 width=48) (actual time=6.560..31.892 rows=155561 loops=2)
+                                                         Buffers: shared hit=2944
+ Settings: search_path = 'test_mimic'
+ Planning:
+   Buffers: shared hit=190
+ Planning Time: 1.074 ms
+ JIT:
+   Functions: 46
+   Options: Inlining false, Optimization false, Expressions true, Deforming true
+   Timing: Generation 3.144 ms, Inlining 0.000 ms, Optimization 1.271 ms, Emission 30.526 ms, Total 34.941 ms
+ Execution Time: 1266.012 ms
+(55 rows)
+
+> Loop number : 3
+SET
+SET
+SET
+SET
+SET
+SET
+SET
+SET
+SET
+                                                                                                                                QUERY PLAN                                                                                                                                
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+ Hash Left Join  (cost=138776.69..153245.61 rows=311122 width=72) (actual time=1014.172..1255.343 rows=311122 loops=1)
+   Hash Cond: ((patient_hospitalisation_debut_fin_vue.hospitalisation)::uuid = (nombre_semaines.hospitalisation)::uuid)
+   Buffers: shared hit=8877, temp read=10856 written=10900
+   I/O Timings: temp read=40.280 write=129.891
+   ->  Seq Scan on patient_hospitalisation_debut_fin_vue  (cost=0.00..6055.22 rows=311122 width=40) (actual time=18.630..60.633 rows=311122 loops=1)
+         Buffers: shared hit=2944
+   ->  Hash  (cost=132152.66..132152.66 rows=311122 width=48) (actual time=994.641..1009.303 rows=166997 loops=1)
+         Buckets: 131072  Batches: 4  Memory Usage: 3138kB
+         Buffers: shared hit=5933, temp read=8540 written=9189
+         I/O Timings: temp read=31.278 write=109.390
+         ->  Subquery Scan on nombre_semaines  (cost=75859.31..132152.66 rows=311122 width=48) (actual time=475.268..957.564 rows=166997 loops=1)
+               Buffers: shared hit=5933, temp read=8540 written=8584
+               I/O Timings: temp read=31.278 write=100.000
+               ->  Finalize GroupAggregate  (cost=75859.31..129041.44 rows=311122 width=48) (actual time=475.263..937.887 rows=166997 loops=1)
+                     Group Key: curr.hospitalisation
+                     Buffers: shared hit=5933, temp read=8540 written=8584
+                     I/O Timings: temp read=31.278 write=100.000
+                     ->  Gather Merge  (cost=75859.31..121459.31 rows=285000 width=48) (actual time=475.237..780.114 rows=166997 loops=1)
+                           Workers Planned: 1
+                           Workers Launched: 1
+                           Buffers: shared hit=5933, temp read=8540 written=8584
+                           I/O Timings: temp read=31.278 write=100.000
+                           ->  Partial GroupAggregate  (cost=74859.30..88396.80 rows=285000 width=48) (actual time=455.857..702.612 rows=83498 loops=2)
+                                 Group Key: curr.hospitalisation
+                                 Buffers: shared hit=5933, temp read=8540 written=8584
+                                 I/O Timings: temp read=31.278 write=100.000
+                                 ->  Sort  (cost=74859.30..75571.80 rows=285000 width=40) (actual time=455.798..514.887 rows=351948 loops=2)
+                                       Sort Key: curr.hospitalisation
+                                       Sort Method: external merge  Disk: 16848kB
+                                       Buffers: shared hit=5933, temp read=8540 written=8584
+                                       I/O Timings: temp read=31.278 write=100.000
+                                       Worker 0:  Sort Method: external merge  Disk: 17632kB
+                                       ->  Parallel Hash Join  (cost=8670.79..41242.94 rows=285000 width=40) (actual time=156.617..304.564 rows=351948 loops=2)
+                                             Hash Cond: ((curr.patient)::uuid = (prev.patient)::uuid)
+                                             Join Filter: (((curr.hospitalisation)::uuid <> (prev.hospitalisation)::uuid) AND ((prev.date_admission_hospitalisation)::timestamp without time zone <= (curr.date_admission_hospitalisation)::timestamp without time zone))
+                                             Rows Removed by Join Filter: 507508
+                                             Buffers: shared hit=5896, temp read=4230 written=4260
+                                             I/O Timings: temp read=16.503 write=50.225
+                                             ->  Parallel Seq Scan on patient_hospitalisation_debut_fin_vue curr  (cost=0.00..4774.13 rows=183013 width=40) (actual time=0.032..20.577 rows=155561 loops=2)
+                                                   Buffers: shared hit=2944
+                                             ->  Parallel Hash  (cost=4774.13..4774.13 rows=183013 width=48) (actual time=82.709..82.711 rows=155561 loops=2)
+                                                   Buckets: 131072  Batches: 4  Memory Usage: 7168kB
+                                                   Buffers: shared hit=2944, temp written=1960
+                                                   I/O Timings: temp write=23.561
+                                                   ->  Parallel Seq Scan on patient_hospitalisation_debut_fin_vue prev  (cost=0.00..4774.13 rows=183013 width=48) (actual time=6.471..31.689 rows=155561 loops=2)
+                                                         Buffers: shared hit=2944
+ Settings: search_path = 'test_mimic'
+ Planning:
+   Buffers: shared hit=190
+ Planning Time: 1.012 ms
+ JIT:
+   Functions: 46
+   Options: Inlining false, Optimization false, Expressions true, Deforming true
+   Timing: Generation 3.167 ms, Inlining 0.000 ms, Optimization 1.240 ms, Emission 30.494 ms, Total 34.901 ms
+ Execution Time: 1301.697 ms
+(55 rows)
+
+> Loop number : 4
+SET
+SET
+SET
+SET
+SET
+SET
+SET
+SET
+SET
+                                                                                                                                QUERY PLAN                                                                                                                                
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+ Hash Left Join  (cost=138776.69..153245.61 rows=311122 width=72) (actual time=980.692..1218.114 rows=311122 loops=1)
+   Hash Cond: ((patient_hospitalisation_debut_fin_vue.hospitalisation)::uuid = (nombre_semaines.hospitalisation)::uuid)
+   Buffers: shared hit=8877, temp read=10858 written=10888
+   I/O Timings: temp read=40.111 write=129.418
+   ->  Seq Scan on patient_hospitalisation_debut_fin_vue  (cost=0.00..6055.22 rows=311122 width=40) (actual time=18.473..60.762 rows=311122 loops=1)
+         Buffers: shared hit=2944
+   ->  Hash  (cost=132152.66..132152.66 rows=311122 width=48) (actual time=961.326..974.961 rows=166997 loops=1)
+         Buckets: 131072  Batches: 4  Memory Usage: 3138kB
+         Buffers: shared hit=5933, temp read=8542 written=9177
+         I/O Timings: temp read=31.161 write=108.861
+         ->  Subquery Scan on nombre_semaines  (cost=75859.31..132152.66 rows=311122 width=48) (actual time=472.105..928.049 rows=166997 loops=1)
+               Buffers: shared hit=5933, temp read=8542 written=8572
+               I/O Timings: temp read=31.161 write=100.287
+               ->  Finalize GroupAggregate  (cost=75859.31..129041.44 rows=311122 width=48) (actual time=472.101..910.557 rows=166997 loops=1)
+                     Group Key: curr.hospitalisation
+                     Buffers: shared hit=5933, temp read=8542 written=8572
+                     I/O Timings: temp read=31.161 write=100.287
+                     ->  Gather Merge  (cost=75859.31..121459.31 rows=285000 width=48) (actual time=472.082..767.165 rows=166997 loops=1)
+                           Workers Planned: 1
+                           Workers Launched: 1
+                           Buffers: shared hit=5933, temp read=8542 written=8572
+                           I/O Timings: temp read=31.161 write=100.287
+                           ->  Partial GroupAggregate  (cost=74859.30..88396.80 rows=285000 width=48) (actual time=454.635..692.317 rows=83498 loops=2)
+                                 Group Key: curr.hospitalisation
+                                 Buffers: shared hit=5933, temp read=8542 written=8572
+                                 I/O Timings: temp read=31.161 write=100.287
+                                 ->  Sort  (cost=74859.30..75571.80 rows=285000 width=40) (actual time=454.573..510.700 rows=351948 loops=2)
+                                       Sort Key: curr.hospitalisation
+                                       Sort Method: external merge  Disk: 18024kB
+                                       Buffers: shared hit=5933, temp read=8542 written=8572
+                                       I/O Timings: temp read=31.161 write=100.287
+                                       Worker 0:  Sort Method: external merge  Disk: 16456kB
+                                       ->  Parallel Hash Join  (cost=8670.79..41242.94 rows=285000 width=40) (actual time=156.251..304.006 rows=351948 loops=2)
+                                             Hash Cond: ((curr.patient)::uuid = (prev.patient)::uuid)
+                                             Join Filter: (((curr.hospitalisation)::uuid <> (prev.hospitalisation)::uuid) AND ((prev.date_admission_hospitalisation)::timestamp without time zone <= (curr.date_admission_hospitalisation)::timestamp without time zone))
+                                             Rows Removed by Join Filter: 507508
+                                             Buffers: shared hit=5896, temp read=4232 written=4248
+                                             I/O Timings: temp read=16.540 write=50.283
+                                             ->  Parallel Seq Scan on patient_hospitalisation_debut_fin_vue curr  (cost=0.00..4774.13 rows=183013 width=40) (actual time=0.026..20.313 rows=155561 loops=2)
+                                                   Buffers: shared hit=2944
+                                             ->  Parallel Hash  (cost=4774.13..4774.13 rows=183013 width=48) (actual time=82.497..82.498 rows=155561 loops=2)
+                                                   Buckets: 131072  Batches: 4  Memory Usage: 7168kB
+                                                   Buffers: shared hit=2944, temp written=1952
+                                                   I/O Timings: temp write=23.673
+                                                   ->  Parallel Seq Scan on patient_hospitalisation_debut_fin_vue prev  (cost=0.00..4774.13 rows=183013 width=48) (actual time=6.472..31.693 rows=155561 loops=2)
+                                                         Buffers: shared hit=2944
+ Settings: search_path = 'test_mimic'
+ Planning:
+   Buffers: shared hit=190
+ Planning Time: 1.031 ms
+ JIT:
+   Functions: 46
+   Options: Inlining false, Optimization false, Expressions true, Deforming true
+   Timing: Generation 3.158 ms, Inlining 0.000 ms, Optimization 1.238 ms, Emission 30.325 ms, Total 34.721 ms
+ Execution Time: 1261.963 ms
+(55 rows)
+
+> Loop number : 5
+SET
+SET
+SET
+SET
+SET
+SET
+SET
+SET
+SET
+                                                                                                                                QUERY PLAN                                                                                                                                
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+ Hash Left Join  (cost=138776.69..153245.61 rows=311122 width=72) (actual time=982.986..1220.613 rows=311122 loops=1)
+   Hash Cond: ((patient_hospitalisation_debut_fin_vue.hospitalisation)::uuid = (nombre_semaines.hospitalisation)::uuid)
+   Buffers: shared hit=8877, temp read=10855 written=10893
+   I/O Timings: temp read=40.316 write=129.300
+   ->  Seq Scan on patient_hospitalisation_debut_fin_vue  (cost=0.00..6055.22 rows=311122 width=40) (actual time=18.675..60.174 rows=311122 loops=1)
+         Buffers: shared hit=2944
+   ->  Hash  (cost=132152.66..132152.66 rows=311122 width=48) (actual time=963.272..976.845 rows=166997 loops=1)
+         Buckets: 131072  Batches: 4  Memory Usage: 3138kB
+         Buffers: shared hit=5933, temp read=8539 written=9182
+         I/O Timings: temp read=31.270 write=108.629
+         ->  Subquery Scan on nombre_semaines  (cost=75859.31..132152.66 rows=311122 width=48) (actual time=473.471..930.058 rows=166997 loops=1)
+               Buffers: shared hit=5933, temp read=8539 written=8577
+               I/O Timings: temp read=31.270 write=100.236
+               ->  Finalize GroupAggregate  (cost=75859.31..129041.44 rows=311122 width=48) (actual time=473.467..911.774 rows=166997 loops=1)
+                     Group Key: curr.hospitalisation
+                     Buffers: shared hit=5933, temp read=8539 written=8577
+                     I/O Timings: temp read=31.270 write=100.236
+                     ->  Gather Merge  (cost=75859.31..121459.31 rows=285000 width=48) (actual time=473.449..767.715 rows=166997 loops=1)
+                           Workers Planned: 1
+                           Workers Launched: 1
+                           Buffers: shared hit=5933, temp read=8539 written=8577
+                           I/O Timings: temp read=31.270 write=100.236
+                           ->  Partial GroupAggregate  (cost=74859.30..88396.80 rows=285000 width=48) (actual time=455.587..690.392 rows=83498 loops=2)
+                                 Group Key: curr.hospitalisation
+                                 Buffers: shared hit=5933, temp read=8539 written=8577
+                                 I/O Timings: temp read=31.270 write=100.236
+                                 ->  Sort  (cost=74859.30..75571.80 rows=285000 width=40) (actual time=455.528..510.286 rows=351948 loops=2)
+                                       Sort Key: curr.hospitalisation
+                                       Sort Method: external merge  Disk: 18096kB
+                                       Buffers: shared hit=5933, temp read=8539 written=8577
+                                       I/O Timings: temp read=31.270 write=100.236
+                                       Worker 0:  Sort Method: external merge  Disk: 16384kB
+                                       ->  Parallel Hash Join  (cost=8670.79..41242.94 rows=285000 width=40) (actual time=156.340..303.890 rows=351948 loops=2)
+                                             Hash Cond: ((curr.patient)::uuid = (prev.patient)::uuid)
+                                             Join Filter: (((curr.hospitalisation)::uuid <> (prev.hospitalisation)::uuid) AND ((prev.date_admission_hospitalisation)::timestamp without time zone <= (curr.date_admission_hospitalisation)::timestamp without time zone))
+                                             Rows Removed by Join Filter: 507508
+                                             Buffers: shared hit=5896, temp read=4229 written=4252
+                                             I/O Timings: temp read=16.555 write=50.369
+                                             ->  Parallel Seq Scan on patient_hospitalisation_debut_fin_vue curr  (cost=0.00..4774.13 rows=183013 width=40) (actual time=0.028..20.415 rows=155561 loops=2)
+                                                   Buffers: shared hit=2944
+                                             ->  Parallel Hash  (cost=4774.13..4774.13 rows=183013 width=48) (actual time=83.106..83.107 rows=155561 loops=2)
+                                                   Buckets: 131072  Batches: 4  Memory Usage: 7168kB
+                                                   Buffers: shared hit=2944, temp written=1956
+                                                   I/O Timings: temp write=23.684
+                                                   ->  Parallel Seq Scan on patient_hospitalisation_debut_fin_vue prev  (cost=0.00..4774.13 rows=183013 width=48) (actual time=6.474..31.911 rows=155561 loops=2)
+                                                         Buffers: shared hit=2944
+ Settings: search_path = 'test_mimic'
+ Planning:
+   Buffers: shared hit=190
+ Planning Time: 1.012 ms
+ JIT:
+   Functions: 46
+   Options: Inlining false, Optimization false, Expressions true, Deforming true
+   Timing: Generation 3.156 ms, Inlining 0.000 ms, Optimization 1.285 ms, Emission 30.620 ms, Total 35.061 ms
+ Execution Time: 1263.622 ms
+(55 rows)
+
+SET
+INSERT 0 1

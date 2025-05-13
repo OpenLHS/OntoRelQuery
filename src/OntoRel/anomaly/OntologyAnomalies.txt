@@ -1,0 +1,83 @@
+
+======================================================= 
+Classes without data association axiom
+======================================================= 
+http://purl.obolibrary.org/obo/HOSO_0000003
+http://purl.obolibrary.org/obo/HOSO_0000124
+http://purl.obolibrary.org/obo/NCBITaxon_9606
+http://purl.obolibrary.org/obo/HOSO_0000126
+http://purl.obolibrary.org/obo/HOSO_0000008
+http://purl.obolibrary.org/obo/HOSO_0000009
+http://purl.obolibrary.org/obo/HOSO_0000084
+http://purl.obolibrary.org/obo/HOSO_0000085
+http://purl.obolibrary.org/obo/IOIO_0000014
+http://purl.obolibrary.org/obo/IOIO_0000015
+http://purl.obolibrary.org/obo/HOSO_0000100
+http://purl.obolibrary.org/obo/IOIO_0000001
+http://purl.obolibrary.org/obo/IOIO_0000023
+http://purl.obolibrary.org/obo/HOSO_0000080
+http://purl.obolibrary.org/obo/HOSO_0000138
+http://purl.obolibrary.org/obo/HOSO_0000137
+http://purl.obolibrary.org/obo/IOIO_0000006
+http://purl.obolibrary.org/obo/HOSO_0000072
+http://purl.obolibrary.org/obo/HOSO_0000031
+http://purl.obolibrary.org/obo/HOSO_0000074
+http://purl.obolibrary.org/obo/HOSO_0000011
+http://purl.obolibrary.org/obo/HOSO_0000055
+http://purl.obolibrary.org/obo/HOSO_0000032
+http://purl.obolibrary.org/obo/IOIO_0000003
+http://purl.obolibrary.org/obo/HOSO_0000079
+http://purl.obolibrary.org/obo/HOSO_0000012
+http://purl.obolibrary.org/obo/HOSO_0000056
+http://purl.obolibrary.org/obo/HOSO_0000078
+http://purl.obolibrary.org/obo/IOIO_0000005
+http://purl.obolibrary.org/obo/HEPRO_0000017
+http://purl.obolibrary.org/obo/IOIO_0000011
+
+======================================================= 
+Leaf classes without data association axiom
+======================================================= 
+http://purl.obolibrary.org/obo/HOSO_0000003
+http://purl.obolibrary.org/obo/HOSO_0000085
+http://purl.obolibrary.org/obo/HOSO_0000072
+http://purl.obolibrary.org/obo/HOSO_0000032
+
+======================================================= 
+Isolated classes
+======================================================= 
+
+======================================================= 
+ InverseOf Object Property : (Property, list of inverse)
+======================================================= 
+
+======================================================= 
+Detected Inverse Cycles
+======================================================= 
+Inverse detected for property: 
+http://purl.obolibrary.org/obo/OpenLHS-Core_0000070
+Determinant: 
+http://purl.obolibrary.org/obo/IOIO_0000005
+Dependent: 
+http://purl.obolibrary.org/obo/IOIO_0000001
+
+Inverse detected for property: 
+http://purl.obolibrary.org/obo/OpenLHS-Core_0000070
+Determinant: 
+http://purl.obolibrary.org/obo/IOIO_0000006
+Dependent: 
+http://purl.obolibrary.org/obo/IOIO_0000003
+
+Inverse detected for property: 
+http://purl.obolibrary.org/obo/RO_0002180
+Determinant: 
+http://purl.obolibrary.org/obo/IOIO_0000001
+Dependent: 
+http://purl.obolibrary.org/obo/IOIO_0000005
+
+Inverse detected for property: 
+http://purl.obolibrary.org/obo/RO_0002180
+Determinant: 
+http://purl.obolibrary.org/obo/IOIO_0000003
+Dependent: 
+http://purl.obolibrary.org/obo/IOIO_0000006
+

@@ -1,0 +1,43 @@
+= Experiment
+
+We studied the usability of our querying approach using queries developed for a clinical decision system to improve palliative and end-of-life care outcomes for patients at a high risk of 1-year mortality. We conducted an experiment using a real-world use case and a public dataset from the healthcare domain.
+
+== Use case
+The study evaluates the clinical utility of multiple prediction models using routinely collected data among hospitalized patients, including demographics, hospitalization data and preferences for life-supporting therapy [Taseen 2021]. 
+
+As part of this project, 13 variables were collected and 4 machine learning models were tested. 
+An ontology, 'Mortality Prediction for Hospitalized Patients Ontology'  (https://github.com/OpenLHS/MPHPO), was developed to define the semantic of the collected data.
+
+== Dataset
+
+For the experiment, we used the real-world dataset MIMIC-IV (Medical Information Mart for Intensive Care).
+MIMIC-IV is a large anonymized database containing information on patients admitted to intensive care between 2008 and 2019 (total of 431 231 admissions).
+
+== Result
+
+In this experiment we captured the runtime of 13 queries (one query per variable) for four different implementations: (1) by querying the MIMIC tables directly, and through OntoRel layers (2) by directly querying the entity layer (Entity), (3) using the path layer (Path-View) and (4) using the materialized path layer (Materialized-Path).
+
+.Execution time for MIMIC-IV
+[%header, format=csv]
+|===
+include::mimic-metrics.csv[]
+|===
+
+
+.Execution time for OntoRel using the Entity layer
+[%header, format=csv]
+|===
+include::ontorel-metrics.csv[]
+|===
+
+.Execution time for OntoRel using the Path layer as Views
+[%header, format=csv]
+|===
+include::ontorelView-metrics.csv[]
+|===
+
+.Execution time for OntoRel using Path layer as Materialized Views
+[%header, format=csv]
+|===
+include::ontorelMaterialized-metrics.csv[]
+|===

@@ -1,0 +1,44 @@
+// Settings
+:idprefix:
+:idseparator: -
+:page-component-title: Application for generating queries using an ontology
+:page-component-name: OntoRelQuery
+= {page-component-name}
+
+[#overview]
+== Overview
+
+OntoRelQuery, an approach designed to simplify the formulation and management of queries. Our approach combines three tasks: (1) a query design expressed through ontologies, (2) a query implementation expressed using the relational model, and (3) a data extraction for query handling. 
+
+== Repository content
+__demo__ : required artefacts to run the demonstration. +
+__doc__ : contains technical reports. +
+__res__ : contains the evaluation results. +
+
+== Work in progress
+The tool will be available to the public soon.
+
+== Links 
+
+To generate the OntoRel use :
+OntoRela available at: https://github.com/OpenLHS/OntoRela
+
+[#licence]
+== Copyright and licences
+
+=== Responsable
+For more information please contact :
+
+Christina Khnaisser : Christina.Khnaisser@usherbrooke.ca +
+Ameni Souid: Ameni.Souid@usherbrooke.ca +
+Mohamed Amin Gaied: Mohamed.Amin.Gaied@usherbrooke.ca 
+
+=== Copyright
+include::copyright.adoc[]
+
+=== Licences
+The code for this project is licensed under the
+link:liliqr-licence-english.adoc[English version].
+
+La documentation de ce projet est sous licence
+https://creativecommons.org/licenses/by/4.0/[CC BY 4.0].

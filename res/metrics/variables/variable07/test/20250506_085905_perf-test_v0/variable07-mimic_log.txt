@@ -1,0 +1,132 @@
+> ============================ Trial for variable07 mimic 
+min=1 max=1 inc=1
+> ============================ Input size : 1
+SET
+ pg_stat_statements_reset 
+--------------------------
+ 
+(1 row)
+
+> Loop number : 1
+SET
+SET
+SET
+SET
+SET
+SET
+SET
+SET
+SET
+                                                       QUERY PLAN                                                       
+------------------------------------------------------------------------------------------------------------------------
+ Seq Scan on admissions  (cost=0.00..18378.78 rows=309868 width=36) (actual time=5.960..459.760 rows=311122 loops=1)
+   Filter: ((admission_type)::text <> ALL ('{"AMBULATORY OBSERVATION","DIRECT OBSERVATION","EU OBSERVATION"}'::text[]))
+   Rows Removed by Filter: 120109
+   Buffers: shared read=8576
+   I/O Timings: shared read=341.470
+ Settings: search_path = 'test_mimic'
+ Planning:
+   Buffers: shared hit=133 read=12
+   I/O Timings: shared read=54.900
+ Planning Time: 55.681 ms
+ Execution Time: 473.972 ms
+(11 rows)
+
+> Loop number : 2
+SET
+SET
+SET
+SET
+SET
+SET
+SET
+SET
+SET
+                                                       QUERY PLAN                                                       
+------------------------------------------------------------------------------------------------------------------------
+ Seq Scan on admissions  (cost=0.00..18378.78 rows=309868 width=36) (actual time=0.040..148.367 rows=311122 loops=1)
+   Filter: ((admission_type)::text <> ALL ('{"AMBULATORY OBSERVATION","DIRECT OBSERVATION","EU OBSERVATION"}'::text[]))
+   Rows Removed by Filter: 120109
+   Buffers: shared hit=33 read=8543
+   I/O Timings: shared read=31.644
+ Settings: search_path = 'test_mimic'
+ Planning:
+   Buffers: shared hit=145
+ Planning Time: 0.704 ms
+ Execution Time: 162.803 ms
+(10 rows)
+
+> Loop number : 3
+SET
+SET
+SET
+SET
+SET
+SET
+SET
+SET
+SET
+                                                       QUERY PLAN                                                       
+------------------------------------------------------------------------------------------------------------------------
+ Seq Scan on admissions  (cost=0.00..18378.78 rows=309868 width=36) (actual time=0.037..145.479 rows=311122 loops=1)
+   Filter: ((admission_type)::text <> ALL ('{"AMBULATORY OBSERVATION","DIRECT OBSERVATION","EU OBSERVATION"}'::text[]))
+   Rows Removed by Filter: 120109
+   Buffers: shared hit=65 read=8511
+   I/O Timings: shared read=29.129
+ Settings: search_path = 'test_mimic'
+ Planning:
+   Buffers: shared hit=145
+ Planning Time: 0.681 ms
+ Execution Time: 159.810 ms
+(10 rows)
+
+> Loop number : 4
+SET
+SET
+SET
+SET
+SET
+SET
+SET
+SET
+SET
+                                                       QUERY PLAN                                                       
+------------------------------------------------------------------------------------------------------------------------
+ Seq Scan on admissions  (cost=0.00..18378.78 rows=309868 width=36) (actual time=0.040..145.893 rows=311122 loops=1)
+   Filter: ((admission_type)::text <> ALL ('{"AMBULATORY OBSERVATION","DIRECT OBSERVATION","EU OBSERVATION"}'::text[]))
+   Rows Removed by Filter: 120109
+   Buffers: shared hit=97 read=8479
+   I/O Timings: shared read=29.375
+ Settings: search_path = 'test_mimic'
+ Planning:
+   Buffers: shared hit=145
+ Planning Time: 0.702 ms
+ Execution Time: 160.458 ms
+(10 rows)
+
+> Loop number : 5
+SET
+SET
+SET
+SET
+SET
+SET
+SET
+SET
+SET
+                                                       QUERY PLAN                                                       
+------------------------------------------------------------------------------------------------------------------------
+ Seq Scan on admissions  (cost=0.00..18378.78 rows=309868 width=36) (actual time=0.039..147.261 rows=311122 loops=1)
+   Filter: ((admission_type)::text <> ALL ('{"AMBULATORY OBSERVATION","DIRECT OBSERVATION","EU OBSERVATION"}'::text[]))
+   Rows Removed by Filter: 120109
+   Buffers: shared hit=129 read=8447
+   I/O Timings: shared read=30.046
+ Settings: search_path = 'test_mimic'
+ Planning:
+   Buffers: shared hit=145
+ Planning Time: 0.685 ms
+ Execution Time: 161.805 ms
+(10 rows)
+
+SET
+INSERT 0 1

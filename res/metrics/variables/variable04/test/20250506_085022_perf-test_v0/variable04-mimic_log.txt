@@ -1,0 +1,497 @@
+> ============================ Trial for variable04 mimic 
+min=1 max=1 inc=1
+> ============================ Input size : 1
+SET
+ pg_stat_statements_reset 
+--------------------------
+ 
+(1 row)
+
+> Loop number : 1
+SET
+SET
+SET
+SET
+SET
+SET
+SET
+SET
+SET
+                                                                                                   QUERY PLAN                                                                                                   
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+ Hash Left Join  (cost=198062.54..205090.54 rows=181509829 width=16) (actual time=2458.640..2575.965 rows=311122 loops=1)
+   Hash Cond: (hosppatient.hadm_id = nbvisitparhosp.hadm_id)
+   Buffers: shared hit=67 read=26957, temp read=7023 written=7101
+   I/O Timings: shared read=238.121, temp read=27.434 write=88.408
+   CTE hosppatient
+     ->  Seq Scan on admissions admissions_1  (cost=0.00..14505.43 rows=309868 width=16) (actual time=42.713..167.177 rows=311122 loops=1)
+           Filter: ((admission_type)::text <> ALL ('{"AMBULATORY OBSERVATION","DIRECT OBSERVATION","EU OBSERVATION"}'::text[]))
+           Rows Removed by Filter: 120109
+           Buffers: shared hit=33 read=8543
+           I/O Timings: shared read=33.985
+   ->  CTE Scan on hosppatient  (cost=0.00..6197.36 rows=309868 width=8) (actual time=42.719..80.528 rows=311122 loops=1)
+         Buffers: shared read=1, temp read=988 written=1
+         I/O Timings: shared read=0.011, temp read=4.218 write=0.046
+   ->  Hash  (cost=182092.70..182092.70 rows=117153 width=12) (actual time=2415.074..2415.084 rows=83966 loops=1)
+         Buckets: 131072  Batches: 1  Memory Usage: 4632kB
+         Buffers: shared hit=67 read=26956, temp read=6035 written=7100
+         I/O Timings: shared read=238.110, temp read=23.216 write=88.363
+         ->  Subquery Scan on nbvisitparhosp  (cost=178834.38..182092.70 rows=117153 width=12) (actual time=2357.912..2397.485 rows=83966 loops=1)
+               Buffers: shared hit=67 read=26956, temp read=6035 written=7100
+               I/O Timings: shared read=238.110, temp read=23.216 write=88.363
+               ->  HashAggregate  (cost=178834.38..180921.17 rows=117153 width=12) (actual time=2357.890..2386.588 rows=83966 loops=1)
+                     Group Key: admissions.hadm_id
+                     Batches: 5  Memory Usage: 8241kB  Disk Usage: 672kB
+                     Buffers: shared hit=67 read=26956, temp read=6035 written=7100
+                     I/O Timings: shared read=238.110, temp read=23.216 write=88.363
+                     ->  Merge Join  (cost=138437.22..172244.53 rows=117153 width=4) (actual time=1391.550..2295.859 rows=220975 loops=1)
+                           Merge Cond: (hosppatient_1.subject_id = edstays.subject_id)
+                           Join Filter: ((EXTRACT(day FROM (hosppatient_1.admittime - edstays_1.intime)) < '365'::numeric) AND (EXTRACT(day FROM (hosppatient_1.admittime - edstays_1.intime)) > '0'::numeric))
+                           Rows Removed by Join Filter: 1207339
+                           Buffers: shared hit=67 read=26956, temp read=5985 written=6982
+                           I/O Timings: shared read=238.110, temp read=22.978 write=85.870
+                           ->  Sort  (cost=54424.85..54981.50 rows=222661 width=16) (actual time=684.344..728.701 rows=311122 loops=1)
+                                 Sort Key: hosppatient_1.subject_id
+                                 Sort Method: external merge  Disk: 7936kB
+                                 Buffers: shared hit=34 read=17117, temp read=2136 written=3127
+                                 I/O Timings: shared read=71.432, temp read=8.048 write=37.883
+                                 ->  Hash Join  (cost=19589.78..30839.55 rows=222661 width=16) (actual time=192.427..589.845 rows=311122 loops=1)
+                                       Hash Cond: (hosppatient_1.hadm_id = admissions.hadm_id)
+                                       Buffers: shared hit=34 read=17117, temp read=1144 written=2131
+                                       I/O Timings: shared read=71.432, temp read=4.526 write=26.697
+                                       ->  CTE Scan on hosppatient hosppatient_1  (cost=0.00..6197.36 rows=309868 width=16) (actual time=0.008..244.969 rows=311122 loops=1)
+                                             Buffers: shared hit=33 read=8542, temp written=987
+                                             I/O Timings: shared read=33.974, temp write=11.829
+                                       ->  Hash  (cost=14505.43..14505.43 rows=309868 width=4) (actual time=190.752..190.754 rows=311122 loops=1)
+                                             Buckets: 262144  Batches: 2  Memory Usage: 7500kB
+                                             Buffers: shared hit=1 read=8575, temp written=457
+                                             I/O Timings: shared read=37.459, temp write=6.223
+                                             ->  Seq Scan on admissions  (cost=0.00..14505.43 rows=309868 width=4) (actual time=0.021..122.179 rows=311122 loops=1)
+                                                   Filter: ((admission_type)::text <> ALL ('{"AMBULATORY OBSERVATION","DIRECT OBSERVATION","EU OBSERVATION"}'::text[]))
+                                                   Rows Removed by Filter: 120109
+                                                   Buffers: shared hit=1 read=8575
+                                                   I/O Timings: shared read=37.459
+                           ->  Materialize  (cost=84012.38..86137.81 rows=425087 width=12) (actual time=707.104..901.969 rows=1587503 loops=1)
+                                 Buffers: shared hit=33 read=9839, temp read=3849 written=3855
+                                 I/O Timings: shared read=166.678, temp read=14.930 write=47.987
+                                 ->  Sort  (cost=84012.38..85075.10 rows=425087 width=12) (actual time=707.099..775.176 rows=425087 loops=1)
+                                       Sort Key: edstays.subject_id
+                                       Sort Method: external merge  Disk: 10840kB
+                                       Buffers: shared hit=33 read=9839, temp read=3849 written=3855
+                                       I/O Timings: shared read=166.678, temp read=14.930 write=47.987
+                                       ->  Hash Join  (cost=16161.46..37006.27 rows=425087 width=12) (actual time=297.099..601.552 rows=425087 loops=1)
+                                             Hash Cond: (edstays_1.stay_id = edstays.stay_id)
+                                             Buffers: shared hit=33 read=9839, temp read=2494 written=2494
+                                             I/O Timings: shared read=166.678, temp read=9.969 write=32.564
+                                             ->  Seq Scan on edstays edstays_1  (cost=0.00..9186.87 rows=425087 width=12) (actual time=7.302..80.464 rows=425087 loops=1)
+                                                   Buffers: shared hit=32 read=4904
+                                                   I/O Timings: shared read=27.299
+                                             ->  Hash  (cost=9186.87..9186.87 rows=425087 width=8) (actual time=286.847..286.848 rows=425087 loops=1)
+                                                   Buckets: 262144  Batches: 4  Memory Usage: 6199kB
+                                                   Buffers: shared hit=1 read=4935, temp written=1088
+                                                   I/O Timings: shared read=139.379, temp write=14.638
+                                                   ->  Seq Scan on edstays  (cost=0.00..9186.87 rows=425087 width=8) (actual time=0.020..189.768 rows=425087 loops=1)
+                                                         Buffers: shared hit=1 read=4935
+                                                         I/O Timings: shared read=139.379
+ Settings: search_path = 'test_mimic'
+ Planning:
+   Buffers: shared hit=260 read=16
+   I/O Timings: shared read=8.840
+ Planning Time: 10.360 ms
+ JIT:
+   Functions: 51
+   Options: Inlining false, Optimization false, Expressions true, Deforming true
+   Timing: Generation 2.716 ms, Inlining 0.000 ms, Optimization 1.261 ms, Emission 44.754 ms, Total 48.731 ms
+ Execution Time: 2630.386 ms
+(84 rows)
+
+> Loop number : 2
+SET
+SET
+SET
+SET
+SET
+SET
+SET
+SET
+SET
+                                                                                                   QUERY PLAN                                                                                                   
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+ Hash Left Join  (cost=198062.54..205090.54 rows=181509829 width=16) (actual time=2340.885..2459.415 rows=311122 loops=1)
+   Hash Cond: (hosppatient.hadm_id = nbvisitparhosp.hadm_id)
+   Buffers: shared hit=324 read=26700, temp read=7023 written=7101
+   I/O Timings: shared read=105.207, temp read=27.704 write=88.693
+   CTE hosppatient
+     ->  Seq Scan on admissions admissions_1  (cost=0.00..14505.43 rows=309868 width=16) (actual time=24.642..149.446 rows=311122 loops=1)
+           Filter: ((admission_type)::text <> ALL ('{"AMBULATORY OBSERVATION","DIRECT OBSERVATION","EU OBSERVATION"}'::text[]))
+           Rows Removed by Filter: 120109
+           Buffers: shared hit=97 read=8479
+           I/O Timings: shared read=34.084
+   ->  CTE Scan on hosppatient  (cost=0.00..6197.36 rows=309868 width=8) (actual time=24.648..61.654 rows=311122 loops=1)
+         Buffers: shared read=1, temp read=988 written=1
+         I/O Timings: shared read=0.015, temp read=4.036 write=0.043
+   ->  Hash  (cost=182092.70..182092.70 rows=117153 width=12) (actual time=2315.375..2315.384 rows=83966 loops=1)
+         Buckets: 131072  Batches: 1  Memory Usage: 4632kB
+         Buffers: shared hit=324 read=26699, temp read=6035 written=7100
+         I/O Timings: shared read=105.192, temp read=23.668 write=88.650
+         ->  Subquery Scan on nbvisitparhosp  (cost=178834.38..182092.70 rows=117153 width=12) (actual time=2249.858..2292.996 rows=83966 loops=1)
+               Buffers: shared hit=324 read=26699, temp read=6035 written=7100
+               I/O Timings: shared read=105.192, temp read=23.668 write=88.650
+               ->  HashAggregate  (cost=178834.38..180921.17 rows=117153 width=12) (actual time=2249.852..2281.483 rows=83966 loops=1)
+                     Group Key: admissions.hadm_id
+                     Batches: 5  Memory Usage: 8241kB  Disk Usage: 672kB
+                     Buffers: shared hit=324 read=26699, temp read=6035 written=7100
+                     I/O Timings: shared read=105.192, temp read=23.668 write=88.650
+                     ->  Merge Join  (cost=138437.22..172244.53 rows=117153 width=4) (actual time=1257.427..2187.319 rows=220975 loops=1)
+                           Merge Cond: (hosppatient_1.subject_id = edstays.subject_id)
+                           Join Filter: ((EXTRACT(day FROM (hosppatient_1.admittime - edstays_1.intime)) < '365'::numeric) AND (EXTRACT(day FROM (hosppatient_1.admittime - edstays_1.intime)) > '0'::numeric))
+                           Rows Removed by Join Filter: 1207339
+                           Buffers: shared hit=324 read=26699, temp read=5985 written=6982
+                           I/O Timings: shared read=105.192, temp read=23.439 write=86.945
+                           ->  Sort  (cost=54424.85..54981.50 rows=222661 width=16) (actual time=686.079..732.412 rows=311122 loops=1)
+                                 Sort Key: hosppatient_1.subject_id
+                                 Sort Method: external merge  Disk: 7936kB
+                                 Buffers: shared hit=163 read=16988, temp read=2136 written=3127
+                                 I/O Timings: shared read=67.942, temp read=8.165 write=39.773
+                                 ->  Hash Join  (cost=19589.78..30839.55 rows=222661 width=16) (actual time=193.682..589.931 rows=311122 loops=1)
+                                       Hash Cond: (hosppatient_1.hadm_id = admissions.hadm_id)
+                                       Buffers: shared hit=163 read=16988, temp read=1144 written=2131
+                                       I/O Timings: shared read=67.942, temp read=4.593 write=28.359
+                                       ->  CTE Scan on hosppatient hosppatient_1  (cost=0.00..6197.36 rows=309868 width=16) (actual time=0.009..247.259 rows=311122 loops=1)
+                                             Buffers: shared hit=97 read=8478, temp written=987
+                                             I/O Timings: shared read=34.069, temp write=12.116
+                                       ->  Hash  (cost=14505.43..14505.43 rows=309868 width=4) (actual time=191.974..191.976 rows=311122 loops=1)
+                                             Buckets: 262144  Batches: 2  Memory Usage: 7500kB
+                                             Buffers: shared hit=66 read=8510, temp written=457
+                                             I/O Timings: shared read=33.873, temp write=6.961
+                                             ->  Seq Scan on admissions  (cost=0.00..14505.43 rows=309868 width=4) (actual time=0.036..120.906 rows=311122 loops=1)
+                                                   Filter: ((admission_type)::text <> ALL ('{"AMBULATORY OBSERVATION","DIRECT OBSERVATION","EU OBSERVATION"}'::text[]))
+                                                   Rows Removed by Filter: 120109
+                                                   Buffers: shared hit=66 read=8510
+                                                   I/O Timings: shared read=33.873
+                           ->  Materialize  (cost=84012.38..86137.81 rows=425087 width=12) (actual time=571.236..772.667 rows=1587503 loops=1)
+                                 Buffers: shared hit=161 read=9711, temp read=3849 written=3855
+                                 I/O Timings: shared read=37.250, temp read=15.274 write=47.172
+                                 ->  Sort  (cost=84012.38..85075.10 rows=425087 width=12) (actual time=571.231..642.355 rows=425087 loops=1)
+                                       Sort Key: edstays.subject_id
+                                       Sort Method: external merge  Disk: 10840kB
+                                       Buffers: shared hit=161 read=9711, temp read=3849 written=3855
+                                       I/O Timings: shared read=37.250, temp read=15.274 write=47.172
+                                       ->  Hash Join  (cost=16161.46..37006.27 rows=425087 width=12) (actual time=164.619..464.888 rows=425087 loops=1)
+                                             Hash Cond: (edstays_1.stay_id = edstays.stay_id)
+                                             Buffers: shared hit=161 read=9711, temp read=2494 written=2494
+                                             I/O Timings: shared read=37.250, temp read=10.176 write=31.344
+                                             ->  Seq Scan on edstays edstays_1  (cost=0.00..9186.87 rows=425087 width=12) (actual time=0.044..72.329 rows=425087 loops=1)
+                                                   Buffers: shared hit=96 read=4840
+                                                   I/O Timings: shared read=18.459
+                                             ->  Hash  (cost=9186.87..9186.87 rows=425087 width=8) (actual time=161.953..161.954 rows=425087 loops=1)
+                                                   Buckets: 262144  Batches: 4  Memory Usage: 6199kB
+                                                   Buffers: shared hit=65 read=4871, temp written=1088
+                                                   I/O Timings: shared read=18.791, temp write=13.677
+                                                   ->  Seq Scan on edstays  (cost=0.00..9186.87 rows=425087 width=8) (actual time=0.019..68.557 rows=425087 loops=1)
+                                                         Buffers: shared hit=65 read=4871
+                                                         I/O Timings: shared read=18.791
+ Settings: search_path = 'test_mimic'
+ Planning:
+   Buffers: shared hit=276
+ Planning Time: 1.344 ms
+ JIT:
+   Functions: 51
+   Options: Inlining false, Optimization false, Expressions true, Deforming true
+   Timing: Generation 2.637 ms, Inlining 0.000 ms, Optimization 1.199 ms, Emission 26.661 ms, Total 30.497 ms
+ Execution Time: 2509.318 ms
+(83 rows)
+
+> Loop number : 3
+SET
+SET
+SET
+SET
+SET
+SET
+SET
+SET
+SET
+                                                                                                   QUERY PLAN                                                                                                   
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+ Hash Left Join  (cost=198062.54..205090.54 rows=181509829 width=16) (actual time=2267.713..2378.225 rows=311122 loops=1)
+   Hash Cond: (hosppatient.hadm_id = nbvisitparhosp.hadm_id)
+   Buffers: shared hit=580 read=26444, temp read=7023 written=7101
+   I/O Timings: shared read=103.060, temp read=27.150 write=86.253
+   CTE hosppatient
+     ->  Seq Scan on admissions admissions_1  (cost=0.00..14505.43 rows=309868 width=16) (actual time=24.505..147.080 rows=311122 loops=1)
+           Filter: ((admission_type)::text <> ALL ('{"AMBULATORY OBSERVATION","DIRECT OBSERVATION","EU OBSERVATION"}'::text[]))
+           Rows Removed by Filter: 120109
+           Buffers: shared hit=161 read=8415
+           I/O Timings: shared read=33.393
+   ->  CTE Scan on hosppatient  (cost=0.00..6197.36 rows=309868 width=8) (actual time=24.511..61.615 rows=311122 loops=1)
+         Buffers: shared read=1, temp read=988 written=1
+         I/O Timings: shared read=0.015, temp read=4.043 write=0.039
+   ->  Hash  (cost=182092.70..182092.70 rows=117153 width=12) (actual time=2242.336..2242.345 rows=83966 loops=1)
+         Buckets: 131072  Batches: 1  Memory Usage: 4632kB
+         Buffers: shared hit=580 read=26443, temp read=6035 written=7100
+         I/O Timings: shared read=103.045, temp read=23.108 write=86.213
+         ->  Subquery Scan on nbvisitparhosp  (cost=178834.38..182092.70 rows=117153 width=12) (actual time=2191.097..2225.956 rows=83966 loops=1)
+               Buffers: shared hit=580 read=26443, temp read=6035 written=7100
+               I/O Timings: shared read=103.045, temp read=23.108 write=86.213
+               ->  HashAggregate  (cost=178834.38..180921.17 rows=117153 width=12) (actual time=2191.092..2215.954 rows=83966 loops=1)
+                     Group Key: admissions.hadm_id
+                     Batches: 5  Memory Usage: 8241kB  Disk Usage: 672kB
+                     Buffers: shared hit=580 read=26443, temp read=6035 written=7100
+                     I/O Timings: shared read=103.045, temp read=23.108 write=86.213
+                     ->  Merge Join  (cost=138437.22..172244.53 rows=117153 width=4) (actual time=1234.025..2131.724 rows=220975 loops=1)
+                           Merge Cond: (hosppatient_1.subject_id = edstays.subject_id)
+                           Join Filter: ((EXTRACT(day FROM (hosppatient_1.admittime - edstays_1.intime)) < '365'::numeric) AND (EXTRACT(day FROM (hosppatient_1.admittime - edstays_1.intime)) > '0'::numeric))
+                           Rows Removed by Join Filter: 1207339
+                           Buffers: shared hit=580 read=26443, temp read=5985 written=6982
+                           I/O Timings: shared read=103.045, temp read=22.897 write=84.804
+                           ->  Sort  (cost=54424.85..54981.50 rows=222661 width=16) (actual time=670.523..714.634 rows=311122 loops=1)
+                                 Sort Key: hosppatient_1.subject_id
+                                 Sort Method: external merge  Disk: 7936kB
+                                 Buffers: shared hit=291 read=16860, temp read=2136 written=3127
+                                 I/O Timings: shared read=66.624, temp read=8.025 write=38.503
+                                 ->  Hash Join  (cost=19589.78..30839.55 rows=222661 width=16) (actual time=187.392..574.892 rows=311122 loops=1)
+                                       Hash Cond: (hosppatient_1.hadm_id = admissions.hadm_id)
+                                       Buffers: shared hit=291 read=16860, temp read=1144 written=2131
+                                       I/O Timings: shared read=66.624, temp read=4.538 write=26.502
+                                       ->  CTE Scan on hosppatient hosppatient_1  (cost=0.00..6197.36 rows=309868 width=16) (actual time=0.009..243.399 rows=311122 loops=1)
+                                             Buffers: shared hit=161 read=8414, temp written=987
+                                             I/O Timings: shared read=33.378, temp write=11.832
+                                       ->  Hash  (cost=14505.43..14505.43 rows=309868 width=4) (actual time=185.646..185.647 rows=311122 loops=1)
+                                             Buckets: 262144  Batches: 2  Memory Usage: 7500kB
+                                             Buffers: shared hit=130 read=8446, temp written=457
+                                             I/O Timings: shared read=33.246, temp write=6.101
+                                             ->  Seq Scan on admissions  (cost=0.00..14505.43 rows=309868 width=4) (actual time=0.030..117.422 rows=311122 loops=1)
+                                                   Filter: ((admission_type)::text <> ALL ('{"AMBULATORY OBSERVATION","DIRECT OBSERVATION","EU OBSERVATION"}'::text[]))
+                                                   Rows Removed by Filter: 120109
+                                                   Buffers: shared hit=130 read=8446
+                                                   I/O Timings: shared read=33.246
+                           ->  Materialize  (cost=84012.38..86137.81 rows=425087 width=12) (actual time=563.401..756.203 rows=1587503 loops=1)
+                                 Buffers: shared hit=289 read=9583, temp read=3849 written=3855
+                                 I/O Timings: shared read=36.421, temp read=14.873 write=46.301
+                                 ->  Sort  (cost=84012.38..85075.10 rows=425087 width=12) (actual time=563.396..630.518 rows=425087 loops=1)
+                                       Sort Key: edstays.subject_id
+                                       Sort Method: external merge  Disk: 10840kB
+                                       Buffers: shared hit=289 read=9583, temp read=3849 written=3855
+                                       I/O Timings: shared read=36.421, temp read=14.873 write=46.301
+                                       ->  Hash Join  (cost=16161.46..37006.27 rows=425087 width=12) (actual time=162.315..459.070 rows=425087 loops=1)
+                                             Hash Cond: (edstays_1.stay_id = edstays.stay_id)
+                                             Buffers: shared hit=289 read=9583, temp read=2494 written=2494
+                                             I/O Timings: shared read=36.421, temp read=9.958 write=31.003
+                                             ->  Seq Scan on edstays edstays_1  (cost=0.00..9186.87 rows=425087 width=12) (actual time=0.043..72.325 rows=425087 loops=1)
+                                                   Buffers: shared hit=160 read=4776
+                                                   I/O Timings: shared read=18.230
+                                             ->  Hash  (cost=9186.87..9186.87 rows=425087 width=8) (actual time=159.856..159.857 rows=425087 loops=1)
+                                                   Buckets: 262144  Batches: 4  Memory Usage: 6199kB
+                                                   Buffers: shared hit=129 read=4807, temp written=1088
+                                                   I/O Timings: shared read=18.191, temp write=13.327
+                                                   ->  Seq Scan on edstays  (cost=0.00..9186.87 rows=425087 width=8) (actual time=0.024..67.913 rows=425087 loops=1)
+                                                         Buffers: shared hit=129 read=4807
+                                                         I/O Timings: shared read=18.191
+ Settings: search_path = 'test_mimic'
+ Planning:
+   Buffers: shared hit=276
+ Planning Time: 1.347 ms
+ JIT:
+   Functions: 51
+   Options: Inlining false, Optimization false, Expressions true, Deforming true
+   Timing: Generation 2.602 ms, Inlining 0.000 ms, Optimization 1.168 ms, Emission 26.678 ms, Total 30.447 ms
+ Execution Time: 2429.518 ms
+(83 rows)
+
+> Loop number : 4
+SET
+SET
+SET
+SET
+SET
+SET
+SET
+SET
+SET
+                                                                                                   QUERY PLAN                                                                                                   
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+ Hash Left Join  (cost=198062.54..205090.54 rows=181509829 width=16) (actual time=2238.776..2351.412 rows=311122 loops=1)
+   Hash Cond: (hosppatient.hadm_id = nbvisitparhosp.hadm_id)
+   Buffers: shared hit=836 read=26188, temp read=7023 written=7101
+   I/O Timings: shared read=102.513, temp read=27.133 write=84.814
+   CTE hosppatient
+     ->  Seq Scan on admissions admissions_1  (cost=0.00..14505.43 rows=309868 width=16) (actual time=24.346..146.391 rows=311122 loops=1)
+           Filter: ((admission_type)::text <> ALL ('{"AMBULATORY OBSERVATION","DIRECT OBSERVATION","EU OBSERVATION"}'::text[]))
+           Rows Removed by Filter: 120109
+           Buffers: shared hit=225 read=8351
+           I/O Timings: shared read=33.243
+   ->  CTE Scan on hosppatient  (cost=0.00..6197.36 rows=309868 width=8) (actual time=24.352..61.373 rows=311122 loops=1)
+         Buffers: shared read=1, temp read=988 written=1
+         I/O Timings: shared read=0.013, temp read=4.019 write=0.035
+   ->  Hash  (cost=182092.70..182092.70 rows=117153 width=12) (actual time=2213.534..2213.545 rows=83966 loops=1)
+         Buckets: 131072  Batches: 1  Memory Usage: 4632kB
+         Buffers: shared hit=836 read=26187, temp read=6035 written=7100
+         I/O Timings: shared read=102.499, temp read=23.114 write=84.780
+         ->  Subquery Scan on nbvisitparhosp  (cost=178834.38..182092.70 rows=117153 width=12) (actual time=2162.456..2197.379 rows=83966 loops=1)
+               Buffers: shared hit=836 read=26187, temp read=6035 written=7100
+               I/O Timings: shared read=102.499, temp read=23.114 write=84.780
+               ->  HashAggregate  (cost=178834.38..180921.17 rows=117153 width=12) (actual time=2162.452..2187.662 rows=83966 loops=1)
+                     Group Key: admissions.hadm_id
+                     Batches: 5  Memory Usage: 8241kB  Disk Usage: 672kB
+                     Buffers: shared hit=836 read=26187, temp read=6035 written=7100
+                     I/O Timings: shared read=102.499, temp read=23.114 write=84.780
+                     ->  Merge Join  (cost=138437.22..172244.53 rows=117153 width=4) (actual time=1208.424..2103.815 rows=220975 loops=1)
+                           Merge Cond: (hosppatient_1.subject_id = edstays.subject_id)
+                           Join Filter: ((EXTRACT(day FROM (hosppatient_1.admittime - edstays_1.intime)) < '365'::numeric) AND (EXTRACT(day FROM (hosppatient_1.admittime - edstays_1.intime)) > '0'::numeric))
+                           Rows Removed by Join Filter: 1207339
+                           Buffers: shared hit=836 read=26187, temp read=5985 written=6982
+                           I/O Timings: shared read=102.499, temp read=22.899 write=83.431
+                           ->  Sort  (cost=54424.85..54981.50 rows=222661 width=16) (actual time=659.852..704.429 rows=311122 loops=1)
+                                 Sort Key: hosppatient_1.subject_id
+                                 Sort Method: external merge  Disk: 7936kB
+                                 Buffers: shared hit=419 read=16732, temp read=2136 written=3127
+                                 I/O Timings: shared read=66.245, temp read=7.951 write=37.288
+                                 ->  Hash Join  (cost=19589.78..30839.55 rows=222661 width=16) (actual time=184.630..566.547 rows=311122 loops=1)
+                                       Hash Cond: (hosppatient_1.hadm_id = admissions.hadm_id)
+                                       Buffers: shared hit=419 read=16732, temp read=1144 written=2131
+                                       I/O Timings: shared read=66.245, temp read=4.538 write=26.230
+                                       ->  CTE Scan on hosppatient hosppatient_1  (cost=0.00..6197.36 rows=309868 width=16) (actual time=0.010..243.053 rows=311122 loops=1)
+                                             Buffers: shared hit=225 read=8350, temp written=987
+                                             I/O Timings: shared read=33.229, temp write=11.808
+                                       ->  Hash  (cost=14505.43..14505.43 rows=309868 width=4) (actual time=182.905..182.906 rows=311122 loops=1)
+                                             Buckets: 262144  Batches: 2  Memory Usage: 7500kB
+                                             Buffers: shared hit=194 read=8382, temp written=457
+                                             I/O Timings: shared read=33.015, temp write=5.901
+                                             ->  Seq Scan on admissions  (cost=0.00..14505.43 rows=309868 width=4) (actual time=0.022..117.304 rows=311122 loops=1)
+                                                   Filter: ((admission_type)::text <> ALL ('{"AMBULATORY OBSERVATION","DIRECT OBSERVATION","EU OBSERVATION"}'::text[]))
+                                                   Rows Removed by Filter: 120109
+                                                   Buffers: shared hit=194 read=8382
+                                                   I/O Timings: shared read=33.015
+                           ->  Materialize  (cost=84012.38..86137.81 rows=425087 width=12) (actual time=548.472..741.268 rows=1587503 loops=1)
+                                 Buffers: shared hit=417 read=9455, temp read=3849 written=3855
+                                 I/O Timings: shared read=36.254, temp read=14.948 write=46.143
+                                 ->  Sort  (cost=84012.38..85075.10 rows=425087 width=12) (actual time=548.468..615.592 rows=425087 loops=1)
+                                       Sort Key: edstays.subject_id
+                                       Sort Method: external merge  Disk: 10840kB
+                                       Buffers: shared hit=417 read=9455, temp read=3849 written=3855
+                                       I/O Timings: shared read=36.254, temp read=14.948 write=46.143
+                                       ->  Hash Join  (cost=16161.46..37006.27 rows=425087 width=12) (actual time=159.739..444.435 rows=425087 loops=1)
+                                             Hash Cond: (edstays_1.stay_id = edstays.stay_id)
+                                             Buffers: shared hit=417 read=9455, temp read=2494 written=2494
+                                             I/O Timings: shared read=36.254, temp read=10.001 write=30.583
+                                             ->  Seq Scan on edstays edstays_1  (cost=0.00..9186.87 rows=425087 width=12) (actual time=0.043..72.291 rows=425087 loops=1)
+                                                   Buffers: shared hit=224 read=4712
+                                                   I/O Timings: shared read=18.251
+                                             ->  Hash  (cost=9186.87..9186.87 rows=425087 width=8) (actual time=157.008..157.009 rows=425087 loops=1)
+                                                   Buckets: 262144  Batches: 4  Memory Usage: 6199kB
+                                                   Buffers: shared hit=193 read=4743, temp written=1088
+                                                   I/O Timings: shared read=18.004, temp write=13.058
+                                                   ->  Seq Scan on edstays  (cost=0.00..9186.87 rows=425087 width=8) (actual time=0.017..67.273 rows=425087 loops=1)
+                                                         Buffers: shared hit=193 read=4743
+                                                         I/O Timings: shared read=18.004
+ Settings: search_path = 'test_mimic'
+ Planning:
+   Buffers: shared hit=276
+ Planning Time: 1.335 ms
+ JIT:
+   Functions: 51
+   Options: Inlining false, Optimization false, Expressions true, Deforming true
+   Timing: Generation 2.623 ms, Inlining 0.000 ms, Optimization 1.188 ms, Emission 26.343 ms, Total 30.154 ms
+ Execution Time: 2401.166 ms
+(83 rows)
+
+> Loop number : 5
+SET
+SET
+SET
+SET
+SET
+SET
+SET
+SET
+SET
+                                                                                                   QUERY PLAN                                                                                                   
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+ Hash Left Join  (cost=198062.54..205090.54 rows=181509829 width=16) (actual time=2249.950..2360.160 rows=311122 loops=1)
+   Hash Cond: (hosppatient.hadm_id = nbvisitparhosp.hadm_id)
+   Buffers: shared hit=1092 read=25932, temp read=7023 written=7101
+   I/O Timings: shared read=100.979, temp read=27.393 write=85.871
+   CTE hosppatient
+     ->  Seq Scan on admissions admissions_1  (cost=0.00..14505.43 rows=309868 width=16) (actual time=24.405..147.039 rows=311122 loops=1)
+           Filter: ((admission_type)::text <> ALL ('{"AMBULATORY OBSERVATION","DIRECT OBSERVATION","EU OBSERVATION"}'::text[]))
+           Rows Removed by Filter: 120109
+           Buffers: shared hit=289 read=8287
+           I/O Timings: shared read=32.942
+   ->  CTE Scan on hosppatient  (cost=0.00..6197.36 rows=309868 width=8) (actual time=24.410..61.382 rows=311122 loops=1)
+         Buffers: shared read=1, temp read=988 written=1
+         I/O Timings: shared read=0.014, temp read=4.045 write=0.033
+   ->  Hash  (cost=182092.70..182092.70 rows=117153 width=12) (actual time=2224.679..2224.690 rows=83966 loops=1)
+         Buckets: 131072  Batches: 1  Memory Usage: 4632kB
+         Buffers: shared hit=1092 read=25931, temp read=6035 written=7100
+         I/O Timings: shared read=100.965, temp read=23.348 write=85.838
+         ->  Subquery Scan on nbvisitparhosp  (cost=178834.38..182092.70 rows=117153 width=12) (actual time=2173.364..2208.201 rows=83966 loops=1)
+               Buffers: shared hit=1092 read=25931, temp read=6035 written=7100
+               I/O Timings: shared read=100.965, temp read=23.348 write=85.838
+               ->  HashAggregate  (cost=178834.38..180921.17 rows=117153 width=12) (actual time=2173.360..2198.661 rows=83966 loops=1)
+                     Group Key: admissions.hadm_id
+                     Batches: 5  Memory Usage: 8241kB  Disk Usage: 672kB
+                     Buffers: shared hit=1092 read=25931, temp read=6035 written=7100
+                     I/O Timings: shared read=100.965, temp read=23.348 write=85.838
+                     ->  Merge Join  (cost=138437.22..172244.53 rows=117153 width=4) (actual time=1220.691..2114.864 rows=220975 loops=1)
+                           Merge Cond: (hosppatient_1.subject_id = edstays.subject_id)
+                           Join Filter: ((EXTRACT(day FROM (hosppatient_1.admittime - edstays_1.intime)) < '365'::numeric) AND (EXTRACT(day FROM (hosppatient_1.admittime - edstays_1.intime)) > '0'::numeric))
+                           Rows Removed by Join Filter: 1207339
+                           Buffers: shared hit=1092 read=25931, temp read=5985 written=6982
+                           I/O Timings: shared read=100.965, temp read=23.134 write=84.504
+                           ->  Sort  (cost=54424.85..54981.50 rows=222661 width=16) (actual time=665.155..709.255 rows=311122 loops=1)
+                                 Sort Key: hosppatient_1.subject_id
+                                 Sort Method: external merge  Disk: 7936kB
+                                 Buffers: shared hit=547 read=16604, temp read=2136 written=3127
+                                 I/O Timings: shared read=65.519, temp read=8.079 write=37.705
+                                 ->  Hash Join  (cost=19589.78..30839.55 rows=222661 width=16) (actual time=185.412..570.291 rows=311122 loops=1)
+                                       Hash Cond: (hosppatient_1.hadm_id = admissions.hadm_id)
+                                       Buffers: shared hit=547 read=16604, temp read=1144 written=2131
+                                       I/O Timings: shared read=65.519, temp read=4.530 write=26.325
+                                       ->  CTE Scan on hosppatient hosppatient_1  (cost=0.00..6197.36 rows=309868 width=16) (actual time=0.007..243.868 rows=311122 loops=1)
+                                             Buffers: shared hit=289 read=8286, temp written=987
+                                             I/O Timings: shared read=32.928, temp write=11.757
+                                       ->  Hash  (cost=14505.43..14505.43 rows=309868 width=4) (actual time=183.672..183.674 rows=311122 loops=1)
+                                             Buckets: 262144  Batches: 2  Memory Usage: 7500kB
+                                             Buffers: shared hit=258 read=8318, temp written=457
+                                             I/O Timings: shared read=32.591, temp write=5.958
+                                             ->  Seq Scan on admissions  (cost=0.00..14505.43 rows=309868 width=4) (actual time=0.024..117.282 rows=311122 loops=1)
+                                                   Filter: ((admission_type)::text <> ALL ('{"AMBULATORY OBSERVATION","DIRECT OBSERVATION","EU OBSERVATION"}'::text[]))
+                                                   Rows Removed by Filter: 120109
+                                                   Buffers: shared hit=258 read=8318
+                                                   I/O Timings: shared read=32.591
+                           ->  Materialize  (cost=84012.38..86137.81 rows=425087 width=12) (actual time=555.436..748.467 rows=1587503 loops=1)
+                                 Buffers: shared hit=545 read=9327, temp read=3849 written=3855
+                                 I/O Timings: shared read=35.446, temp read=15.055 write=46.799
+                                 ->  Sort  (cost=84012.38..85075.10 rows=425087 width=12) (actual time=555.431..622.602 rows=425087 loops=1)
+                                       Sort Key: edstays.subject_id
+                                       Sort Method: external merge  Disk: 10840kB
+                                       Buffers: shared hit=545 read=9327, temp read=3849 written=3855
+                                       I/O Timings: shared read=35.446, temp read=15.055 write=46.799
+                                       ->  Hash Join  (cost=16161.46..37006.27 rows=425087 width=12) (actual time=160.792..449.499 rows=425087 loops=1)
+                                             Hash Cond: (edstays_1.stay_id = edstays.stay_id)
+                                             Buffers: shared hit=545 read=9327, temp read=2494 written=2494
+                                             I/O Timings: shared read=35.446, temp read=10.034 write=30.981
+                                             ->  Seq Scan on edstays edstays_1  (cost=0.00..9186.87 rows=425087 width=12) (actual time=0.042..72.173 rows=425087 loops=1)
+                                                   Buffers: shared hit=288 read=4648
+                                                   I/O Timings: shared read=17.762
+                                             ->  Hash  (cost=9186.87..9186.87 rows=425087 width=8) (actual time=158.343..158.344 rows=425087 loops=1)
+                                                   Buckets: 262144  Batches: 4  Memory Usage: 6199kB
+                                                   Buffers: shared hit=257 read=4679, temp written=1088
+                                                   I/O Timings: shared read=17.684, temp write=13.267
+                                                   ->  Seq Scan on edstays  (cost=0.00..9186.87 rows=425087 width=8) (actual time=0.023..67.701 rows=425087 loops=1)
+                                                         Buffers: shared hit=257 read=4679
+                                                         I/O Timings: shared read=17.684
+ Settings: search_path = 'test_mimic'
+ Planning:
+   Buffers: shared hit=276
+ Planning Time: 1.362 ms
+ JIT:
+   Functions: 51
+   Options: Inlining false, Optimization false, Expressions true, Deforming true
+   Timing: Generation 2.615 ms, Inlining 0.000 ms, Optimization 1.186 ms, Emission 26.382 ms, Total 30.182 ms
+ Execution Time: 2408.999 ms
+(83 rows)
+
+SET
+INSERT 0 1

@@ -1,0 +1,31 @@
+datatypes:
+  # User defined
+  "Ontorel-Core_0000001": TIMESTAMP
+  # Numbers
+  "real": REAL
+  "double": "DOUBLE PRECISION"
+  "float": REAL
+  "rational": REAL
+  "decimal": DECIMAL
+  "integer": INTEGER
+  "nonNegativeInteger": INTEGER
+  "nonPositiveInteger": INTEGER
+  "positiveInteger": INTEGER
+  "negativeInteger": INTEGER
+  "long": "DOUBLE PRECISION"
+  "int": INTEGER
+  "short": SMALLINT
+  "byte": BYTEA
+  "unsignedLong": "DOUBLE PRECISION"
+  "unsignedInt": INTEGER
+  "unsignedShort": SMALLINT
+  "unsignedByte": BYTEA
+  # Text
+  "string": TEXT
+  "Literal": TEXT
+  # Bool
+  "boolean": BOOLEAN
+  # Date and time
+  "date": DATE
+  "dateTime": TIMESTAMP
+  "dateTimeStamp": TIMESTAMP

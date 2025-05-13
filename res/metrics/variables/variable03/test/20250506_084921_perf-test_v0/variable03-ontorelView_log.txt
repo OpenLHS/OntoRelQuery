@@ -1,0 +1,1157 @@
+> ============================ Trial for variable03 ontorelView 
+min=1 max=1 inc=1
+> ============================ Input size : 1
+SET
+ pg_stat_statements_reset 
+--------------------------
+ 
+(1 row)
+
+> Loop number : 1
+SET
+SET
+SET
+SET
+SET
+SET
+SET
+SET
+SET
+                                                                                                             QUERY PLAN                                                                                                              
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+ Merge Join  (cost=360598.87..4921093.88 rows=302359741 width=34) (actual time=4631.603..5110.545 rows=311122 loops=1)
+   Merge Cond: (("T2448628400"."T2448628400_uid")::uuid = ("T2448628400_1"."T2448628400_uid")::uuid)
+   Buffers: shared hit=1824 read=70856 written=1, temp read=67825 written=68226
+   I/O Timings: shared read=329.329 write=0.052, temp read=262.027 write=825.063
+   ->  Unique  (cost=112795.99..134833.61 rows=176301 width=18) (actual time=1882.634..2089.407 rows=299712 loops=1)
+         Buffers: shared hit=1694 read=15005 written=1, temp read=25518 written=25677
+         I/O Timings: shared read=93.911 write=0.052, temp read=99.793 write=309.656
+         ->  Gather Merge  (cost=112795.99..133952.11 rows=176301 width=18) (actual time=1882.633..2036.462 rows=299712 loops=1)
+               Workers Planned: 1
+               Workers Launched: 1
+               Buffers: shared hit=1694 read=15005 written=1, temp read=25518 written=25677
+               I/O Timings: shared read=93.911 write=0.052, temp read=99.793 write=309.656
+               ->  Unique  (cost=111795.98..113118.24 rows=176301 width=18) (actual time=1863.946..1910.974 rows=149856 loops=2)
+                     Buffers: shared hit=1694 read=15005 written=1, temp read=25518 written=25677
+                     I/O Timings: shared read=93.911 write=0.052, temp read=99.793 write=309.656
+                     ->  Sort  (cost=111795.98..112236.73 rows=176301 width=18) (actual time=1863.944..1884.128 rows=149856 loops=2)
+                           Sort Key: "T2448628400"."T2448628400_uid", "Tb7c17e0e00"."Tb7c17e0e00_Ontorel-Core_0000002"
+                           Sort Method: external merge  Disk: 4024kB
+                           Buffers: shared hit=1694 read=15005 written=1, temp read=25518 written=25677
+                           I/O Timings: shared read=93.911 write=0.052, temp read=99.793 write=309.656
+                           Worker 0:  Sort Method: external merge  Disk: 4208kB
+                           ->  Parallel Hash Join  (cost=53907.19..92814.39 rows=176301 width=18) (actual time=1740.091..1797.286 rows=149856 loops=2)
+                                 Hash Cond: (("T51de5d7600"."T2448628400_uid")::uuid = ("T2448628400"."T2448628400_uid")::uuid)
+                                 Buffers: shared hit=1629 read=15005 written=1, temp read=24489 written=24644
+                                 I/O Timings: shared read=93.911 write=0.052, temp read=96.356 write=297.220
+                                 ->  Parallel Hash Join  (cost=47458.42..82973.82 rows=176301 width=18) (actual time=1008.572..1071.448 rows=149856 loops=2)
+                                       Hash Cond: (("T50e263b800"."T77183c5000_uid")::uuid = ("T51de5d7600"."T77183c5000_uid")::uuid)
+                                       Buffers: shared read=15005 written=1, temp read=22106 written=22236
+                                       I/O Timings: shared read=93.911 write=0.052, temp read=86.958 write=267.926
+                                       ->  Parallel Hash Join  (cost=40081.65..69936.85 rows=176301 width=34) (actual time=856.980..907.546 rows=149856 loops=2)
+                                             Hash Cond: (("T50e263b800"."T77183c5000_uid")::uuid = ("T77183c5000"."T77183c5000_uid")::uuid)
+                                             Buffers: shared read=12801 written=1, temp read=18693 written=18808
+                                             I/O Timings: shared read=79.395 write=0.052, temp read=73.534 write=226.342
+                                             ->  Parallel Hash Join  (cost=33632.87..60096.28 rows=176301 width=18) (actual time=707.547..767.057 rows=149856 loops=2)
+                                                   Hash Cond: (("T50e263b500"."T77183c5100_uid")::uuid = ("T50e263b800"."T77183c5100_uid")::uuid)
+                                                   Buffers: shared read=11180 written=1, temp read=16307 written=16396
+                                                   I/O Timings: shared read=68.632 write=0.052, temp read=64.039 write=196.157
+                                                   ->  Parallel Hash Join  (cost=26256.10..47059.31 rows=176301 width=34) (actual time=556.317..604.058 rows=149856 loops=2)
+                                                         Hash Cond: (("T50e263b500"."T77183c5100_uid")::uuid = ("T77183c5100"."T77183c5100_uid")::uuid)
+                                                         Buffers: shared read=8976 written=1, temp read=12895 written=12968
+                                                         I/O Timings: shared read=54.517 write=0.052, temp read=50.600 write=154.811
+                                                         ->  Parallel Hash Join  (cost=19807.32..37218.74 rows=176301 width=18) (actual time=418.188..467.879 rows=149856 loops=2)
+                                                               Hash Cond: (("T5b22146400"."T5b22146400_uid")::uuid = ("Tb7c17e0e00"."T5b22146400_uid")::uuid)
+                                                               Buffers: shared read=7355 written=1, temp read=10510 written=10560
+                                                               I/O Timings: shared read=43.934 write=0.052, temp read=41.120 write=125.221
+                                                               ->  Parallel Hash Join  (cost=12897.55..25024.16 rows=176301 width=64) (actual time=257.783..306.707 rows=149856 loops=2)
+                                                                     Hash Cond: (("T5b22146400"."T5b22146400_uid")::uuid = ("T77183c4d00"."T77183c4d00_uid")::uuid)
+                                                                     Buffers: shared read=5446 written=1, temp read=6387 written=6420
+                                                                     I/O Timings: shared read=31.445 write=0.052, temp read=25.078 write=76.093
+                                                                     ->  Parallel Hash Join  (cost=6448.77..14151.59 rows=176301 width=48) (actual time=115.841..160.549 rows=149856 loops=2)
+                                                                           Hash Cond: (("T50e263b500"."T77183c4d00_uid")::uuid = ("T5b22146400"."T5b22146400_uid")::uuid)
+                                                                           Buffers: shared read=3825 written=1, temp read=2899 written=2916
+                                                                           I/O Timings: shared read=21.335 write=0.052, temp read=11.463 write=34.568
+                                                                           ->  Parallel Seq Scan on "T50e263b500"  (cost=0.00..3967.01 rows=176301 width=32) (actual time=0.056..19.888 rows=149856 loops=2)
+                                                                                 Buffers: shared read=2204 written=1
+                                                                                 I/O Timings: shared read=11.907 write=0.052
+                                                                           ->  Parallel Hash  (cost=3384.01..3384.01 rows=176301 width=16) (actual time=48.293..48.295 rows=149856 loops=2)
+                                                                                 Buckets: 262144  Batches: 4  Memory Usage: 5600kB
+                                                                                 Buffers: shared read=1621, temp written=996
+                                                                                 I/O Timings: shared read=9.427, temp write=11.980
+                                                                                 ->  Parallel Seq Scan on "T5b22146400"  (cost=0.00..3384.01 rows=176301 width=16) (actual time=0.025..16.438 rows=149856 loops=2)
+                                                                                       Buffers: shared read=1621
+                                                                                       I/O Timings: shared read=9.427
+                                                                     ->  Parallel Hash  (cost=3384.01..3384.01 rows=176301 width=16) (actual time=48.900..48.901 rows=149856 loops=2)
+                                                                           Buckets: 262144  Batches: 4  Memory Usage: 5600kB
+                                                                           Buffers: shared read=1621, temp written=996
+                                                                           I/O Timings: shared read=10.111, temp write=12.138
+                                                                           ->  Parallel Seq Scan on "T77183c4d00"  (cost=0.00..3384.01 rows=176301 width=16) (actual time=0.029..17.185 rows=149856 loops=2)
+                                                                                 Buffers: shared read=1621
+                                                                                 I/O Timings: shared read=10.111
+                                                               ->  Parallel Hash  (cost=3672.01..3672.01 rows=176301 width=18) (actual time=58.188..58.188 rows=149856 loops=2)
+                                                                     Buckets: 131072  Batches: 4  Memory Usage: 5184kB
+                                                                     Buffers: shared read=1909, temp written=1056
+                                                                     I/O Timings: shared read=12.489, temp write=12.860
+                                                                     ->  Parallel Seq Scan on "Tb7c17e0e00"  (cost=0.00..3672.01 rows=176301 width=18) (actual time=0.029..18.566 rows=149856 loops=2)
+                                                                           Buffers: shared read=1909
+                                                                           I/O Timings: shared read=12.489
+                                                         ->  Parallel Hash  (cost=3384.01..3384.01 rows=176301 width=16) (actual time=49.561..49.562 rows=149856 loops=2)
+                                                               Buckets: 262144  Batches: 4  Memory Usage: 5600kB
+                                                               Buffers: shared read=1621, temp written=1000
+                                                               I/O Timings: shared read=10.583, temp write=12.656
+                                                               ->  Parallel Seq Scan on "T77183c5100"  (cost=0.00..3384.01 rows=176301 width=16) (actual time=0.029..17.457 rows=149856 loops=2)
+                                                                     Buffers: shared read=1621
+                                                                     I/O Timings: shared read=10.583
+                                                   ->  Parallel Hash  (cost=3967.01..3967.01 rows=176301 width=32) (actual time=58.129..58.130 rows=149856 loops=2)
+                                                         Buckets: 131072  Batches: 4  Memory Usage: 5760kB
+                                                         Buffers: shared read=2204, temp written=1440
+                                                         I/O Timings: shared read=14.115, temp write=17.693
+                                                         ->  Parallel Seq Scan on "T50e263b800"  (cost=0.00..3967.01 rows=176301 width=32) (actual time=0.030..19.560 rows=149856 loops=2)
+                                                               Buffers: shared read=2204
+                                                               I/O Timings: shared read=14.115
+                                             ->  Parallel Hash  (cost=3384.01..3384.01 rows=176301 width=16) (actual time=49.821..49.822 rows=149856 loops=2)
+                                                   Buckets: 262144  Batches: 4  Memory Usage: 5600kB
+                                                   Buffers: shared read=1621, temp written=1004
+                                                   I/O Timings: shared read=10.763, temp write=12.754
+                                                   ->  Parallel Seq Scan on "T77183c5000"  (cost=0.00..3384.01 rows=176301 width=16) (actual time=0.032..17.162 rows=149856 loops=2)
+                                                         Buffers: shared read=1621
+                                                         I/O Timings: shared read=10.763
+                                       ->  Parallel Hash  (cost=3967.01..3967.01 rows=176301 width=32) (actual time=56.131..56.132 rows=149856 loops=2)
+                                             Buckets: 131072  Batches: 4  Memory Usage: 5760kB
+                                             Buffers: shared read=2204, temp written=1440
+                                             I/O Timings: shared read=14.517, temp write=17.934
+                                             ->  Parallel Seq Scan on "T51de5d7600"  (cost=0.00..3967.01 rows=176301 width=32) (actual time=0.043..19.685 rows=149856 loops=2)
+                                                   Buffers: shared read=2204
+                                                   I/O Timings: shared read=14.517
+                                 ->  Parallel Hash  (cost=3384.01..3384.01 rows=176301 width=16) (actual time=628.957..628.957 rows=149856 loops=2)
+                                       Buckets: 262144  Batches: 4  Memory Usage: 5632kB
+                                       Buffers: shared hit=1621, temp written=1004
+                                       I/O Timings: temp write=11.834
+                                       ->  Parallel Seq Scan on "T2448628400"  (cost=0.00..3384.01 rows=176301 width=16) (actual time=0.013..11.464 rows=149856 loops=2)
+                                             Buffers: shared hit=1621
+   ->  Materialize  (cost=247802.88..249517.90 rows=343004 width=32) (actual time=2748.894..2930.344 rows=311122 loops=1)
+         Buffers: shared hit=130 read=55851, temp read=42307 written=42549
+         I/O Timings: shared read=235.418, temp read=162.235 write=515.407
+         ->  Sort  (cost=247802.88..248660.39 rows=343004 width=32) (actual time=2748.890..2886.806 rows=311122 loops=1)
+               Sort Key: "T2448628400_1"."T2448628400_uid"
+               Sort Method: external merge  Disk: 12832kB
+               Buffers: shared hit=130 read=55851, temp read=42307 written=42549
+               I/O Timings: shared read=235.418, temp read=162.235 write=515.407
+               ->  Unique  (cost=165467.37..208059.82 rows=343004 width=32) (actual time=2351.808..2718.679 rows=311122 loops=1)
+                     Buffers: shared hit=130 read=55851, temp read=40703 written=40939
+                     I/O Timings: shared read=235.418, temp read=156.594 write=496.456
+                     ->  Gather Merge  (cost=165467.37..206344.80 rows=343004 width=32) (actual time=2351.807..2654.938 rows=591821 loops=1)
+                           Workers Planned: 2
+                           Workers Launched: 2
+                           Buffers: shared hit=130 read=55851, temp read=40703 written=40939
+                           I/O Timings: shared read=235.418, temp read=156.594 write=496.456
+                           ->  Unique  (cost=164467.34..165753.61 rows=171502 width=32) (actual time=2327.497..2418.563 rows=197274 loops=3)
+                                 Buffers: shared hit=130 read=55851, temp read=40703 written=40939
+                                 I/O Timings: shared read=235.418, temp read=156.594 write=496.456
+                                 ->  Sort  (cost=164467.34..164896.10 rows=171502 width=32) (actual time=2327.495..2380.061 rows=294355 loops=3)
+                                       Sort Key: "Tfa45026200"."Tfa45026200_uid", "T2448628400_1"."T2448628400_uid"
+                                       Sort Method: external merge  Disk: 12184kB
+                                       Buffers: shared hit=130 read=55851, temp read=40703 written=40939
+                                       I/O Timings: shared read=235.418, temp read=156.594 write=496.456
+                                       Worker 0:  Sort Method: external merge  Disk: 12272kB
+                                       Worker 1:  Sort Method: external merge  Disk: 11960kB
+                                       ->  Parallel Hash Join  (cost=106815.88..145451.57 rows=171502 width=32) (actual time=1742.518..2182.659 rows=294355 loops=3)
+                                             Hash Cond: (("Tc68c9cba00"."Tfa45062900_uid")::uuid = ("T2448628400_1"."T2448628400_uid")::uuid)
+                                             Buffers: shared hit=16 read=55851, temp read=36151 written=36372
+                                             I/O Timings: shared read=235.418, temp read=140.830 write=441.518
+                                             ->  Parallel Hash Join  (cost=101228.11..139413.60 rows=171502 width=48) (actual time=1428.353..1749.872 rows=294355 loops=3)
+                                                   Hash Cond: (("Tc68c9cba00"."Tfa45062900_uid")::uuid = ("Tfa45062900"."Tfa45062900_uid")::uuid)
+                                                   Buffers: shared read=54230, temp read=36151 written=36372
+                                                   I/O Timings: shared read=226.239, temp read=140.830 write=441.518
+                                                   ->  Parallel Hash Join  (cost=95640.33..133375.62 rows=171502 width=32) (actual time=1379.816..1584.397 rows=294355 loops=3)
+                                                         Hash Cond: (("Tc68c9cba00"."Tfa45020700_uid")::uuid = ("T69af2e7200"."Tfa45020700_uid")::uuid)
+                                                         Buffers: shared read=52609, temp read=36151 written=36372
+                                                         I/O Timings: shared read=215.994, temp read=140.830 write=441.518
+                                                         ->  Parallel Seq Scan on "Tc68c9cba00"  (cost=0.00..21784.05 rows=787905 width=32) (actual time=0.068..75.690 rows=630324 loops=3)
+                                                               Buffers: shared read=13905
+                                                               I/O Timings: shared read=54.616
+                                                         ->  Parallel Hash  (cost=91988.56..91988.56 rows=171502 width=48) (actual time=1141.468..1141.479 rows=294355 loops=3)
+                                                               Buckets: 131072 (originally 131072)  Batches: 16 (originally 8)  Memory Usage: 5408kB
+                                                               Buffers: shared read=38704, temp read=17218 written=24256
+                                                               I/O Timings: shared read=161.378, temp read=66.135 write=295.449
+                                                               ->  Parallel Hash Join  (cost=61349.28..91988.56 rows=171502 width=48) (actual time=839.589..1035.970 rows=294355 loops=3)
+                                                                     Hash Cond: (("Tfa45020700"."Tfa45020700_uid")::uuid = ("T69af2e7200"."Tfa45020700_uid")::uuid)
+                                                                     Buffers: shared read=38704, temp read=15713 written=15800
+                                                                     I/O Timings: shared read=161.378, temp read=60.888 write=192.497
+                                                                     ->  Parallel Seq Scan on "Tfa45020700"  (cost=0.00..18101.05 rows=787905 width=16) (actual time=0.041..62.380 rows=630324 loops=3)
+                                                                           Buffers: shared read=10222
+                                                                           I/O Timings: shared read=40.411
+                                                                     ->  Parallel Hash  (cost=58032.50..58032.50 rows=171502 width=32) (actual time=655.566..655.573 rows=294355 loops=3)
+                                                                           Buckets: 131072 (originally 131072)  Batches: 8 (originally 4)  Memory Usage: 8032kB
+                                                                           Buffers: shared read=28482, temp read=2471 written=7432
+                                                                           I/O Timings: shared read=120.967, temp read=8.634 write=90.700
+                                                                           ->  Parallel Hash Join  (cost=26308.70..58032.50 rows=171502 width=32) (actual time=431.680..548.905 rows=294355 loops=3)
+                                                                                 Hash Cond: (("T69af2e7200"."Tfa45022500_uid")::uuid = ("Tfa45026200"."Tfa45026200_uid")::uuid)
+                                                                                 Buffers: shared read=28482
+                                                                                 I/O Timings: shared read=120.967
+                                                                                 ->  Parallel Seq Scan on "T69af2e7200"  (cost=0.00..26988.69 rows=976169 width=32) (actual time=0.044..86.412 rows=780935 loops=3)
+                                                                                       Buffers: shared read=17227
+                                                                                       I/O Timings: shared read=70.834
+                                                                                 ->  Parallel Hash  (cost=24688.27..24688.27 rows=129634 width=32) (actual time=275.334..275.339 rows=103707 loops=3)
+                                                                                       Buckets: 524288  Batches: 1  Memory Usage: 23616kB
+                                                                                       Buffers: shared read=11255
+                                                                                       I/O Timings: shared read=50.133
+                                                                                       ->  Parallel Hash Join  (cost=5799.79..24688.27 rows=129634 width=32) (actual time=186.552..227.755 rows=103707 loops=3)
+                                                                                             Hash Cond: (("Tfa45022500"."Tfa45022500_uid")::uuid = ("Tfa45026200"."Tfa45026200_uid")::uuid)
+                                                                                             Buffers: shared read=11255
+                                                                                             I/O Timings: shared read=50.133
+                                                                                             ->  Parallel Seq Scan on "Tfa45022500"  (cost=0.00..16951.60 rows=737860 width=16) (actual time=0.042..58.599 rows=590288 loops=3)
+                                                                                                   Buffers: shared read=9573
+                                                                                                   I/O Timings: shared read=39.736
+                                                                                             ->  Parallel Hash  (cost=3512.13..3512.13 rows=183013 width=16) (actual time=45.076..45.077 rows=103707 loops=3)
+                                                                                                   Buckets: 524288  Batches: 1  Memory Usage: 18720kB
+                                                                                                   Buffers: shared read=1682
+                                                                                                   I/O Timings: shared read=10.397
+                                                                                                   ->  Parallel Seq Scan on "Tfa45026200"  (cost=0.00..3512.13 rows=183013 width=16) (actual time=0.035..11.805 rows=103707 loops=3)
+                                                                                                         Buffers: shared read=1682
+                                                                                                         I/O Timings: shared read=10.397
+                                                   ->  Parallel Hash  (cost=3384.01..3384.01 rows=176301 width=16) (actual time=47.449..47.450 rows=99904 loops=3)
+                                                         Buckets: 524288  Batches: 1  Memory Usage: 18208kB
+                                                         Buffers: shared read=1621
+                                                         I/O Timings: shared read=10.245
+                                                         ->  Parallel Seq Scan on "Tfa45062900"  (cost=0.00..3384.01 rows=176301 width=16) (actual time=0.050..11.520 rows=99904 loops=3)
+                                                               Buffers: shared read=1621
+                                                               I/O Timings: shared read=10.245
+                                             ->  Parallel Hash  (cost=3384.01..3384.01 rows=176301 width=16) (actual time=312.292..312.292 rows=99904 loops=3)
+                                                   Buckets: 524288  Batches: 1  Memory Usage: 18208kB
+                                                   Buffers: shared read=1621
+                                                   I/O Timings: shared read=9.179
+                                                   ->  Parallel Seq Scan on "T2448628400" "T2448628400_1"  (cost=0.00..3384.01 rows=176301 width=16) (actual time=0.039..10.851 rows=99904 loops=3)
+                                                         Buffers: shared read=1621
+                                                         I/O Timings: shared read=9.179
+ Settings: search_path = 'test_mimic'
+ Planning:
+   Buffers: shared hit=774 read=84
+   I/O Timings: shared read=0.673
+ Planning Time: 22.826 ms
+ JIT:
+   Functions: 280
+   Options: Inlining true, Optimization true, Expressions true, Deforming true
+   Timing: Generation 11.174 ms, Inlining 318.190 ms, Optimization 753.986 ms, Emission 512.167 ms, Total 1595.516 ms
+ Execution Time: 5162.410 ms
+(216 rows)
+
+> Loop number : 2
+SET
+SET
+SET
+SET
+SET
+SET
+SET
+SET
+SET
+                                                                                                             QUERY PLAN                                                                                                              
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+ Merge Join  (cost=360598.87..4921093.88 rows=302359741 width=34) (actual time=4626.155..5117.970 rows=311122 loops=1)
+   Merge Cond: (("T2448628400"."T2448628400_uid")::uuid = ("T2448628400_1"."T2448628400_uid")::uuid)
+   Buffers: shared hit=1824 read=70856, temp read=67792 written=68177
+   I/O Timings: shared read=333.280, temp read=261.684 write=831.901
+   ->  Unique  (cost=112795.99..134833.61 rows=176301 width=18) (actual time=1867.772..2079.486 rows=299712 loops=1)
+         Buffers: shared hit=1694 read=15005, temp read=25516 written=25689
+         I/O Timings: shared read=96.202, temp read=99.415 write=315.317
+         ->  Gather Merge  (cost=112795.99..133952.11 rows=176301 width=18) (actual time=1867.771..2026.212 rows=299712 loops=1)
+               Workers Planned: 1
+               Workers Launched: 1
+               Buffers: shared hit=1694 read=15005, temp read=25516 written=25689
+               I/O Timings: shared read=96.202, temp read=99.415 write=315.317
+               ->  Unique  (cost=111795.98..113118.24 rows=176301 width=18) (actual time=1849.631..1902.255 rows=149856 loops=2)
+                     Buffers: shared hit=1694 read=15005, temp read=25516 written=25689
+                     I/O Timings: shared read=96.202, temp read=99.415 write=315.317
+                     ->  Sort  (cost=111795.98..112236.73 rows=176301 width=18) (actual time=1849.630..1872.325 rows=149856 loops=2)
+                           Sort Key: "T2448628400"."T2448628400_uid", "Tb7c17e0e00"."Tb7c17e0e00_Ontorel-Core_0000002"
+                           Sort Method: external merge  Disk: 4072kB
+                           Buffers: shared hit=1694 read=15005, temp read=25516 written=25689
+                           I/O Timings: shared read=96.202, temp read=99.415 write=315.317
+                           Worker 0:  Sort Method: external merge  Disk: 4160kB
+                           ->  Parallel Hash Join  (cost=53907.19..92814.39 rows=176301 width=18) (actual time=1719.614..1780.417 rows=149856 loops=2)
+                                 Hash Cond: (("T51de5d7600"."T2448628400_uid")::uuid = ("T2448628400"."T2448628400_uid")::uuid)
+                                 Buffers: shared hit=1629 read=15005, temp read=24487 written=24656
+                                 I/O Timings: shared read=96.202, temp read=95.899 write=302.367
+                                 ->  Parallel Hash Join  (cost=47458.42..82973.82 rows=176301 width=18) (actual time=998.536..1057.074 rows=149856 loops=2)
+                                       Hash Cond: (("T50e263b800"."T77183c5000_uid")::uuid = ("T51de5d7600"."T77183c5000_uid")::uuid)
+                                       Buffers: shared read=15005, temp read=22101 written=22248
+                                       I/O Timings: shared read=96.202, temp read=86.434 write=272.939
+                                       ->  Parallel Hash Join  (cost=40081.65..69936.85 rows=176301 width=34) (actual time=848.586..898.190 rows=149856 loops=2)
+                                             Hash Cond: (("T50e263b800"."T77183c5000_uid")::uuid = ("T77183c5000"."T77183c5000_uid")::uuid)
+                                             Buffers: shared read=12801, temp read=18686 written=18804
+                                             I/O Timings: shared read=81.837, temp read=73.189 write=231.007
+                                             ->  Parallel Hash Join  (cost=33632.87..60096.28 rows=176301 width=18) (actual time=702.188..759.401 rows=149856 loops=2)
+                                                   Hash Cond: (("T50e263b500"."T77183c5100_uid")::uuid = ("T50e263b800"."T77183c5100_uid")::uuid)
+                                                   Buffers: shared read=11180, temp read=16301 written=16396
+                                                   I/O Timings: shared read=71.112, temp read=63.528 write=201.173
+                                                   ->  Parallel Hash Join  (cost=26256.10..47059.31 rows=176301 width=34) (actual time=553.400..600.419 rows=149856 loops=2)
+                                                         Hash Cond: (("T50e263b500"."T77183c5100_uid")::uuid = ("T77183c5100"."T77183c5100_uid")::uuid)
+                                                         Buffers: shared read=8976, temp read=12892 written=12972
+                                                         I/O Timings: shared read=57.125, temp read=50.142 write=159.483
+                                                         ->  Parallel Hash Join  (cost=19807.32..37218.74 rows=176301 width=18) (actual time=415.884..465.319 rows=149856 loops=2)
+                                                               Hash Cond: (("T5b22146400"."T5b22146400_uid")::uuid = ("Tb7c17e0e00"."T5b22146400_uid")::uuid)
+                                                               Buffers: shared read=7355, temp read=10507 written=10564
+                                                               I/O Timings: shared read=46.506, temp read=40.699 write=129.655
+                                                               ->  Parallel Hash Join  (cost=12897.55..25024.16 rows=176301 width=64) (actual time=254.424..302.948 rows=149856 loops=2)
+                                                                     Hash Cond: (("T5b22146400"."T5b22146400_uid")::uuid = ("T77183c4d00"."T77183c4d00_uid")::uuid)
+                                                                     Buffers: shared read=5446, temp read=6385 written=6424
+                                                                     I/O Timings: shared read=32.981, temp read=24.783 write=77.458
+                                                                     ->  Parallel Hash Join  (cost=6448.77..14151.59 rows=176301 width=48) (actual time=115.796..158.705 rows=149856 loops=2)
+                                                                           Hash Cond: (("T50e263b500"."T77183c4d00_uid")::uuid = ("T5b22146400"."T5b22146400_uid")::uuid)
+                                                                           Buffers: shared read=3825, temp read=2898 written=2924
+                                                                           I/O Timings: shared read=23.348, temp read=11.303 write=35.383
+                                                                           ->  Parallel Seq Scan on "T50e263b500"  (cost=0.00..3967.01 rows=176301 width=32) (actual time=0.049..20.314 rows=149856 loops=2)
+                                                                                 Buffers: shared read=2204
+                                                                                 I/O Timings: shared read=13.225
+                                                                           ->  Parallel Hash  (cost=3384.01..3384.01 rows=176301 width=16) (actual time=48.765..48.767 rows=149856 loops=2)
+                                                                                 Buckets: 262144  Batches: 4  Memory Usage: 5600kB
+                                                                                 Buffers: shared read=1621, temp written=1004
+                                                                                 I/O Timings: shared read=10.123, temp write=12.373
+                                                                                 ->  Parallel Seq Scan on "T5b22146400"  (cost=0.00..3384.01 rows=176301 width=16) (actual time=0.023..16.806 rows=149856 loops=2)
+                                                                                       Buffers: shared read=1621
+                                                                                       I/O Timings: shared read=10.123
+                                                                     ->  Parallel Hash  (cost=3384.01..3384.01 rows=176301 width=16) (actual time=47.464..47.465 rows=149856 loops=2)
+                                                                           Buckets: 262144  Batches: 4  Memory Usage: 5600kB
+                                                                           Buffers: shared read=1621, temp written=996
+                                                                           I/O Timings: shared read=9.633, temp write=12.222
+                                                                           ->  Parallel Seq Scan on "T77183c4d00"  (cost=0.00..3384.01 rows=176301 width=16) (actual time=0.026..16.570 rows=149856 loops=2)
+                                                                                 Buffers: shared read=1621
+                                                                                 I/O Timings: shared read=9.633
+                                                               ->  Parallel Hash  (cost=3672.01..3672.01 rows=176301 width=18) (actual time=59.464..59.465 rows=149856 loops=2)
+                                                                     Buckets: 131072  Batches: 4  Memory Usage: 5184kB
+                                                                     Buffers: shared read=1909, temp written=1056
+                                                                     I/O Timings: shared read=13.525, temp write=15.514
+                                                                     ->  Parallel Seq Scan on "Tb7c17e0e00"  (cost=0.00..3672.01 rows=176301 width=18) (actual time=0.026..19.270 rows=149856 loops=2)
+                                                                           Buffers: shared read=1909
+                                                                           I/O Timings: shared read=13.525
+                                                         ->  Parallel Hash  (cost=3384.01..3384.01 rows=176301 width=16) (actual time=48.841..48.842 rows=149856 loops=2)
+                                                               Buckets: 262144  Batches: 4  Memory Usage: 5600kB
+                                                               Buffers: shared read=1621, temp written=1000
+                                                               I/O Timings: shared read=10.619, temp write=12.346
+                                                               ->  Parallel Seq Scan on "T77183c5100"  (cost=0.00..3384.01 rows=176301 width=16) (actual time=0.028..17.340 rows=149856 loops=2)
+                                                                     Buffers: shared read=1621
+                                                                     I/O Timings: shared read=10.619
+                                                   ->  Parallel Hash  (cost=3967.01..3967.01 rows=176301 width=32) (actual time=56.742..56.743 rows=149856 loops=2)
+                                                         Buckets: 131072  Batches: 4  Memory Usage: 5760kB
+                                                         Buffers: shared read=2204, temp written=1436
+                                                         I/O Timings: shared read=13.987, temp write=17.750
+                                                         ->  Parallel Seq Scan on "T50e263b800"  (cost=0.00..3967.01 rows=176301 width=32) (actual time=0.026..19.639 rows=149856 loops=2)
+                                                               Buffers: shared read=2204
+                                                               I/O Timings: shared read=13.987
+                                             ->  Parallel Hash  (cost=3384.01..3384.01 rows=176301 width=16) (actual time=48.751..48.752 rows=149856 loops=2)
+                                                   Buckets: 262144  Batches: 4  Memory Usage: 5600kB
+                                                   Buffers: shared read=1621, temp written=1004
+                                                   I/O Timings: shared read=10.725, temp write=12.646
+                                                   ->  Parallel Seq Scan on "T77183c5000"  (cost=0.00..3384.01 rows=176301 width=16) (actual time=0.030..17.232 rows=149856 loops=2)
+                                                         Buffers: shared read=1621
+                                                         I/O Timings: shared read=10.725
+                                       ->  Parallel Hash  (cost=3967.01..3967.01 rows=176301 width=32) (actual time=55.361..55.361 rows=149856 loops=2)
+                                             Buckets: 131072  Batches: 4  Memory Usage: 5760kB
+                                             Buffers: shared read=2204, temp written=1448
+                                             I/O Timings: shared read=14.365, temp write=17.780
+                                             ->  Parallel Seq Scan on "T51de5d7600"  (cost=0.00..3967.01 rows=176301 width=32) (actual time=0.044..19.902 rows=149856 loops=2)
+                                                   Buffers: shared read=2204
+                                                   I/O Timings: shared read=14.365
+                                 ->  Parallel Hash  (cost=3384.01..3384.01 rows=176301 width=16) (actual time=623.081..623.082 rows=149856 loops=2)
+                                       Buckets: 262144  Batches: 4  Memory Usage: 5632kB
+                                       Buffers: shared hit=1621, temp written=1004
+                                       I/O Timings: temp write=11.851
+                                       ->  Parallel Seq Scan on "T2448628400"  (cost=0.00..3384.01 rows=176301 width=16) (actual time=0.017..11.488 rows=149856 loops=2)
+                                             Buffers: shared hit=1621
+   ->  Materialize  (cost=247802.88..249517.90 rows=343004 width=32) (actual time=2758.316..2943.430 rows=311122 loops=1)
+         Buffers: shared hit=130 read=55851, temp read=42276 written=42488
+         I/O Timings: shared read=237.079, temp read=162.268 write=516.584
+         ->  Sort  (cost=247802.88..248660.39 rows=343004 width=32) (actual time=2758.311..2899.353 rows=311122 loops=1)
+               Sort Key: "T2448628400_1"."T2448628400_uid"
+               Sort Method: external merge  Disk: 12832kB
+               Buffers: shared hit=130 read=55851, temp read=42276 written=42488
+               I/O Timings: shared read=237.079, temp read=162.268 write=516.584
+               ->  Unique  (cost=165467.37..208059.82 rows=343004 width=32) (actual time=2353.263..2720.977 rows=311122 loops=1)
+                     Buffers: shared hit=130 read=55851, temp read=40672 written=40878
+                     I/O Timings: shared read=237.079, temp read=156.680 write=497.451
+                     ->  Gather Merge  (cost=165467.37..206344.80 rows=343004 width=32) (actual time=2353.261..2657.175 rows=591717 loops=1)
+                           Workers Planned: 2
+                           Workers Launched: 2
+                           Buffers: shared hit=130 read=55851, temp read=40672 written=40878
+                           I/O Timings: shared read=237.079, temp read=156.680 write=497.451
+                           ->  Unique  (cost=164467.34..165753.61 rows=171502 width=32) (actual time=2328.586..2420.271 rows=197239 loops=3)
+                                 Buffers: shared hit=130 read=55851, temp read=40672 written=40878
+                                 I/O Timings: shared read=237.079, temp read=156.680 write=497.451
+                                 ->  Sort  (cost=164467.34..164896.10 rows=171502 width=32) (actual time=2328.584..2381.700 rows=294355 loops=3)
+                                       Sort Key: "Tfa45026200"."Tfa45026200_uid", "T2448628400_1"."T2448628400_uid"
+                                       Sort Method: external merge  Disk: 12328kB
+                                       Buffers: shared hit=130 read=55851, temp read=40672 written=40878
+                                       I/O Timings: shared read=237.079, temp read=156.680 write=497.451
+                                       Worker 0:  Sort Method: external merge  Disk: 12000kB
+                                       Worker 1:  Sort Method: external merge  Disk: 12080kB
+                                       ->  Parallel Hash Join  (cost=106815.88..145451.57 rows=171502 width=32) (actual time=1739.813..2181.968 rows=294355 loops=3)
+                                             Hash Cond: (("Tc68c9cba00"."Tfa45062900_uid")::uuid = ("T2448628400_1"."T2448628400_uid")::uuid)
+                                             Buffers: shared hit=16 read=55851, temp read=36121 written=36312
+                                             I/O Timings: shared read=237.079, temp read=140.720 write=442.110
+                                             ->  Parallel Hash Join  (cost=101228.11..139413.60 rows=171502 width=48) (actual time=1427.429..1750.647 rows=294355 loops=3)
+                                                   Hash Cond: (("Tc68c9cba00"."Tfa45062900_uid")::uuid = ("Tfa45062900"."Tfa45062900_uid")::uuid)
+                                                   Buffers: shared read=54230, temp read=36121 written=36312
+                                                   I/O Timings: shared read=226.611, temp read=140.720 write=442.110
+                                                   ->  Parallel Hash Join  (cost=95640.33..133375.62 rows=171502 width=32) (actual time=1379.563..1585.779 rows=294355 loops=3)
+                                                         Hash Cond: (("Tc68c9cba00"."Tfa45020700_uid")::uuid = ("T69af2e7200"."Tfa45020700_uid")::uuid)
+                                                         Buffers: shared read=52609, temp read=36121 written=36312
+                                                         I/O Timings: shared read=216.084, temp read=140.720 write=442.110
+                                                         ->  Parallel Seq Scan on "Tc68c9cba00"  (cost=0.00..21784.05 rows=787905 width=32) (actual time=0.068..74.316 rows=630324 loops=3)
+                                                               Buffers: shared read=13905
+                                                               I/O Timings: shared read=53.735
+                                                         ->  Parallel Hash  (cost=91988.56..91988.56 rows=171502 width=48) (actual time=1142.104..1142.114 rows=294355 loops=3)
+                                                               Buckets: 131072 (originally 131072)  Batches: 16 (originally 8)  Memory Usage: 5408kB
+                                                               Buffers: shared read=38704, temp read=17189 written=24220
+                                                               I/O Timings: shared read=162.349, temp read=65.554 write=297.672
+                                                               ->  Parallel Hash Join  (cost=61349.28..91988.56 rows=171502 width=48) (actual time=843.903..1035.604 rows=294355 loops=3)
+                                                                     Hash Cond: (("Tfa45020700"."Tfa45020700_uid")::uuid = ("T69af2e7200"."Tfa45020700_uid")::uuid)
+                                                                     Buffers: shared read=38704, temp read=15705 written=15780
+                                                                     I/O Timings: shared read=162.349, temp read=60.104 write=195.070
+                                                                     ->  Parallel Seq Scan on "Tfa45020700"  (cost=0.00..18101.05 rows=787905 width=16) (actual time=0.039..64.807 rows=630324 loops=3)
+                                                                           Buffers: shared read=10222
+                                                                           I/O Timings: shared read=41.178
+                                                                     ->  Parallel Hash  (cost=58032.50..58032.50 rows=171502 width=32) (actual time=652.965..652.973 rows=294355 loops=3)
+                                                                           Buckets: 131072 (originally 131072)  Batches: 8 (originally 4)  Memory Usage: 8064kB
+                                                                           Buffers: shared read=28482, temp read=2469 written=7424
+                                                                           I/O Timings: shared read=121.171, temp read=8.674 write=92.025
+                                                                           ->  Parallel Hash Join  (cost=26308.70..58032.50 rows=171502 width=32) (actual time=426.894..545.198 rows=294355 loops=3)
+                                                                                 Hash Cond: (("T69af2e7200"."Tfa45022500_uid")::uuid = ("Tfa45026200"."Tfa45026200_uid")::uuid)
+                                                                                 Buffers: shared read=28482
+                                                                                 I/O Timings: shared read=121.171
+                                                                                 ->  Parallel Seq Scan on "T69af2e7200"  (cost=0.00..26988.69 rows=976169 width=32) (actual time=0.041..86.858 rows=780935 loops=3)
+                                                                                       Buffers: shared read=17227
+                                                                                       I/O Timings: shared read=70.870
+                                                                                 ->  Parallel Hash  (cost=24688.27..24688.27 rows=129634 width=32) (actual time=273.783..273.788 rows=103707 loops=3)
+                                                                                       Buckets: 524288  Batches: 1  Memory Usage: 23616kB
+                                                                                       Buffers: shared read=11255
+                                                                                       I/O Timings: shared read=50.301
+                                                                                       ->  Parallel Hash Join  (cost=5799.79..24688.27 rows=129634 width=32) (actual time=187.607..226.552 rows=103707 loops=3)
+                                                                                             Hash Cond: (("Tfa45022500"."Tfa45022500_uid")::uuid = ("Tfa45026200"."Tfa45026200_uid")::uuid)
+                                                                                             Buffers: shared read=11255
+                                                                                             I/O Timings: shared read=50.301
+                                                                                             ->  Parallel Seq Scan on "Tfa45022500"  (cost=0.00..16951.60 rows=737860 width=16) (actual time=0.036..58.542 rows=590288 loops=3)
+                                                                                                   Buffers: shared read=9573
+                                                                                                   I/O Timings: shared read=39.505
+                                                                                             ->  Parallel Hash  (cost=3512.13..3512.13 rows=183013 width=16) (actual time=44.430..44.432 rows=103707 loops=3)
+                                                                                                   Buckets: 524288  Batches: 1  Memory Usage: 18752kB
+                                                                                                   Buffers: shared read=1682
+                                                                                                   I/O Timings: shared read=10.796
+                                                                                                   ->  Parallel Seq Scan on "Tfa45026200"  (cost=0.00..3512.13 rows=183013 width=16) (actual time=0.037..11.758 rows=103707 loops=3)
+                                                                                                         Buffers: shared read=1682
+                                                                                                         I/O Timings: shared read=10.796
+                                                   ->  Parallel Hash  (cost=3384.01..3384.01 rows=176301 width=16) (actual time=46.795..46.796 rows=99904 loops=3)
+                                                         Buckets: 524288  Batches: 1  Memory Usage: 18208kB
+                                                         Buffers: shared read=1621
+                                                         I/O Timings: shared read=10.527
+                                                         ->  Parallel Seq Scan on "Tfa45062900"  (cost=0.00..3384.01 rows=176301 width=16) (actual time=0.047..11.575 rows=99904 loops=3)
+                                                               Buffers: shared read=1621
+                                                               I/O Timings: shared read=10.527
+                                             ->  Parallel Hash  (cost=3384.01..3384.01 rows=176301 width=16) (actual time=310.544..310.545 rows=99904 loops=3)
+                                                   Buckets: 524288  Batches: 1  Memory Usage: 18208kB
+                                                   Buffers: shared read=1621
+                                                   I/O Timings: shared read=10.468
+                                                   ->  Parallel Seq Scan on "T2448628400" "T2448628400_1"  (cost=0.00..3384.01 rows=176301 width=16) (actual time=0.037..11.237 rows=99904 loops=3)
+                                                         Buffers: shared read=1621
+                                                         I/O Timings: shared read=10.468
+ Settings: search_path = 'test_mimic'
+ Planning:
+   Buffers: shared hit=774 read=84
+   I/O Timings: shared read=0.792
+ Planning Time: 29.196 ms
+ JIT:
+   Functions: 280
+   Options: Inlining true, Optimization true, Expressions true, Deforming true
+   Timing: Generation 11.142 ms, Inlining 312.459 ms, Optimization 750.346 ms, Emission 509.273 ms, Total 1583.220 ms
+ Execution Time: 5172.085 ms
+(216 rows)
+
+> Loop number : 3
+SET
+SET
+SET
+SET
+SET
+SET
+SET
+SET
+SET
+                                                                                                             QUERY PLAN                                                                                                              
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+ Merge Join  (cost=360598.87..4921093.88 rows=302359741 width=34) (actual time=4700.089..5195.187 rows=311122 loops=1)
+   Merge Cond: (("T2448628400"."T2448628400_uid")::uuid = ("T2448628400_1"."T2448628400_uid")::uuid)
+   Buffers: shared hit=3445 read=69235, temp read=67840 written=68205
+   I/O Timings: shared read=356.663, temp read=270.665 write=849.370
+   ->  Unique  (cost=112795.99..134833.61 rows=176301 width=18) (actual time=1874.176..2095.388 rows=299712 loops=1)
+         Buffers: shared hit=1694 read=15005, temp read=25512 written=25661
+         I/O Timings: shared read=97.492, temp read=103.796 write=317.944
+         ->  Gather Merge  (cost=112795.99..133952.11 rows=176301 width=18) (actual time=1874.175..2041.816 rows=299712 loops=1)
+               Workers Planned: 1
+               Workers Launched: 1
+               Buffers: shared hit=1694 read=15005, temp read=25512 written=25661
+               I/O Timings: shared read=97.492, temp read=103.796 write=317.944
+               ->  Unique  (cost=111795.98..113118.24 rows=176301 width=18) (actual time=1856.728..1902.623 rows=149856 loops=2)
+                     Buffers: shared hit=1694 read=15005, temp read=25512 written=25661
+                     I/O Timings: shared read=97.492, temp read=103.796 write=317.944
+                     ->  Sort  (cost=111795.98..112236.73 rows=176301 width=18) (actual time=1856.726..1876.179 rows=149856 loops=2)
+                           Sort Key: "T2448628400"."T2448628400_uid", "Tb7c17e0e00"."Tb7c17e0e00_Ontorel-Core_0000002"
+                           Sort Method: external merge  Disk: 4112kB
+                           Buffers: shared hit=1694 read=15005, temp read=25512 written=25661
+                           I/O Timings: shared read=97.492, temp read=103.796 write=317.944
+                           Worker 0:  Sort Method: external merge  Disk: 4120kB
+                           ->  Parallel Hash Join  (cost=53907.19..92814.39 rows=176301 width=18) (actual time=1731.469..1789.481 rows=149856 loops=2)
+                                 Hash Cond: (("T51de5d7600"."T2448628400_uid")::uuid = ("T2448628400"."T2448628400_uid")::uuid)
+                                 Buffers: shared hit=1629 read=15005, temp read=24483 written=24628
+                                 I/O Timings: shared read=97.492, temp read=100.225 write=304.921
+                                 ->  Parallel Hash Join  (cost=47458.42..82973.82 rows=176301 width=18) (actual time=1005.228..1064.361 rows=149856 loops=2)
+                                       Hash Cond: (("T50e263b800"."T77183c5000_uid")::uuid = ("T51de5d7600"."T77183c5000_uid")::uuid)
+                                       Buffers: shared read=15005, temp read=22097 written=22216
+                                       I/O Timings: shared read=97.492, temp read=90.872 write=275.132
+                                       ->  Parallel Hash Join  (cost=40081.65..69936.85 rows=176301 width=34) (actual time=854.945..904.368 rows=149856 loops=2)
+                                             Hash Cond: (("T50e263b800"."T77183c5000_uid")::uuid = ("T77183c5000"."T77183c5000_uid")::uuid)
+                                             Buffers: shared read=12801, temp read=18686 written=18788
+                                             I/O Timings: shared read=83.090, temp read=77.386 write=232.305
+                                             ->  Parallel Hash Join  (cost=33632.87..60096.28 rows=176301 width=18) (actual time=706.576..764.563 rows=149856 loops=2)
+                                                   Hash Cond: (("T50e263b500"."T77183c5100_uid")::uuid = ("T50e263b800"."T77183c5100_uid")::uuid)
+                                                   Buffers: shared read=11180, temp read=16301 written=16388
+                                                   I/O Timings: shared read=72.451, temp read=67.123 write=201.453
+                                                   ->  Parallel Hash Join  (cost=26256.10..47059.31 rows=176301 width=34) (actual time=556.525..603.816 rows=149856 loops=2)
+                                                         Hash Cond: (("T50e263b500"."T77183c5100_uid")::uuid = ("T77183c5100"."T77183c5100_uid")::uuid)
+                                                         Buffers: shared read=8976, temp read=12892 written=12964
+                                                         I/O Timings: shared read=58.414, temp read=53.179 write=159.013
+                                                         ->  Parallel Hash Join  (cost=19807.32..37218.74 rows=176301 width=18) (actual time=416.874..468.608 rows=149856 loops=2)
+                                                               Hash Cond: (("T5b22146400"."T5b22146400_uid")::uuid = ("Tb7c17e0e00"."T5b22146400_uid")::uuid)
+                                                               Buffers: shared read=7355, temp read=10508 written=10560
+                                                               I/O Timings: shared read=47.757, temp read=43.256 write=128.509
+                                                               ->  Parallel Hash Join  (cost=12897.55..25024.16 rows=176301 width=64) (actual time=256.623..304.899 rows=149856 loops=2)
+                                                                     Hash Cond: (("T5b22146400"."T5b22146400_uid")::uuid = ("T77183c4d00"."T77183c4d00_uid")::uuid)
+                                                                     Buffers: shared read=5446, temp read=6386 written=6424
+                                                                     I/O Timings: shared read=35.193, temp read=25.812 write=77.718
+                                                                     ->  Parallel Hash Join  (cost=6448.77..14151.59 rows=176301 width=48) (actual time=116.735..159.911 rows=149856 loops=2)
+                                                                           Hash Cond: (("T50e263b500"."T77183c4d00_uid")::uuid = ("T5b22146400"."T5b22146400_uid")::uuid)
+                                                                           Buffers: shared read=3825, temp read=2899 written=2924
+                                                                           I/O Timings: shared read=24.402, temp read=11.282 write=35.721
+                                                                           ->  Parallel Seq Scan on "T50e263b500"  (cost=0.00..3967.01 rows=176301 width=32) (actual time=0.056..20.647 rows=149856 loops=2)
+                                                                                 Buffers: shared read=2204
+                                                                                 I/O Timings: shared read=13.590
+                                                                           ->  Parallel Hash  (cost=3384.01..3384.01 rows=176301 width=16) (actual time=49.216..49.217 rows=149856 loops=2)
+                                                                                 Buckets: 262144  Batches: 4  Memory Usage: 5600kB
+                                                                                 Buffers: shared read=1621, temp written=1000
+                                                                                 I/O Timings: shared read=10.812, temp write=12.352
+                                                                                 ->  Parallel Seq Scan on "T5b22146400"  (cost=0.00..3384.01 rows=176301 width=16) (actual time=0.028..17.317 rows=149856 loops=2)
+                                                                                       Buffers: shared read=1621
+                                                                                       I/O Timings: shared read=10.812
+                                                                     ->  Parallel Hash  (cost=3384.01..3384.01 rows=176301 width=16) (actual time=49.210..49.211 rows=149856 loops=2)
+                                                                           Buckets: 262144  Batches: 4  Memory Usage: 5600kB
+                                                                           Buffers: shared read=1621, temp written=996
+                                                                           I/O Timings: shared read=10.792, temp write=12.303
+                                                                           ->  Parallel Seq Scan on "T77183c4d00"  (cost=0.00..3384.01 rows=176301 width=16) (actual time=0.029..17.291 rows=149856 loops=2)
+                                                                                 Buffers: shared read=1621
+                                                                                 I/O Timings: shared read=10.792
+                                                               ->  Parallel Hash  (cost=3672.01..3672.01 rows=176301 width=18) (actual time=57.854..57.855 rows=149856 loops=2)
+                                                                     Buckets: 131072  Batches: 4  Memory Usage: 5184kB
+                                                                     Buffers: shared read=1909, temp written=1052
+                                                                     I/O Timings: shared read=12.563, temp write=12.967
+                                                                     ->  Parallel Seq Scan on "Tb7c17e0e00"  (cost=0.00..3672.01 rows=176301 width=18) (actual time=0.028..18.583 rows=149856 loops=2)
+                                                                           Buffers: shared read=1909
+                                                                           I/O Timings: shared read=12.563
+                                                         ->  Parallel Hash  (cost=3384.01..3384.01 rows=176301 width=16) (actual time=48.740..48.741 rows=149856 loops=2)
+                                                               Buckets: 262144  Batches: 4  Memory Usage: 5600kB
+                                                               Buffers: shared read=1621, temp written=1000
+                                                               I/O Timings: shared read=10.658, temp write=12.481
+                                                               ->  Parallel Seq Scan on "T77183c5100"  (cost=0.00..3384.01 rows=176301 width=16) (actual time=0.029..17.165 rows=149856 loops=2)
+                                                                     Buffers: shared read=1621
+                                                                     I/O Timings: shared read=10.658
+                                                   ->  Parallel Hash  (cost=3967.01..3967.01 rows=176301 width=32) (actual time=57.405..57.406 rows=149856 loops=2)
+                                                         Buckets: 131072  Batches: 4  Memory Usage: 5760kB
+                                                         Buffers: shared read=2204, temp written=1436
+                                                         I/O Timings: shared read=14.037, temp write=17.776
+                                                         ->  Parallel Seq Scan on "T50e263b800"  (cost=0.00..3967.01 rows=176301 width=32) (actual time=0.032..19.749 rows=149856 loops=2)
+                                                               Buffers: shared read=2204
+                                                               I/O Timings: shared read=14.037
+                                             ->  Parallel Hash  (cost=3384.01..3384.01 rows=176301 width=16) (actual time=49.294..49.295 rows=149856 loops=2)
+                                                   Buckets: 262144  Batches: 4  Memory Usage: 5600kB
+                                                   Buffers: shared read=1621, temp written=996
+                                                   I/O Timings: shared read=10.638, temp write=12.486
+                                                   ->  Parallel Seq Scan on "T77183c5000"  (cost=0.00..3384.01 rows=176301 width=16) (actual time=0.028..17.215 rows=149856 loops=2)
+                                                         Buffers: shared read=1621
+                                                         I/O Timings: shared read=10.638
+                                       ->  Parallel Hash  (cost=3967.01..3967.01 rows=176301 width=32) (actual time=56.069..56.070 rows=149856 loops=2)
+                                             Buckets: 131072  Batches: 4  Memory Usage: 5760kB
+                                             Buffers: shared read=2204, temp written=1440
+                                             I/O Timings: shared read=14.402, temp write=17.938
+                                             ->  Parallel Seq Scan on "T51de5d7600"  (cost=0.00..3967.01 rows=176301 width=32) (actual time=0.045..19.776 rows=149856 loops=2)
+                                                   Buffers: shared read=2204
+                                                   I/O Timings: shared read=14.402
+                                 ->  Parallel Hash  (cost=3384.01..3384.01 rows=176301 width=16) (actual time=627.807..627.808 rows=149856 loops=2)
+                                       Buckets: 262144  Batches: 4  Memory Usage: 5632kB
+                                       Buffers: shared hit=1621, temp written=1004
+                                       I/O Timings: temp write=11.975
+                                       ->  Parallel Seq Scan on "T2448628400"  (cost=0.00..3384.01 rows=176301 width=16) (actual time=0.019..11.466 rows=149856 loops=2)
+                                             Buffers: shared hit=1621
+   ->  Materialize  (cost=247802.88..249517.90 rows=343004 width=32) (actual time=2825.845..3008.379 rows=311122 loops=1)
+         Buffers: shared hit=1751 read=54230, temp read=42328 written=42544
+         I/O Timings: shared read=259.171, temp read=166.869 write=531.426
+         ->  Sort  (cost=247802.88..248660.39 rows=343004 width=32) (actual time=2825.840..2964.837 rows=311122 loops=1)
+               Sort Key: "T2448628400_1"."T2448628400_uid"
+               Sort Method: external merge  Disk: 12832kB
+               Buffers: shared hit=1751 read=54230, temp read=42328 written=42544
+               I/O Timings: shared read=259.171, temp read=166.869 write=531.426
+               ->  Unique  (cost=165467.37..208059.82 rows=343004 width=32) (actual time=2416.816..2792.924 rows=311122 loops=1)
+                     Buffers: shared hit=1751 read=54230, temp read=40724 written=40934
+                     I/O Timings: shared read=259.171, temp read=160.928 write=512.351
+                     ->  Gather Merge  (cost=165467.37..206344.80 rows=343004 width=32) (actual time=2416.815..2729.425 rows=591461 loops=1)
+                           Workers Planned: 2
+                           Workers Launched: 2
+                           Buffers: shared hit=1751 read=54230, temp read=40724 written=40934
+                           I/O Timings: shared read=259.171, temp read=160.928 write=512.351
+                           ->  Unique  (cost=164467.34..165753.61 rows=171502 width=32) (actual time=2389.004..2480.903 rows=197154 loops=3)
+                                 Buffers: shared hit=1751 read=54230, temp read=40724 written=40934
+                                 I/O Timings: shared read=259.171, temp read=160.928 write=512.351
+                                 ->  Sort  (cost=164467.34..164896.10 rows=171502 width=32) (actual time=2389.003..2442.290 rows=294355 loops=3)
+                                       Sort Key: "Tfa45026200"."Tfa45026200_uid", "T2448628400_1"."T2448628400_uid"
+                                       Sort Method: external merge  Disk: 12456kB
+                                       Buffers: shared hit=1751 read=54230, temp read=40724 written=40934
+                                       I/O Timings: shared read=259.171, temp read=160.928 write=512.351
+                                       Worker 0:  Sort Method: external merge  Disk: 12288kB
+                                       Worker 1:  Sort Method: external merge  Disk: 11664kB
+                                       ->  Parallel Hash Join  (cost=106815.88..145451.57 rows=171502 width=32) (actual time=1781.348..2240.103 rows=294355 loops=3)
+                                             Hash Cond: (("Tc68c9cba00"."Tfa45062900_uid")::uuid = ("T2448628400_1"."T2448628400_uid")::uuid)
+                                             Buffers: shared hit=1637 read=54230, temp read=36173 written=36368
+                                             I/O Timings: shared read=259.171, temp read=145.384 write=456.575
+                                             ->  Parallel Hash Join  (cost=101228.11..139413.60 rows=171502 width=48) (actual time=1463.730..1800.252 rows=294355 loops=3)
+                                                   Hash Cond: (("Tc68c9cba00"."Tfa45062900_uid")::uuid = ("Tfa45062900"."Tfa45062900_uid")::uuid)
+                                                   Buffers: shared read=54230, temp read=36173 written=36368
+                                                   I/O Timings: shared read=259.171, temp read=145.384 write=456.575
+                                                   ->  Parallel Hash Join  (cost=95640.33..133375.62 rows=171502 width=32) (actual time=1413.754..1630.885 rows=294355 loops=3)
+                                                         Hash Cond: (("Tc68c9cba00"."Tfa45020700_uid")::uuid = ("T69af2e7200"."Tfa45020700_uid")::uuid)
+                                                         Buffers: shared read=52609, temp read=36173 written=36368
+                                                         I/O Timings: shared read=247.211, temp read=145.384 write=456.575
+                                                         ->  Parallel Seq Scan on "Tc68c9cba00"  (cost=0.00..21784.05 rows=787905 width=32) (actual time=0.081..85.375 rows=630324 loops=3)
+                                                               Buffers: shared read=13905
+                                                               I/O Timings: shared read=65.245
+                                                         ->  Parallel Hash  (cost=91988.56..91988.56 rows=171502 width=48) (actual time=1157.207..1157.217 rows=294355 loops=3)
+                                                               Buckets: 131072 (originally 131072)  Batches: 16 (originally 8)  Memory Usage: 5408kB
+                                                               Buffers: shared read=38704, temp read=17238 written=24272
+                                                               I/O Timings: shared read=181.967, temp read=66.053 write=306.118
+                                                               ->  Parallel Hash Join  (cost=61349.28..91988.56 rows=171502 width=48) (actual time=847.654..1048.708 rows=294355 loops=3)
+                                                                     Hash Cond: (("Tfa45020700"."Tfa45020700_uid")::uuid = ("T69af2e7200"."Tfa45020700_uid")::uuid)
+                                                                     Buffers: shared read=38704, temp read=15706 written=15780
+                                                                     I/O Timings: shared read=181.967, temp read=60.780 write=201.121
+                                                                     ->  Parallel Seq Scan on "Tfa45020700"  (cost=0.00..18101.05 rows=787905 width=16) (actual time=0.041..63.519 rows=630324 loops=3)
+                                                                           Buffers: shared read=10222
+                                                                           I/O Timings: shared read=44.466
+                                                                     ->  Parallel Hash  (cost=58032.50..58032.50 rows=171502 width=32) (actual time=661.992..662.000 rows=294355 loops=3)
+                                                                           Buckets: 131072 (originally 131072)  Batches: 8 (originally 4)  Memory Usage: 8032kB
+                                                                           Buffers: shared read=28482, temp read=2467 written=7420
+                                                                           I/O Timings: shared read=137.500, temp read=8.681 write=98.234
+                                                                           ->  Parallel Hash Join  (cost=26308.70..58032.50 rows=171502 width=32) (actual time=432.764..551.584 rows=294355 loops=3)
+                                                                                 Hash Cond: (("T69af2e7200"."Tfa45022500_uid")::uuid = ("Tfa45026200"."Tfa45026200_uid")::uuid)
+                                                                                 Buffers: shared read=28482
+                                                                                 I/O Timings: shared read=137.500
+                                                                                 ->  Parallel Seq Scan on "T69af2e7200"  (cost=0.00..26988.69 rows=976169 width=32) (actual time=0.040..89.671 rows=780935 loops=3)
+                                                                                       Buffers: shared read=17227
+                                                                                       I/O Timings: shared read=77.844
+                                                                                 ->  Parallel Hash  (cost=24688.27..24688.27 rows=129634 width=32) (actual time=277.322..277.327 rows=103707 loops=3)
+                                                                                       Buckets: 524288  Batches: 1  Memory Usage: 23616kB
+                                                                                       Buffers: shared read=11255
+                                                                                       I/O Timings: shared read=59.656
+                                                                                       ->  Parallel Hash Join  (cost=5799.79..24688.27 rows=129634 width=32) (actual time=189.497..228.933 rows=103707 loops=3)
+                                                                                             Hash Cond: (("Tfa45022500"."Tfa45022500_uid")::uuid = ("Tfa45026200"."Tfa45026200_uid")::uuid)
+                                                                                             Buffers: shared read=11255
+                                                                                             I/O Timings: shared read=59.656
+                                                                                             ->  Parallel Seq Scan on "Tfa45022500"  (cost=0.00..16951.60 rows=737860 width=16) (actual time=0.038..61.061 rows=590288 loops=3)
+                                                                                                   Buffers: shared read=9573
+                                                                                                   I/O Timings: shared read=46.952
+                                                                                             ->  Parallel Hash  (cost=3512.13..3512.13 rows=183013 width=16) (actual time=45.498..45.500 rows=103707 loops=3)
+                                                                                                   Buckets: 524288  Batches: 1  Memory Usage: 18752kB
+                                                                                                   Buffers: shared read=1682
+                                                                                                   I/O Timings: shared read=12.704
+                                                                                                   ->  Parallel Seq Scan on "Tfa45026200"  (cost=0.00..3512.13 rows=183013 width=16) (actual time=0.037..12.469 rows=103707 loops=3)
+                                                                                                         Buffers: shared read=1682
+                                                                                                         I/O Timings: shared read=12.704
+                                                   ->  Parallel Hash  (cost=3384.01..3384.01 rows=176301 width=16) (actual time=48.854..48.855 rows=99904 loops=3)
+                                                         Buckets: 524288  Batches: 1  Memory Usage: 18240kB
+                                                         Buffers: shared read=1621
+                                                         I/O Timings: shared read=11.960
+                                                         ->  Parallel Seq Scan on "Tfa45062900"  (cost=0.00..3384.01 rows=176301 width=16) (actual time=0.067..12.109 rows=99904 loops=3)
+                                                               Buffers: shared read=1621
+                                                               I/O Timings: shared read=11.960
+                                             ->  Parallel Hash  (cost=3384.01..3384.01 rows=176301 width=16) (actual time=315.829..315.830 rows=99904 loops=3)
+                                                   Buckets: 524288  Batches: 1  Memory Usage: 18208kB
+                                                   Buffers: shared hit=1621
+                                                   ->  Parallel Seq Scan on "T2448628400" "T2448628400_1"  (cost=0.00..3384.01 rows=176301 width=16) (actual time=0.014..7.695 rows=99904 loops=3)
+                                                         Buffers: shared hit=1621
+ Settings: search_path = 'test_mimic'
+ Planning:
+   Buffers: shared hit=826 read=32
+   I/O Timings: shared read=0.394
+ Planning Time: 24.904 ms
+ JIT:
+   Functions: 280
+   Options: Inlining true, Optimization true, Expressions true, Deforming true
+   Timing: Generation 10.942 ms, Inlining 316.139 ms, Optimization 750.527 ms, Emission 511.328 ms, Total 1588.936 ms
+ Execution Time: 5245.969 ms
+(214 rows)
+
+> Loop number : 4
+SET
+SET
+SET
+SET
+SET
+SET
+SET
+SET
+SET
+                                                                                                             QUERY PLAN                                                                                                              
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+ Merge Join  (cost=360598.87..4921093.88 rows=302359741 width=34) (actual time=4714.789..5209.468 rows=311122 loops=1)
+   Merge Cond: (("T2448628400"."T2448628400_uid")::uuid = ("T2448628400_1"."T2448628400_uid")::uuid)
+   Buffers: shared hit=1824 read=70856, temp read=67830 written=68228
+   I/O Timings: shared read=348.442, temp read=264.386 write=849.975
+   ->  Unique  (cost=112795.99..134833.61 rows=176301 width=18) (actual time=1902.281..2122.696 rows=299712 loops=1)
+         Buffers: shared hit=1694 read=15005, temp read=25516 written=25701
+         I/O Timings: shared read=108.628, temp read=99.987 write=314.103
+         ->  Gather Merge  (cost=112795.99..133952.11 rows=176301 width=18) (actual time=1902.280..2069.185 rows=299712 loops=1)
+               Workers Planned: 1
+               Workers Launched: 1
+               Buffers: shared hit=1694 read=15005, temp read=25516 written=25701
+               I/O Timings: shared read=108.628, temp read=99.987 write=314.103
+               ->  Unique  (cost=111795.98..113118.24 rows=176301 width=18) (actual time=1884.446..1930.931 rows=149856 loops=2)
+                     Buffers: shared hit=1694 read=15005, temp read=25516 written=25701
+                     I/O Timings: shared read=108.628, temp read=99.987 write=314.103
+                     ->  Sort  (cost=111795.98..112236.73 rows=176301 width=18) (actual time=1884.444..1904.057 rows=149856 loops=2)
+                           Sort Key: "T2448628400"."T2448628400_uid", "Tb7c17e0e00"."Tb7c17e0e00_Ontorel-Core_0000002"
+                           Sort Method: external merge  Disk: 4088kB
+                           Buffers: shared hit=1694 read=15005, temp read=25516 written=25701
+                           I/O Timings: shared read=108.628, temp read=99.987 write=314.103
+                           Worker 0:  Sort Method: external merge  Disk: 4144kB
+                           ->  Parallel Hash Join  (cost=53907.19..92814.39 rows=176301 width=18) (actual time=1757.984..1816.942 rows=149856 loops=2)
+                                 Hash Cond: (("T51de5d7600"."T2448628400_uid")::uuid = ("T2448628400"."T2448628400_uid")::uuid)
+                                 Buffers: shared hit=1629 read=15005, temp read=24487 written=24668
+                                 I/O Timings: shared read=108.628, temp read=96.525 write=301.287
+                                 ->  Parallel Hash Join  (cost=47458.42..82973.82 rows=176301 width=18) (actual time=1017.166..1076.680 rows=149856 loops=2)
+                                       Hash Cond: (("T50e263b800"."T77183c5000_uid")::uuid = ("T51de5d7600"."T77183c5000_uid")::uuid)
+                                       Buffers: shared read=15005, temp read=22102 written=22256
+                                       I/O Timings: shared read=108.628, temp read=87.113 write=271.868
+                                       ->  Parallel Hash Join  (cost=40081.65..69936.85 rows=176301 width=34) (actual time=860.824..916.256 rows=149856 loops=2)
+                                             Hash Cond: (("T50e263b800"."T77183c5000_uid")::uuid = ("T77183c5000"."T77183c5000_uid")::uuid)
+                                             Buffers: shared read=12801, temp read=18689 written=18824
+                                             I/O Timings: shared read=92.448, temp read=73.798 write=230.006
+                                             ->  Parallel Hash Join  (cost=33632.87..60096.28 rows=176301 width=18) (actual time=710.788..770.369 rows=149856 loops=2)
+                                                   Hash Cond: (("T50e263b500"."T77183c5100_uid")::uuid = ("T50e263b800"."T77183c5100_uid")::uuid)
+                                                   Buffers: shared read=11180, temp read=16301 written=16408
+                                                   I/O Timings: shared read=80.231, temp read=64.274 write=199.782
+                                                   ->  Parallel Hash Join  (cost=26256.10..47059.31 rows=176301 width=34) (actual time=557.946..607.119 rows=149856 loops=2)
+                                                         Hash Cond: (("T50e263b500"."T77183c5100_uid")::uuid = ("T77183c5100"."T77183c5100_uid")::uuid)
+                                                         Buffers: shared read=8976, temp read=12891 written=12984
+                                                         I/O Timings: shared read=63.763, temp read=50.668 write=158.019
+                                                         ->  Parallel Hash Join  (cost=19807.32..37218.74 rows=176301 width=18) (actual time=418.480..469.600 rows=149856 loops=2)
+                                                               Hash Cond: (("T5b22146400"."T5b22146400_uid")::uuid = ("Tb7c17e0e00"."T5b22146400_uid")::uuid)
+                                                               Buffers: shared read=7355, temp read=10506 written=10576
+                                                               I/O Timings: shared read=51.997, temp read=41.139 write=128.363
+                                                               ->  Parallel Hash Join  (cost=12897.55..25024.16 rows=176301 width=64) (actual time=257.892..306.663 rows=149856 loops=2)
+                                                                     Hash Cond: (("T5b22146400"."T5b22146400_uid")::uuid = ("T77183c4d00"."T77183c4d00_uid")::uuid)
+                                                                     Buffers: shared read=5446, temp read=6386 written=6436
+                                                                     I/O Timings: shared read=37.766, temp read=25.019 write=78.526
+                                                                     ->  Parallel Hash Join  (cost=6448.77..14151.59 rows=176301 width=48) (actual time=116.807..161.724 rows=149856 loops=2)
+                                                                           Hash Cond: (("T50e263b500"."T77183c4d00_uid")::uuid = ("T5b22146400"."T5b22146400_uid")::uuid)
+                                                                           Buffers: shared read=3825, temp read=2900 written=2924
+                                                                           I/O Timings: shared read=25.957, temp read=11.451 write=36.066
+                                                                           ->  Parallel Seq Scan on "T50e263b500"  (cost=0.00..3967.01 rows=176301 width=32) (actual time=0.056..21.058 rows=149856 loops=2)
+                                                                                 Buffers: shared read=2204
+                                                                                 I/O Timings: shared read=14.437
+                                                                           ->  Parallel Hash  (cost=3384.01..3384.01 rows=176301 width=16) (actual time=48.566..48.568 rows=149856 loops=2)
+                                                                                 Buckets: 262144  Batches: 4  Memory Usage: 5600kB
+                                                                                 Buffers: shared read=1621, temp written=1008
+                                                                                 I/O Timings: shared read=11.520, temp write=12.589
+                                                                                 ->  Parallel Seq Scan on "T5b22146400"  (cost=0.00..3384.01 rows=176301 width=16) (actual time=0.030..17.657 rows=149856 loops=2)
+                                                                                       Buffers: shared read=1621
+                                                                                       I/O Timings: shared read=11.520
+                                                                     ->  Parallel Hash  (cost=3384.01..3384.01 rows=176301 width=16) (actual time=48.485..48.486 rows=149856 loops=2)
+                                                                           Buckets: 262144  Batches: 4  Memory Usage: 5600kB
+                                                                           Buffers: shared read=1621, temp written=1008
+                                                                           I/O Timings: shared read=11.809, temp write=12.439
+                                                                           ->  Parallel Seq Scan on "T77183c4d00"  (cost=0.00..3384.01 rows=176301 width=16) (actual time=0.036..17.722 rows=149856 loops=2)
+                                                                                 Buffers: shared read=1621
+                                                                                 I/O Timings: shared read=11.809
+                                                               ->  Parallel Hash  (cost=3672.01..3672.01 rows=176301 width=18) (actual time=58.800..58.801 rows=149856 loops=2)
+                                                                     Buckets: 131072  Batches: 4  Memory Usage: 5184kB
+                                                                     Buffers: shared read=1909, temp written=1056
+                                                                     I/O Timings: shared read=14.231, temp write=13.295
+                                                                     ->  Parallel Seq Scan on "Tb7c17e0e00"  (cost=0.00..3672.01 rows=176301 width=18) (actual time=0.029..19.487 rows=149856 loops=2)
+                                                                           Buffers: shared read=1909
+                                                                           I/O Timings: shared read=14.231
+                                                         ->  Parallel Hash  (cost=3384.01..3384.01 rows=176301 width=16) (actual time=49.492..49.493 rows=149856 loops=2)
+                                                               Buckets: 262144  Batches: 4  Memory Usage: 5632kB
+                                                               Buffers: shared read=1621, temp written=1000
+                                                               I/O Timings: shared read=11.765, temp write=12.556
+                                                               ->  Parallel Seq Scan on "T77183c5100"  (cost=0.00..3384.01 rows=176301 width=16) (actual time=0.030..17.867 rows=149856 loops=2)
+                                                                     Buffers: shared read=1621
+                                                                     I/O Timings: shared read=11.765
+                                                   ->  Parallel Hash  (cost=3967.01..3967.01 rows=176301 width=32) (actual time=58.621..58.622 rows=149856 loops=2)
+                                                         Buckets: 131072  Batches: 4  Memory Usage: 5760kB
+                                                         Buffers: shared read=2204, temp written=1436
+                                                         I/O Timings: shared read=16.469, temp write=18.019
+                                                         ->  Parallel Seq Scan on "T50e263b800"  (cost=0.00..3967.01 rows=176301 width=32) (actual time=0.031..20.775 rows=149856 loops=2)
+                                                               Buffers: shared read=2204
+                                                               I/O Timings: shared read=16.469
+                                             ->  Parallel Hash  (cost=3384.01..3384.01 rows=176301 width=16) (actual time=50.180..50.181 rows=149856 loops=2)
+                                                   Buckets: 262144  Batches: 4  Memory Usage: 5600kB
+                                                   Buffers: shared read=1621, temp written=1008
+                                                   I/O Timings: shared read=12.217, temp write=12.955
+                                                   ->  Parallel Seq Scan on "T77183c5000"  (cost=0.00..3384.01 rows=176301 width=16) (actual time=0.044..18.057 rows=149856 loops=2)
+                                                         Buffers: shared read=1621
+                                                         I/O Timings: shared read=12.217
+                                       ->  Parallel Hash  (cost=3967.01..3967.01 rows=176301 width=32) (actual time=56.397..56.398 rows=149856 loops=2)
+                                             Buckets: 131072  Batches: 4  Memory Usage: 5760kB
+                                             Buffers: shared read=2204, temp written=1444
+                                             I/O Timings: shared read=16.180, temp write=17.946
+                                             ->  Parallel Seq Scan on "T51de5d7600"  (cost=0.00..3967.01 rows=176301 width=32) (actual time=0.050..20.496 rows=149856 loops=2)
+                                                   Buffers: shared read=2204
+                                                   I/O Timings: shared read=16.180
+                                 ->  Parallel Hash  (cost=3384.01..3384.01 rows=176301 width=16) (actual time=642.511..642.512 rows=149856 loops=2)
+                                       Buckets: 262144  Batches: 4  Memory Usage: 5632kB
+                                       Buffers: shared hit=1621, temp written=1004
+                                       I/O Timings: temp write=11.971
+                                       ->  Parallel Seq Scan on "T2448628400"  (cost=0.00..3384.01 rows=176301 width=16) (actual time=0.017..11.462 rows=149856 loops=2)
+                                             Buffers: shared hit=1621
+   ->  Materialize  (cost=247802.88..249517.90 rows=343004 width=32) (actual time=2812.441..2995.387 rows=311122 loops=1)
+         Buffers: shared hit=130 read=55851, temp read=42314 written=42527
+         I/O Timings: shared read=239.813, temp read=164.399 write=535.872
+         ->  Sort  (cost=247802.88..248660.39 rows=343004 width=32) (actual time=2812.435..2951.472 rows=311122 loops=1)
+               Sort Key: "T2448628400_1"."T2448628400_uid"
+               Sort Method: external merge  Disk: 12832kB
+               Buffers: shared hit=130 read=55851, temp read=42314 written=42527
+               I/O Timings: shared read=239.813, temp read=164.399 write=535.872
+               ->  Unique  (cost=165467.37..208059.82 rows=343004 width=32) (actual time=2396.889..2769.965 rows=311122 loops=1)
+                     Buffers: shared hit=130 read=55851, temp read=40710 written=40917
+                     I/O Timings: shared read=239.813, temp read=158.675 write=516.395
+                     ->  Gather Merge  (cost=165467.37..206344.80 rows=343004 width=32) (actual time=2396.888..2704.741 rows=591276 loops=1)
+                           Workers Planned: 2
+                           Workers Launched: 2
+                           Buffers: shared hit=130 read=55851, temp read=40710 written=40917
+                           I/O Timings: shared read=239.813, temp read=158.675 write=516.395
+                           ->  Unique  (cost=164467.34..165753.61 rows=171502 width=32) (actual time=2365.896..2457.907 rows=197092 loops=3)
+                                 Buffers: shared hit=130 read=55851, temp read=40710 written=40917
+                                 I/O Timings: shared read=239.813, temp read=158.675 write=516.395
+                                 ->  Sort  (cost=164467.34..164896.10 rows=171502 width=32) (actual time=2365.894..2419.581 rows=294355 loops=3)
+                                       Sort Key: "Tfa45026200"."Tfa45026200_uid", "T2448628400_1"."T2448628400_uid"
+                                       Sort Method: external merge  Disk: 12576kB
+                                       Buffers: shared hit=130 read=55851, temp read=40710 written=40917
+                                       I/O Timings: shared read=239.813, temp read=158.675 write=516.395
+                                       Worker 0:  Sort Method: external merge  Disk: 11320kB
+                                       Worker 1:  Sort Method: external merge  Disk: 12528kB
+                                       ->  Parallel Hash Join  (cost=106815.88..145451.57 rows=171502 width=32) (actual time=1761.769..2215.026 rows=294355 loops=3)
+                                             Hash Cond: (("Tc68c9cba00"."Tfa45062900_uid")::uuid = ("T2448628400_1"."T2448628400_uid")::uuid)
+                                             Buffers: shared hit=16 read=55851, temp read=36157 written=36348
+                                             I/O Timings: shared read=239.813, temp read=143.107 write=452.287
+                                             ->  Parallel Hash Join  (cost=101228.11..139413.60 rows=171502 width=48) (actual time=1447.307..1780.063 rows=294355 loops=3)
+                                                   Hash Cond: (("Tc68c9cba00"."Tfa45062900_uid")::uuid = ("Tfa45062900"."Tfa45062900_uid")::uuid)
+                                                   Buffers: shared read=54230, temp read=36157 written=36348
+                                                   I/O Timings: shared read=228.958, temp read=143.107 write=452.287
+                                                   ->  Parallel Hash Join  (cost=95640.33..133375.62 rows=171502 width=32) (actual time=1399.074..1612.204 rows=294355 loops=3)
+                                                         Hash Cond: (("Tc68c9cba00"."Tfa45020700_uid")::uuid = ("T69af2e7200"."Tfa45020700_uid")::uuid)
+                                                         Buffers: shared read=52609, temp read=36157 written=36348
+                                                         I/O Timings: shared read=218.818, temp read=143.107 write=452.287
+                                                         ->  Parallel Seq Scan on "Tc68c9cba00"  (cost=0.00..21784.05 rows=787905 width=32) (actual time=0.067..77.945 rows=630324 loops=3)
+                                                               Buffers: shared read=13905
+                                                               I/O Timings: shared read=55.021
+                                                         ->  Parallel Hash  (cost=91988.56..91988.56 rows=171502 width=48) (actual time=1151.667..1151.679 rows=294355 loops=3)
+                                                               Buckets: 131072 (originally 131072)  Batches: 16 (originally 8)  Memory Usage: 5408kB
+                                                               Buffers: shared read=38704, temp read=17226 written=24244
+                                                               I/O Timings: shared read=163.797, temp read=66.503 write=299.186
+                                                               ->  Parallel Hash Join  (cost=61349.28..91988.56 rows=171502 width=48) (actual time=844.989..1043.354 rows=294355 loops=3)
+                                                                     Hash Cond: (("Tfa45020700"."Tfa45020700_uid")::uuid = ("T69af2e7200"."Tfa45020700_uid")::uuid)
+                                                                     Buffers: shared read=38704, temp read=15705 written=15768
+                                                                     I/O Timings: shared read=163.797, temp read=60.892 write=195.080
+                                                                     ->  Parallel Seq Scan on "Tfa45020700"  (cost=0.00..18101.05 rows=787905 width=16) (actual time=0.164..63.739 rows=630324 loops=3)
+                                                                           Buffers: shared read=10222
+                                                                           I/O Timings: shared read=41.260
+                                                                     ->  Parallel Hash  (cost=58032.50..58032.50 rows=171502 width=32) (actual time=658.123..658.133 rows=294355 loops=3)
+                                                                           Buckets: 131072 (originally 131072)  Batches: 8 (originally 4)  Memory Usage: 8032kB
+                                                                           Buffers: shared read=28482, temp read=2469 written=7420
+                                                                           I/O Timings: shared read=122.537, temp read=8.497 write=92.832
+                                                                           ->  Parallel Hash Join  (cost=26308.70..58032.50 rows=171502 width=32) (actual time=430.616..549.665 rows=294355 loops=3)
+                                                                                 Hash Cond: (("T69af2e7200"."Tfa45022500_uid")::uuid = ("Tfa45026200"."Tfa45026200_uid")::uuid)
+                                                                                 Buffers: shared read=28482
+                                                                                 I/O Timings: shared read=122.537
+                                                                                 ->  Parallel Seq Scan on "T69af2e7200"  (cost=0.00..26988.69 rows=976169 width=32) (actual time=0.038..87.870 rows=780935 loops=3)
+                                                                                       Buffers: shared read=17227
+                                                                                       I/O Timings: shared read=72.086
+                                                                                 ->  Parallel Hash  (cost=24688.27..24688.27 rows=129634 width=32) (actual time=275.091..275.098 rows=103707 loops=3)
+                                                                                       Buckets: 524288  Batches: 1  Memory Usage: 23616kB
+                                                                                       Buffers: shared read=11255
+                                                                                       I/O Timings: shared read=50.450
+                                                                                       ->  Parallel Hash Join  (cost=5799.79..24688.27 rows=129634 width=32) (actual time=187.501..227.317 rows=103707 loops=3)
+                                                                                             Hash Cond: (("Tfa45022500"."Tfa45022500_uid")::uuid = ("Tfa45026200"."Tfa45026200_uid")::uuid)
+                                                                                             Buffers: shared read=11255
+                                                                                             I/O Timings: shared read=50.450
+                                                                                             ->  Parallel Seq Scan on "Tfa45022500"  (cost=0.00..16951.60 rows=737860 width=16) (actual time=0.036..58.494 rows=590288 loops=3)
+                                                                                                   Buffers: shared read=9573
+                                                                                                   I/O Timings: shared read=39.814
+                                                                                             ->  Parallel Hash  (cost=3512.13..3512.13 rows=183013 width=16) (actual time=44.141..44.145 rows=103707 loops=3)
+                                                                                                   Buckets: 524288  Batches: 1  Memory Usage: 18752kB
+                                                                                                   Buffers: shared read=1682
+                                                                                                   I/O Timings: shared read=10.637
+                                                                                                   ->  Parallel Seq Scan on "Tfa45026200"  (cost=0.00..3512.13 rows=183013 width=16) (actual time=0.040..11.725 rows=103707 loops=3)
+                                                                                                         Buffers: shared read=1682
+                                                                                                         I/O Timings: shared read=10.637
+                                                   ->  Parallel Hash  (cost=3384.01..3384.01 rows=176301 width=16) (actual time=47.137..47.138 rows=99904 loops=3)
+                                                         Buckets: 524288  Batches: 1  Memory Usage: 18208kB
+                                                         Buffers: shared read=1621
+                                                         I/O Timings: shared read=10.140
+                                                         ->  Parallel Seq Scan on "Tfa45062900"  (cost=0.00..3384.01 rows=176301 width=16) (actual time=0.047..11.357 rows=99904 loops=3)
+                                                               Buffers: shared read=1621
+                                                               I/O Timings: shared read=10.140
+                                             ->  Parallel Hash  (cost=3384.01..3384.01 rows=176301 width=16) (actual time=312.708..312.709 rows=99904 loops=3)
+                                                   Buckets: 524288  Batches: 1  Memory Usage: 18208kB
+                                                   Buffers: shared read=1621
+                                                   I/O Timings: shared read=10.855
+                                                   ->  Parallel Seq Scan on "T2448628400" "T2448628400_1"  (cost=0.00..3384.01 rows=176301 width=16) (actual time=0.043..11.362 rows=99904 loops=3)
+                                                         Buffers: shared read=1621
+                                                         I/O Timings: shared read=10.855
+ Settings: search_path = 'test_mimic'
+ Planning:
+   Buffers: shared hit=764 read=94
+   I/O Timings: shared read=0.920
+ Planning Time: 22.866 ms
+ JIT:
+   Functions: 280
+   Options: Inlining true, Optimization true, Expressions true, Deforming true
+   Timing: Generation 11.068 ms, Inlining 315.486 ms, Optimization 758.597 ms, Emission 522.516 ms, Total 1607.666 ms
+ Execution Time: 5264.113 ms
+(216 rows)
+
+> Loop number : 5
+SET
+SET
+SET
+SET
+SET
+SET
+SET
+SET
+SET
+                                                                                                             QUERY PLAN                                                                                                              
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+ Merge Join  (cost=360598.87..4921093.88 rows=302359741 width=34) (actual time=4684.034..5181.112 rows=311122 loops=1)
+   Merge Cond: (("T2448628400"."T2448628400_uid")::uuid = ("T2448628400_1"."T2448628400_uid")::uuid)
+   Buffers: shared hit=3445 read=69235, temp read=67845 written=68241
+   I/O Timings: shared read=327.398, temp read=262.953 write=839.109
+   ->  Unique  (cost=112795.99..134833.61 rows=176301 width=18) (actual time=1858.148..2072.803 rows=299712 loops=1)
+         Buffers: shared hit=1694 read=15005, temp read=25514 written=25681
+         I/O Timings: shared read=97.432, temp read=99.845 write=309.907
+         ->  Gather Merge  (cost=112795.99..133952.11 rows=176301 width=18) (actual time=1858.148..2017.372 rows=299712 loops=1)
+               Workers Planned: 1
+               Workers Launched: 1
+               Buffers: shared hit=1694 read=15005, temp read=25514 written=25681
+               I/O Timings: shared read=97.432, temp read=99.845 write=309.907
+               ->  Unique  (cost=111795.98..113118.24 rows=176301 width=18) (actual time=1840.535..1888.624 rows=149856 loops=2)
+                     Buffers: shared hit=1694 read=15005, temp read=25514 written=25681
+                     I/O Timings: shared read=97.432, temp read=99.845 write=309.907
+                     ->  Sort  (cost=111795.98..112236.73 rows=176301 width=18) (actual time=1840.534..1861.162 rows=149856 loops=2)
+                           Sort Key: "T2448628400"."T2448628400_uid", "Tb7c17e0e00"."Tb7c17e0e00_Ontorel-Core_0000002"
+                           Sort Method: external merge  Disk: 4104kB
+                           Buffers: shared hit=1694 read=15005, temp read=25514 written=25681
+                           I/O Timings: shared read=97.432, temp read=99.845 write=309.907
+                           Worker 0:  Sort Method: external merge  Disk: 4128kB
+                           ->  Parallel Hash Join  (cost=53907.19..92814.39 rows=176301 width=18) (actual time=1716.650..1773.362 rows=149856 loops=2)
+                                 Hash Cond: (("T51de5d7600"."T2448628400_uid")::uuid = ("T2448628400"."T2448628400_uid")::uuid)
+                                 Buffers: shared hit=1629 read=15005, temp read=24485 written=24648
+                                 I/O Timings: shared read=97.432, temp read=96.364 write=297.218
+                                 ->  Parallel Hash Join  (cost=47458.42..82973.82 rows=176301 width=18) (actual time=994.976..1053.310 rows=149856 loops=2)
+                                       Hash Cond: (("T50e263b800"."T77183c5000_uid")::uuid = ("T51de5d7600"."T77183c5000_uid")::uuid)
+                                       Buffers: shared read=15005, temp read=22100 written=22236
+                                       I/O Timings: shared read=97.432, temp read=86.967 write=268.248
+                                       ->  Parallel Hash Join  (cost=40081.65..69936.85 rows=176301 width=34) (actual time=846.383..895.245 rows=149856 loops=2)
+                                             Hash Cond: (("T50e263b800"."T77183c5000_uid")::uuid = ("T77183c5000"."T77183c5000_uid")::uuid)
+                                             Buffers: shared read=12801, temp read=18687 written=18808
+                                             I/O Timings: shared read=83.109, temp read=73.593 write=226.504
+                                             ->  Parallel Hash Join  (cost=33632.87..60096.28 rows=176301 width=18) (actual time=698.301..757.441 rows=149856 loops=2)
+                                                   Hash Cond: (("T50e263b500"."T77183c5100_uid")::uuid = ("T50e263b800"."T77183c5100_uid")::uuid)
+                                                   Buffers: shared read=11180, temp read=16302 written=16404
+                                                   I/O Timings: shared read=72.395, temp read=64.089 write=197.114
+                                                   ->  Parallel Hash Join  (cost=26256.10..47059.31 rows=176301 width=34) (actual time=548.258..595.891 rows=149856 loops=2)
+                                                         Hash Cond: (("T50e263b500"."T77183c5100_uid")::uuid = ("T77183c5100"."T77183c5100_uid")::uuid)
+                                                         Buffers: shared read=8976, temp read=12892 written=12976
+                                                         I/O Timings: shared read=58.367, temp read=50.650 write=155.716
+                                                         ->  Parallel Hash Join  (cost=19807.32..37218.74 rows=176301 width=18) (actual time=407.884..459.699 rows=149856 loops=2)
+                                                               Hash Cond: (("T5b22146400"."T5b22146400_uid")::uuid = ("Tb7c17e0e00"."T5b22146400_uid")::uuid)
+                                                               Buffers: shared read=7355, temp read=10507 written=10564
+                                                               I/O Timings: shared read=47.807, temp read=41.055 write=125.389
+                                                               ->  Parallel Hash Join  (cost=12897.55..25024.16 rows=176301 width=64) (actual time=251.416..298.083 rows=149856 loops=2)
+                                                                     Hash Cond: (("T5b22146400"."T5b22146400_uid")::uuid = ("T77183c4d00"."T77183c4d00_uid")::uuid)
+                                                                     Buffers: shared read=5446, temp read=6384 written=6428
+                                                                     I/O Timings: shared read=35.171, temp read=24.687 write=76.193
+                                                                     ->  Parallel Hash Join  (cost=6448.77..14151.59 rows=176301 width=48) (actual time=114.533..156.674 rows=149856 loops=2)
+                                                                           Hash Cond: (("T50e263b500"."T77183c4d00_uid")::uuid = ("T5b22146400"."T5b22146400_uid")::uuid)
+                                                                           Buffers: shared read=3825, temp read=2898 written=2924
+                                                                           I/O Timings: shared read=24.159, temp read=11.261 write=34.859
+                                                                           ->  Parallel Seq Scan on "T50e263b500"  (cost=0.00..3967.01 rows=176301 width=32) (actual time=0.051..20.488 rows=149856 loops=2)
+                                                                                 Buffers: shared read=2204
+                                                                                 I/O Timings: shared read=13.592
+                                                                           ->  Parallel Hash  (cost=3384.01..3384.01 rows=176301 width=16) (actual time=48.323..48.325 rows=149856 loops=2)
+                                                                                 Buckets: 262144  Batches: 4  Memory Usage: 5600kB
+                                                                                 Buffers: shared read=1621, temp written=1008
+                                                                                 I/O Timings: shared read=10.567, temp write=12.385
+                                                                                 ->  Parallel Seq Scan on "T5b22146400"  (cost=0.00..3384.01 rows=176301 width=16) (actual time=0.028..17.126 rows=149856 loops=2)
+                                                                                       Buffers: shared read=1621
+                                                                                       I/O Timings: shared read=10.567
+                                                                     ->  Parallel Hash  (cost=3384.01..3384.01 rows=176301 width=16) (actual time=48.225..48.226 rows=149856 loops=2)
+                                                                           Buckets: 262144  Batches: 4  Memory Usage: 5600kB
+                                                                           Buffers: shared read=1621, temp written=1000
+                                                                           I/O Timings: shared read=11.013, temp write=12.231
+                                                                           ->  Parallel Seq Scan on "T77183c4d00"  (cost=0.00..3384.01 rows=176301 width=16) (actual time=0.029..17.445 rows=149856 loops=2)
+                                                                                 Buffers: shared read=1621
+                                                                                 I/O Timings: shared read=11.013
+                                                               ->  Parallel Hash  (cost=3672.01..3672.01 rows=176301 width=18) (actual time=57.369..57.369 rows=149856 loops=2)
+                                                                     Buckets: 131072  Batches: 4  Memory Usage: 5184kB
+                                                                     Buffers: shared read=1909, temp written=1052
+                                                                     I/O Timings: shared read=12.636, temp write=13.108
+                                                                     ->  Parallel Seq Scan on "Tb7c17e0e00"  (cost=0.00..3672.01 rows=176301 width=18) (actual time=0.036..18.636 rows=149856 loops=2)
+                                                                           Buffers: shared read=1909
+                                                                           I/O Timings: shared read=12.636
+                                                         ->  Parallel Hash  (cost=3384.01..3384.01 rows=176301 width=16) (actual time=48.819..48.820 rows=149856 loops=2)
+                                                               Buckets: 262144  Batches: 4  Memory Usage: 5600kB
+                                                               Buffers: shared read=1621, temp written=1004
+                                                               I/O Timings: shared read=10.560, temp write=12.728
+                                                               ->  Parallel Seq Scan on "T77183c5100"  (cost=0.00..3384.01 rows=176301 width=16) (actual time=0.031..17.192 rows=149856 loops=2)
+                                                                     Buffers: shared read=1621
+                                                                     I/O Timings: shared read=10.560
+                                                   ->  Parallel Hash  (cost=3967.01..3967.01 rows=176301 width=32) (actual time=57.561..57.562 rows=149856 loops=2)
+                                                         Buckets: 131072  Batches: 4  Memory Usage: 5760kB
+                                                         Buffers: shared read=2204, temp written=1440
+                                                         I/O Timings: shared read=14.029, temp write=17.809
+                                                         ->  Parallel Seq Scan on "T50e263b800"  (cost=0.00..3967.01 rows=176301 width=32) (actual time=0.029..19.576 rows=149856 loops=2)
+                                                               Buffers: shared read=2204
+                                                               I/O Timings: shared read=14.029
+                                             ->  Parallel Hash  (cost=3384.01..3384.01 rows=176301 width=16) (actual time=48.980..48.981 rows=149856 loops=2)
+                                                   Buckets: 262144  Batches: 4  Memory Usage: 5600kB
+                                                   Buffers: shared read=1621, temp written=996
+                                                   I/O Timings: shared read=10.714, temp write=12.360
+                                                   ->  Parallel Seq Scan on "T77183c5000"  (cost=0.00..3384.01 rows=176301 width=16) (actual time=0.030..17.051 rows=149856 loops=2)
+                                                         Buffers: shared read=1621
+                                                         I/O Timings: shared read=10.714
+                                       ->  Parallel Hash  (cost=3967.01..3967.01 rows=176301 width=32) (actual time=55.609..55.609 rows=149856 loops=2)
+                                             Buckets: 131072  Batches: 4  Memory Usage: 5760kB
+                                             Buffers: shared read=2204, temp written=1440
+                                             I/O Timings: shared read=14.322, temp write=17.965
+                                             ->  Parallel Seq Scan on "T51de5d7600"  (cost=0.00..3967.01 rows=176301 width=32) (actual time=0.041..19.632 rows=149856 loops=2)
+                                                   Buffers: shared read=2204
+                                                   I/O Timings: shared read=14.322
+                                 ->  Parallel Hash  (cost=3384.01..3384.01 rows=176301 width=16) (actual time=624.921..624.922 rows=149856 loops=2)
+                                       Buckets: 262144  Batches: 4  Memory Usage: 5632kB
+                                       Buffers: shared hit=1621, temp written=1004
+                                       I/O Timings: temp write=11.997
+                                       ->  Parallel Seq Scan on "T2448628400"  (cost=0.00..3384.01 rows=176301 width=16) (actual time=0.016..11.472 rows=149856 loops=2)
+                                             Buffers: shared hit=1621
+   ->  Materialize  (cost=247802.88..249517.90 rows=343004 width=32) (actual time=2825.813..3013.777 rows=311122 loops=1)
+         Buffers: shared hit=1751 read=54230, temp read=42331 written=42560
+         I/O Timings: shared read=229.967, temp read=163.108 write=529.202
+         ->  Sort  (cost=247802.88..248660.39 rows=343004 width=32) (actual time=2825.807..2968.600 rows=311122 loops=1)
+               Sort Key: "T2448628400_1"."T2448628400_uid"
+               Sort Method: external merge  Disk: 12832kB
+               Buffers: shared hit=1751 read=54230, temp read=42331 written=42560
+               I/O Timings: shared read=229.967, temp read=163.108 write=529.202
+               ->  Unique  (cost=165467.37..208059.82 rows=343004 width=32) (actual time=2420.011..2784.896 rows=311122 loops=1)
+                     Buffers: shared hit=1751 read=54230, temp read=40727 written=40950
+                     I/O Timings: shared read=229.967, temp read=157.587 write=509.950
+                     ->  Gather Merge  (cost=165467.37..206344.80 rows=343004 width=32) (actual time=2420.010..2721.001 rows=591307 loops=1)
+                           Workers Planned: 2
+                           Workers Launched: 2
+                           Buffers: shared hit=1751 read=54230, temp read=40727 written=40950
+                           I/O Timings: shared read=229.967, temp read=157.587 write=509.950
+                           ->  Unique  (cost=164467.34..165753.61 rows=171502 width=32) (actual time=2395.284..2486.349 rows=197102 loops=3)
+                                 Buffers: shared hit=1751 read=54230, temp read=40727 written=40950
+                                 I/O Timings: shared read=229.967, temp read=157.587 write=509.950
+                                 ->  Sort  (cost=164467.34..164896.10 rows=171502 width=32) (actual time=2395.283..2447.942 rows=294355 loops=3)
+                                       Sort Key: "Tfa45026200"."Tfa45026200_uid", "T2448628400_1"."T2448628400_uid"
+                                       Sort Method: external merge  Disk: 11936kB
+                                       Buffers: shared hit=1751 read=54230, temp read=40727 written=40950
+                                       I/O Timings: shared read=229.967, temp read=157.587 write=509.950
+                                       Worker 0:  Sort Method: external merge  Disk: 12176kB
+                                       Worker 1:  Sort Method: external merge  Disk: 12296kB
+                                       ->  Parallel Hash Join  (cost=106815.88..145451.57 rows=171502 width=32) (actual time=1775.339..2244.987 rows=294355 loops=3)
+                                             Hash Cond: (("Tc68c9cba00"."Tfa45062900_uid")::uuid = ("T2448628400_1"."T2448628400_uid")::uuid)
+                                             Buffers: shared hit=1637 read=54230, temp read=36176 written=36384
+                                             I/O Timings: shared read=229.967, temp read=142.058 write=453.898
+                                             ->  Parallel Hash Join  (cost=101228.11..139413.60 rows=171502 width=48) (actual time=1463.143..1809.066 rows=294355 loops=3)
+                                                   Hash Cond: (("Tc68c9cba00"."Tfa45062900_uid")::uuid = ("Tfa45062900"."Tfa45062900_uid")::uuid)
+                                                   Buffers: shared read=54230, temp read=36176 written=36384
+                                                   I/O Timings: shared read=229.967, temp read=142.058 write=453.898
+                                                   ->  Parallel Hash Join  (cost=95640.33..133375.62 rows=171502 width=32) (actual time=1415.280..1638.817 rows=294355 loops=3)
+                                                         Hash Cond: (("Tc68c9cba00"."Tfa45020700_uid")::uuid = ("T69af2e7200"."Tfa45020700_uid")::uuid)
+                                                         Buffers: shared read=52609, temp read=36176 written=36384
+                                                         I/O Timings: shared read=219.294, temp read=142.058 write=453.898
+                                                         ->  Parallel Seq Scan on "Tc68c9cba00"  (cost=0.00..21784.05 rows=787905 width=32) (actual time=0.068..77.719 rows=630324 loops=3)
+                                                               Buffers: shared read=13905
+                                                               I/O Timings: shared read=54.607
+                                                         ->  Parallel Hash  (cost=91988.56..91988.56 rows=171502 width=48) (actual time=1167.210..1167.220 rows=294355 loops=3)
+                                                               Buckets: 131072 (originally 131072)  Batches: 16 (originally 8)  Memory Usage: 5408kB
+                                                               Buffers: shared read=38704, temp read=17242 written=24272
+                                                               I/O Timings: shared read=164.687, temp read=65.217 write=302.531
+                                                               ->  Parallel Hash Join  (cost=61349.28..91988.56 rows=171502 width=48) (actual time=850.205..1056.410 rows=294355 loops=3)
+                                                                     Hash Cond: (("Tfa45020700"."Tfa45020700_uid")::uuid = ("T69af2e7200"."Tfa45020700_uid")::uuid)
+                                                                     Buffers: shared read=38704, temp read=15714 written=15800
+                                                                     I/O Timings: shared read=164.687, temp read=59.973 write=194.231
+                                                                     ->  Parallel Seq Scan on "Tfa45020700"  (cost=0.00..18101.05 rows=787905 width=16) (actual time=0.682..64.167 rows=630324 loops=3)
+                                                                           Buffers: shared read=10222
+                                                                           I/O Timings: shared read=42.869
+                                                                     ->  Parallel Hash  (cost=58032.50..58032.50 rows=171502 width=32) (actual time=662.695..662.702 rows=294355 loops=3)
+                                                                           Buckets: 131072 (originally 131072)  Batches: 8 (originally 4)  Memory Usage: 8032kB
+                                                                           Buffers: shared read=28482, temp read=2476 written=7436
+                                                                           I/O Timings: shared read=121.818, temp read=8.324 write=91.225
+                                                                           ->  Parallel Hash Join  (cost=26308.70..58032.50 rows=171502 width=32) (actual time=433.321..552.783 rows=294355 loops=3)
+                                                                                 Hash Cond: (("T69af2e7200"."Tfa45022500_uid")::uuid = ("Tfa45026200"."Tfa45026200_uid")::uuid)
+                                                                                 Buffers: shared read=28482
+                                                                                 I/O Timings: shared read=121.818
+                                                                                 ->  Parallel Seq Scan on "T69af2e7200"  (cost=0.00..26988.69 rows=976169 width=32) (actual time=0.048..87.705 rows=780935 loops=3)
+                                                                                       Buffers: shared read=17227
+                                                                                       I/O Timings: shared read=71.377
+                                                                                 ->  Parallel Hash  (cost=24688.27..24688.27 rows=129634 width=32) (actual time=277.223..277.229 rows=103707 loops=3)
+                                                                                       Buckets: 524288  Batches: 1  Memory Usage: 23648kB
+                                                                                       Buffers: shared read=11255
+                                                                                       I/O Timings: shared read=50.442
+                                                                                       ->  Parallel Hash Join  (cost=5799.79..24688.27 rows=129634 width=32) (actual time=191.706..229.710 rows=103707 loops=3)
+                                                                                             Hash Cond: (("Tfa45022500"."Tfa45022500_uid")::uuid = ("Tfa45026200"."Tfa45026200_uid")::uuid)
+                                                                                             Buffers: shared read=11255
+                                                                                             I/O Timings: shared read=50.442
+                                                                                             ->  Parallel Seq Scan on "Tfa45022500"  (cost=0.00..16951.60 rows=737860 width=16) (actual time=0.045..58.770 rows=590288 loops=3)
+                                                                                                   Buffers: shared read=9573
+                                                                                                   I/O Timings: shared read=39.782
+                                                                                             ->  Parallel Hash  (cost=3512.13..3512.13 rows=183013 width=16) (actual time=44.935..44.937 rows=103707 loops=3)
+                                                                                                   Buckets: 524288  Batches: 1  Memory Usage: 18752kB
+                                                                                                   Buffers: shared read=1682
+                                                                                                   I/O Timings: shared read=10.660
+                                                                                                   ->  Parallel Seq Scan on "Tfa45026200"  (cost=0.00..3512.13 rows=183013 width=16) (actual time=0.038..11.912 rows=103707 loops=3)
+                                                                                                         Buffers: shared read=1682
+                                                                                                         I/O Timings: shared read=10.660
+                                                   ->  Parallel Hash  (cost=3384.01..3384.01 rows=176301 width=16) (actual time=46.795..46.796 rows=99904 loops=3)
+                                                         Buckets: 524288  Batches: 1  Memory Usage: 18208kB
+                                                         Buffers: shared read=1621
+                                                         I/O Timings: shared read=10.673
+                                                         ->  Parallel Seq Scan on "Tfa45062900"  (cost=0.00..3384.01 rows=176301 width=16) (actual time=0.052..11.804 rows=99904 loops=3)
+                                                               Buffers: shared read=1621
+                                                               I/O Timings: shared read=10.673
+                                             ->  Parallel Hash  (cost=3384.01..3384.01 rows=176301 width=16) (actual time=310.482..310.483 rows=99904 loops=3)
+                                                   Buckets: 524288  Batches: 1  Memory Usage: 18208kB
+                                                   Buffers: shared hit=1621
+                                                   ->  Parallel Seq Scan on "T2448628400" "T2448628400_1"  (cost=0.00..3384.01 rows=176301 width=16) (actual time=0.011..7.701 rows=99904 loops=3)
+                                                         Buffers: shared hit=1621
+ Settings: search_path = 'test_mimic'
+ Planning:
+   Buffers: shared hit=815 read=43
+   I/O Timings: shared read=0.590
+ Planning Time: 23.535 ms
+ JIT:
+   Functions: 280
+   Options: Inlining true, Optimization true, Expressions true, Deforming true
+   Timing: Generation 11.114 ms, Inlining 316.201 ms, Optimization 758.085 ms, Emission 508.429 ms, Total 1593.828 ms
+ Execution Time: 5233.012 ms
+(214 rows)
+
+SET
+INSERT 0 1

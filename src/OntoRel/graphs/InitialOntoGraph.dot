@@ -1,0 +1,184 @@
+digraph G {
+  splines=polyline;
+  rankdir=LR;
+  "HOSO_0000003" [ label="\"HOSO_0000003\"@
+healthcare service organism specification" shape="ellipse" ];
+  "HOSO_0000124" [ label="\"HOSO_0000124\"@
+healthcare organization clinical visit pathological condition impact statement" shape="ellipse" ];
+  "NCBITaxon_9606" [ label="\"NCBITaxon_9606\"@
+Homo sapiens" shape="ellipse" ];
+  "HOSO_0000126" [ label="\"HOSO_0000126\"@
+pathological condition impact type on clinical visit" shape="ellipse" ];
+  "HOSO_0000008" [ label="\"HOSO_0000008\"@
+healthcare organization" shape="ellipse" ];
+  "MPHPO_0000001" [ label="\"MPHPO_0000001\"@
+MPHPO pathological condition impact type on clinical visit " shape="ellipse" ];
+  "HOSO_0000009" [ label="\"HOSO_0000009\"@
+healthcare provider" shape="ellipse" ];
+  "HOSO_0000084" [ label="\"HOSO_0000084\"@
+healthcare physician service identifier" shape="ellipse" ];
+  "MPHPO_0000004" [ label="\"MPHPO_0000004\"@
+MPHPO HOSD ending temporal information " shape="ellipse" ];
+  "MPHPO_0000005" [ label="\"MPHPO_0000005\"@
+MPHPO living environment type " shape="ellipse" ];
+  "MPHPO_0000002" [ label="\"MPHPO_0000002\"@
+MPHPO pathological condition sub-group name " shape="ellipse" ];
+  "HOSO_0000085" [ label="\"HOSO_0000085\"@
+hospitalization starting with ICU stay" shape="ellipse" ];
+  "MPHPO_0000003" [ label="\"MPHPO_0000003\"@
+MPHPO HOSD beginning temporal information" shape="ellipse" ];
+  "IOIO_0000014" [ label="\"IOIO_0000014\"@
+human identifier" shape="ellipse" ];
+  "MPHPO_0000009" [ label="\"MPHPO_0000009\"@
+MPHPO human birth date" shape="ellipse" ];
+  "IOIO_0000015" [ label="\"IOIO_0000015\"@
+human biological sex statement" shape="ellipse" ];
+  "MPHPO_0000006" [ label="\"MPHPO_0000006\"@
+MPHPO healthcare physician service identifier " shape="ellipse" ];
+  "HOSO_0000100" [ label="\"HOSO_0000100\"@
+healthcare organization service delivery identifier" shape="ellipse" ];
+  "MPHPO_0000007" [ label="\"MPHPO_0000007\"@
+MPHPO hospitalization admission urgency level specification " shape="ellipse" ];
+  "IOIO_0000001" [ label="\"IOIO_0000001\"@
+human birth statement" shape="ellipse" ];
+  "IOIO_0000023" [ label="\"IOIO_0000023\"@
+living environment type" shape="ellipse" ];
+  "HOSO_0000080" [ label="\"HOSO_0000080\"@
+living environment type prior to clinical visit statement" shape="ellipse" ];
+  "HOSO_0000138" [ label="\"HOSO_0000138\"@
+healthcare provider identifier" shape="ellipse" ];
+  "HOSO_0000137" [ label="\"HOSO_0000137\"@
+human clinical visit specified patient" shape="ellipse" ];
+  "MPHPO_0000011" [ label="\"MPHPO_0000011\"@
+MPHPO human death date" shape="ellipse" ];
+  "MPHPO_0000010" [ label="\"MPHPO_0000010\"@
+MPHPO human biological sex information content entity" shape="ellipse" ];
+  "IOIO_0000006" [ label="\"IOIO_0000006\"@
+human death temporal information" shape="ellipse" ];
+  "HOSO_0000072" [ label="\"HOSO_0000072\"@
+ED by ambulance initiated hospitalization" shape="ellipse" ];
+  "HOSO_0000031" [ label="\"HOSO_0000031\"@
+hospitalization" shape="ellipse" ];
+  "HOSO_0000074" [ label="\"HOSO_0000074\"@
+clinical visit agreement specification" shape="ellipse" ];
+  "HOSO_0000011" [ label="\"HOSO_0000011\"@
+healthcare organization service delivery" shape="ellipse" ];
+  "HOSO_0000055" [ label="\"HOSO_0000055\"@
+healthcare organization service delivery beginning statement" shape="ellipse" ];
+  "HOSO_0000032" [ label="\"HOSO_0000032\"@
+emergency department visit" shape="ellipse" ];
+  "IOIO_0000003" [ label="\"IOIO_0000003\"@
+human death statement" shape="ellipse" ];
+  "HOSO_0000079" [ label="\"HOSO_0000079\"@
+healthcare physician service" shape="ellipse" ];
+  "HOSO_0000012" [ label="\"HOSO_0000012\"@
+healthcare organization clinical visit" shape="ellipse" ];
+  "HOSO_0000056" [ label="\"HOSO_0000056\"@
+healthcare organization service delivery ending statement" shape="ellipse" ];
+  "HOSO_0000078" [ label="\"HOSO_0000078\"@
+hospitalization admitting physician specification" shape="ellipse" ];
+  "IOIO_0000005" [ label="\"IOIO_0000005\"@
+human birth temporal information" shape="ellipse" ];
+  "HEPRO_0000017" [ label="\"HEPRO_0000017\"@
+pathological condition sub-group name" shape="ellipse" ];
+  "IOIO_0000011" [ label="\"IOIO_0000011\"@
+human biological sex information content entity" shape="ellipse" ];
+  "Ontorel-Core_0000001" [ label="\"Ontorel-Core_0000001\"@
+ISO8601DateTime" shape="box" ];
+  "string" [ label="\"string\"@
+string" shape="box" ];
+  "HOSO_0000085" -> "HOSO_0000031" [ label="\"isa\"" style="solid" ];
+  "MPHPO_0000006" -> "HOSO_0000084" [ label="\"isa\"" style="solid" ];
+  "HOSO_0000032" -> "HOSO_0000012" [ label="\"isa\"" style="solid" ];
+  "MPHPO_0000007" -> "HOSO_0000074" [ label="\"isa\"" style="solid" ];
+  "HOSO_0000031" -> "HOSO_0000012" [ label="\"isa\"" style="solid" ];
+  "HOSO_0000012" -> "HOSO_0000011" [ label="\"isa\"" style="solid" ];
+  "MPHPO_0000002" -> "HEPRO_0000017" [ label="\"isa\"" style="solid" ];
+  "MPHPO_0000001" -> "HOSO_0000126" [ label="\"isa\"" style="solid" ];
+  "HOSO_0000078" -> "HOSO_0000074" [ label="\"isa\"" style="solid" ];
+  "MPHPO_0000005" -> "IOIO_0000023" [ label="\"isa\"" style="solid" ];
+  "HOSO_0000079" -> "HOSO_0000008" [ label="\"isa\"" style="solid" ];
+  "HOSO_0000137" -> "NCBITaxon_9606" [ label="\"isa\"" style="solid" ];
+  "MPHPO_0000009" -> "IOIO_0000005" [ label="\"isa\"" style="solid" ];
+  "HOSO_0000072" -> "HOSO_0000031" [ label="\"isa\"" style="solid" ];
+  "MPHPO_0000010" -> "IOIO_0000011" [ label="\"isa\"" style="solid" ];
+  "MPHPO_0000011" -> "IOIO_0000006" [ label="\"isa\"" style="solid" ];
+  "HOSO_0000080" -> "IOIO_0000023" [ label="[1..*]
+\"RO_0002180@has component\"" style="solid" ];
+  "IOIO_0000001" -> "IOIO_0000005" [ label="[1..*]
+\"RO_0002180@has component\"" style="solid" ];
+  "HOSO_0000056" -> "HOSO_0000100" [ label="[1..*]
+\"RO_0002180@has component\"" style="solid" ];
+  "HOSO_0000012" -> "HOSO_0000074" [ label="[1..*]
+\"OpenLHS-Core_0000004@is directed by\"" style="solid" ];
+  "MPHPO_0000004" -> "HOSO_0000056" [ label="[1..*]
+\"OpenLHS-Core_0000070@component of\"" style="solid" ];
+  "HOSO_0000078" -> "HOSO_0000138" [ label="[1..*]
+\"BFO_0000051@has part\"" style="solid" ];
+  "HOSO_0000079" -> "HOSO_0000008" [ label="[1..*]
+\"RO_0002350@member of\"" style="solid" ];
+  "MPHPO_0000003" -> "HOSO_0000055" [ label="[1..*]
+\"OpenLHS-Core_0000070@component of\"" style="solid" ];
+  "IOIO_0000003" -> "IOIO_0000006" [ label="[1..*]
+\"RO_0002180@has component\"" style="solid" ];
+  "HOSO_0000080" -> "HOSO_0000100" [ label="[1..*]
+\"RO_0002180@has component\"" style="solid" ];
+  "IOIO_0000014" -> "NCBITaxon_9606" [ label="[1..*]
+\"IAO_0000219@denotes\"" style="solid" ];
+  "HOSO_0000012" -> "HOSO_0000003" [ label="[1..1]
+\"OpenLHS-Core_0000004@is directed by\"" style="solid" ];
+  "HOSO_0000124" -> "HOSO_0000100" [ label="[1..*]
+\"RO_0002180@has component\"" style="solid" ];
+  "HOSO_0000137" -> "HOSO_0000003" [ label="[1..*]
+\"IAO_0000235@denoted by\"" style="solid" ];
+  "HOSO_0000100" -> "HOSO_0000011" [ label="[1..*]
+\"IAO_0000219@denotes\"" style="solid" ];
+  "HOSO_0000084" -> "HOSO_0000079" [ label="[1..1]
+\"IAO_0000219@denotes\"" style="solid" ];
+  "HOSO_0000012" -> "HOSO_0000012" [ label="[0..*]
+\"RO_0002180@has component\"" style="solid" ];
+  "IOIO_0000003" -> "IOIO_0000014" [ label="[1..*]
+\"RO_0002180@has component\"" style="solid" ];
+  "HOSO_0000084" -> "HOSO_0000008" [ label="[1..1]
+\"IAO_0000219@denotes\"" style="solid" ];
+  "IOIO_0000001" -> "IOIO_0000014" [ label="[1..*]
+\"RO_0002180@has component\"" style="solid" ];
+  "HOSO_0000009" -> "HOSO_0000008" [ label="[1..*]
+\"RO_0002350@member of\"" style="solid" ];
+  "IOIO_0000015" -> "IOIO_0000014" [ label="[1..*]
+\"RO_0002180@has component\"" style="solid" ];
+  "IOIO_0000015" -> "IOIO_0000011" [ label="[1..*]
+\"RO_0002180@has component\"" style="solid" ];
+  "HOSO_0000055" -> "HOSO_0000100" [ label="[1..*]
+\"RO_0002180@has component\"" style="solid" ];
+  "IOIO_0000006" -> "IOIO_0000003" [ label="[1..*]
+\"OpenLHS-Core_0000070@component of\"" style="solid" ];
+  "IOIO_0000005" -> "IOIO_0000001" [ label="[1..*]
+\"OpenLHS-Core_0000070@component of\"" style="solid" ];
+  "HOSO_0000124" -> "HEPRO_0000017" [ label="[1..*]
+\"RO_0002180@has component\"" style="solid" ];
+  "HOSO_0000124" -> "HOSO_0000126" [ label="[1..*]
+\"RO_0002180@has component\"" style="solid" ];
+  "HOSO_0000138" -> "HOSO_0000009" [ label="[1..*]
+\"IAO_0000219@denotes\"" style="solid" ];
+  "MPHPO_0000011" -> "Ontorel-Core_0000001" [ label="[1..1]
+\"Ontorel-Core_0000004@has temporal value\"" style="solid" ];
+  "MPHPO_0000010" -> "string" [ label="[1..1]
+\"Ontorel-Core_0000002@has textual value\"" style="solid" ];
+  "MPHPO_0000006" -> "string" [ label="[1..1]
+\"Ontorel-Core_0000002@has textual value\"" style="solid" ];
+  "MPHPO_0000001" -> "string" [ label="[1..1]
+\"Ontorel-Core_0000002@has textual value\"" style="solid" ];
+  "MPHPO_0000007" -> "string" [ label="[1..1]
+\"Ontorel-Core_0000002@has textual value\"" style="solid" ];
+  "MPHPO_0000004" -> "Ontorel-Core_0000001" [ label="[1..1]
+\"Ontorel-Core_0000004@has temporal value\"" style="solid" ];
+  "MPHPO_0000005" -> "string" [ label="[1..1]
+\"Ontorel-Core_0000002@has textual value\"" style="solid" ];
+  "MPHPO_0000003" -> "Ontorel-Core_0000001" [ label="[1..1]
+\"Ontorel-Core_0000004@has temporal value\"" style="solid" ];
+  "MPHPO_0000009" -> "Ontorel-Core_0000001" [ label="[1..1]
+\"Ontorel-Core_0000004@has temporal value\"" style="solid" ];
+  "MPHPO_0000002" -> "string" [ label="[1..1]
+\"Ontorel-Core_0000002@has textual value\"" style="solid" ];
+}

@@ -1,0 +1,118 @@
+> ============================ Trial for variable09 ontorelMaterialized 
+min=1 max=1 inc=1
+> ============================ Input size : 1
+SET
+ pg_stat_statements_reset 
+--------------------------
+ 
+(1 row)
+
+> Loop number : 1
+SET
+SET
+SET
+SET
+SET
+SET
+SET
+SET
+SET
+                                                                   QUERY PLAN                                                                    
+-------------------------------------------------------------------------------------------------------------------------------------------------
+ Seq Scan on date_admission_par_hospitalisation_vue  (cost=0.00..7039.73 rows=311122 width=28) (actual time=15.184..586.620 rows=311122 loops=1)
+   Buffers: shared read=1984
+   I/O Timings: shared read=474.962
+ Settings: search_path = 'test_mimic'
+ Planning:
+   Buffers: shared hit=36 read=1
+   I/O Timings: shared read=0.432
+ Planning Time: 0.763 ms
+ Execution Time: 600.433 ms
+(9 rows)
+
+> Loop number : 2
+SET
+SET
+SET
+SET
+SET
+SET
+SET
+SET
+SET
+                                                                   QUERY PLAN                                                                   
+------------------------------------------------------------------------------------------------------------------------------------------------
+ Seq Scan on date_admission_par_hospitalisation_vue  (cost=0.00..7039.73 rows=311122 width=28) (actual time=0.026..112.362 rows=311122 loops=1)
+   Buffers: shared hit=1984
+ Settings: search_path = 'test_mimic'
+ Planning:
+   Buffers: shared hit=37
+ Planning Time: 0.324 ms
+ Execution Time: 126.063 ms
+(7 rows)
+
+> Loop number : 3
+SET
+SET
+SET
+SET
+SET
+SET
+SET
+SET
+SET
+                                                                   QUERY PLAN                                                                   
+------------------------------------------------------------------------------------------------------------------------------------------------
+ Seq Scan on date_admission_par_hospitalisation_vue  (cost=0.00..7039.73 rows=311122 width=28) (actual time=0.027..114.489 rows=311122 loops=1)
+   Buffers: shared hit=1984
+ Settings: search_path = 'test_mimic'
+ Planning:
+   Buffers: shared hit=37
+ Planning Time: 0.319 ms
+ Execution Time: 129.509 ms
+(7 rows)
+
+> Loop number : 4
+SET
+SET
+SET
+SET
+SET
+SET
+SET
+SET
+SET
+                                                                   QUERY PLAN                                                                   
+------------------------------------------------------------------------------------------------------------------------------------------------
+ Seq Scan on date_admission_par_hospitalisation_vue  (cost=0.00..7039.73 rows=311122 width=28) (actual time=0.028..112.570 rows=311122 loops=1)
+   Buffers: shared hit=1984
+ Settings: search_path = 'test_mimic'
+ Planning:
+   Buffers: shared hit=37
+ Planning Time: 0.315 ms
+ Execution Time: 126.255 ms
+(7 rows)
+
+> Loop number : 5
+SET
+SET
+SET
+SET
+SET
+SET
+SET
+SET
+SET
+                                                                   QUERY PLAN                                                                   
+------------------------------------------------------------------------------------------------------------------------------------------------
+ Seq Scan on date_admission_par_hospitalisation_vue  (cost=0.00..7039.73 rows=311122 width=28) (actual time=0.029..112.739 rows=311122 loops=1)
+   Buffers: shared hit=1984
+ Settings: search_path = 'test_mimic'
+ Planning:
+   Buffers: shared hit=37
+ Planning Time: 0.318 ms
+ Execution Time: 126.453 ms
+(7 rows)
+
+SET
+INSERT 0 1

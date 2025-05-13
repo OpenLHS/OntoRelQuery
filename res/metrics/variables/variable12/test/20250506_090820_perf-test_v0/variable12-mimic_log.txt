@@ -1,0 +1,292 @@
+> ============================ Trial for variable12 mimic 
+min=1 max=1 inc=1
+> ============================ Input size : 1
+SET
+ pg_stat_statements_reset 
+--------------------------
+ 
+(1 row)
+
+> Loop number : 1
+SET
+SET
+SET
+SET
+SET
+SET
+SET
+SET
+SET
+                                                                                QUERY PLAN                                                                                
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+ Seq Scan on admissions  (cost=21136.20..36416.30 rows=309868 width=8) (actual time=518.675..694.028 rows=311122 loops=1)
+   Filter: ((admission_type)::text <> ALL ('{"AMBULATORY OBSERVATION","DIRECT OBSERVATION","EU OBSERVATION"}'::text[]))
+   Rows Removed by Filter: 120109
+   Buffers: shared hit=302 read=21993
+   I/O Timings: shared read=1074.972
+   SubPlan 1
+     ->  Unique  (cost=21136.19..21136.20 rows=1 width=4) (actual time=474.795..493.966 rows=69455 loops=1)
+           Buffers: shared hit=206 read=13513
+           I/O Timings: shared read=1034.440
+           ->  Sort  (cost=21136.19..21136.20 rows=1 width=4) (actual time=474.792..482.004 rows=69494 loops=1)
+                 Sort Key: edstays.hadm_id
+                 Sort Method: quicksort  Memory: 3073kB
+                 Buffers: shared hit=206 read=13513
+                 I/O Timings: shared read=1034.440
+                 ->  Gather  (cost=9121.14..21136.18 rows=1 width=4) (actual time=229.677..460.721 rows=69494 loops=1)
+                       Workers Planned: 2
+                       Workers Launched: 2
+                       Buffers: shared hit=203 read=13513
+                       I/O Timings: shared read=1034.440
+                       ->  Parallel Hash Join  (cost=8121.14..20136.08 rows=1 width=4) (actual time=224.803..450.949 rows=23165 loops=3)
+                             Hash Cond: ((admissions_1.hadm_id = edstays.hadm_id) AND (admissions_1.subject_id = edstays.subject_id))
+                             Buffers: shared hit=203 read=13513
+                             I/O Timings: shared read=1034.440
+                             ->  Parallel Seq Scan on admissions admissions_1  (cost=0.00..11046.59 rows=129112 width=8) (actual time=0.424..197.294 rows=103707 loops=3)
+                                   Filter: ((admission_type)::text <> ALL ('{"AMBULATORY OBSERVATION","DIRECT OBSERVATION","EU OBSERVATION"}'::text[]))
+                                   Rows Removed by Filter: 40036
+                                   Buffers: shared hit=7 read=8575
+                                   I/O Timings: shared read=493.990
+                             ->  Parallel Hash  (cost=7149.99..7149.99 rows=64743 width=8) (actual time=223.130..223.132 rows=51917 loops=3)
+                                   Buckets: 262144  Batches: 1  Memory Usage: 6208kB
+                                   Buffers: shared read=4936
+                                   I/O Timings: shared read=540.417
+                                   ->  Parallel Seq Scan on edstays  (cost=0.00..7149.99 rows=64743 width=8) (actual time=10.789..203.842 rows=51917 loops=3)
+                                         Filter: ((arrival_transport)::text = 'AMBULANCE'::text)
+                                         Rows Removed by Filter: 89778
+                                         Buffers: shared read=4936
+                                         I/O Timings: shared read=540.417
+ Settings: search_path = 'test_mimic'
+ Planning:
+   Buffers: shared hit=196 read=27
+   I/O Timings: shared read=71.044
+ Planning Time: 72.567 ms
+ Execution Time: 709.364 ms
+(43 rows)
+
+> Loop number : 2
+SET
+SET
+SET
+SET
+SET
+SET
+SET
+SET
+SET
+                                                                               QUERY PLAN                                                                                
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+ Seq Scan on admissions  (cost=21136.20..36416.30 rows=309868 width=8) (actual time=169.662..342.301 rows=311122 loops=1)
+   Filter: ((admission_type)::text <> ALL ('{"AMBULATORY OBSERVATION","DIRECT OBSERVATION","EU OBSERVATION"}'::text[]))
+   Rows Removed by Filter: 120109
+   Buffers: shared hit=656 read=21639
+   I/O Timings: shared read=90.664
+   SubPlan 1
+     ->  Unique  (cost=21136.19..21136.20 rows=1 width=4) (actual time=131.150..150.167 rows=69455 loops=1)
+           Buffers: shared hit=432 read=13287
+           I/O Timings: shared read=57.774
+           ->  Sort  (cost=21136.19..21136.20 rows=1 width=4) (actual time=131.146..138.274 rows=69494 loops=1)
+                 Sort Key: edstays.hadm_id
+                 Sort Method: quicksort  Memory: 3073kB
+                 Buffers: shared hit=432 read=13287
+                 I/O Timings: shared read=57.774
+                 ->  Gather  (cost=9121.14..21136.18 rows=1 width=4) (actual time=47.372..117.688 rows=69494 loops=1)
+                       Workers Planned: 2
+                       Workers Launched: 2
+                       Buffers: shared hit=429 read=13287
+                       I/O Timings: shared read=57.774
+                       ->  Parallel Hash Join  (cost=8121.14..20136.08 rows=1 width=4) (actual time=43.622..108.097 rows=23165 loops=3)
+                             Hash Cond: ((admissions_1.hadm_id = edstays.hadm_id) AND (admissions_1.subject_id = edstays.subject_id))
+                             Buffers: shared hit=429 read=13287
+                             I/O Timings: shared read=57.774
+                             ->  Parallel Seq Scan on admissions admissions_1  (cost=0.00..11046.59 rows=129112 width=8) (actual time=0.043..42.381 rows=103707 loops=3)
+                                   Filter: ((admission_type)::text <> ALL ('{"AMBULATORY OBSERVATION","DIRECT OBSERVATION","EU OBSERVATION"}'::text[]))
+                                   Rows Removed by Filter: 40036
+                                   Buffers: shared hit=135 read=8447
+                                   I/O Timings: shared read=35.262
+                             ->  Parallel Hash  (cost=7149.99..7149.99 rows=64743 width=8) (actual time=42.433..42.434 rows=51917 loops=3)
+                                   Buckets: 262144  Batches: 1  Memory Usage: 6176kB
+                                   Buffers: shared hit=96 read=4840
+                                   I/O Timings: shared read=22.512
+                                   ->  Parallel Seq Scan on edstays  (cost=0.00..7149.99 rows=64743 width=8) (actual time=0.047..30.522 rows=51917 loops=3)
+                                         Filter: ((arrival_transport)::text = 'AMBULANCE'::text)
+                                         Rows Removed by Filter: 89778
+                                         Buffers: shared hit=96 read=4840
+                                         I/O Timings: shared read=22.512
+ Settings: search_path = 'test_mimic'
+ Planning:
+   Buffers: shared hit=223
+ Planning Time: 1.294 ms
+ Execution Time: 357.460 ms
+(42 rows)
+
+> Loop number : 3
+SET
+SET
+SET
+SET
+SET
+SET
+SET
+SET
+SET
+                                                                               QUERY PLAN                                                                                
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+ Seq Scan on admissions  (cost=21136.20..36416.30 rows=309868 width=8) (actual time=169.840..341.635 rows=311122 loops=1)
+   Filter: ((admission_type)::text <> ALL ('{"AMBULATORY OBSERVATION","DIRECT OBSERVATION","EU OBSERVATION"}'::text[]))
+   Rows Removed by Filter: 120109
+   Buffers: shared hit=1008 read=21287
+   I/O Timings: shared read=85.346
+   SubPlan 1
+     ->  Unique  (cost=21136.19..21136.20 rows=1 width=4) (actual time=130.967..150.088 rows=69455 loops=1)
+           Buffers: shared hit=656 read=13063
+           I/O Timings: shared read=52.901
+           ->  Sort  (cost=21136.19..21136.20 rows=1 width=4) (actual time=130.963..138.063 rows=69494 loops=1)
+                 Sort Key: edstays.hadm_id
+                 Sort Method: quicksort  Memory: 3073kB
+                 Buffers: shared hit=656 read=13063
+                 I/O Timings: shared read=52.901
+                 ->  Gather  (cost=9121.14..21136.18 rows=1 width=4) (actual time=46.519..117.199 rows=69494 loops=1)
+                       Workers Planned: 2
+                       Workers Launched: 2
+                       Buffers: shared hit=653 read=13063
+                       I/O Timings: shared read=52.901
+                       ->  Parallel Hash Join  (cost=8121.14..20136.08 rows=1 width=4) (actual time=42.756..107.732 rows=23165 loops=3)
+                             Hash Cond: ((admissions_1.hadm_id = edstays.hadm_id) AND (admissions_1.subject_id = edstays.subject_id))
+                             Buffers: shared hit=653 read=13063
+                             I/O Timings: shared read=52.901
+                             ->  Parallel Seq Scan on admissions admissions_1  (cost=0.00..11046.59 rows=129112 width=8) (actual time=0.046..42.635 rows=103707 loops=3)
+                                   Filter: ((admission_type)::text <> ALL ('{"AMBULATORY OBSERVATION","DIRECT OBSERVATION","EU OBSERVATION"}'::text[]))
+                                   Rows Removed by Filter: 40036
+                                   Buffers: shared hit=263 read=8319
+                                   I/O Timings: shared read=33.644
+                             ->  Parallel Hash  (cost=7149.99..7149.99 rows=64743 width=8) (actual time=41.554..41.556 rows=51917 loops=3)
+                                   Buckets: 262144  Batches: 1  Memory Usage: 6208kB
+                                   Buffers: shared hit=192 read=4744
+                                   I/O Timings: shared read=19.257
+                                   ->  Parallel Seq Scan on edstays  (cost=0.00..7149.99 rows=64743 width=8) (actual time=0.036..29.393 rows=51917 loops=3)
+                                         Filter: ((arrival_transport)::text = 'AMBULANCE'::text)
+                                         Rows Removed by Filter: 89778
+                                         Buffers: shared hit=192 read=4744
+                                         I/O Timings: shared read=19.257
+ Settings: search_path = 'test_mimic'
+ Planning:
+   Buffers: shared hit=223
+ Planning Time: 1.278 ms
+ Execution Time: 356.730 ms
+(42 rows)
+
+> Loop number : 4
+SET
+SET
+SET
+SET
+SET
+SET
+SET
+SET
+SET
+                                                                               QUERY PLAN                                                                                
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+ Seq Scan on admissions  (cost=21136.20..36416.30 rows=309868 width=8) (actual time=169.413..341.824 rows=311122 loops=1)
+   Filter: ((admission_type)::text <> ALL ('{"AMBULATORY OBSERVATION","DIRECT OBSERVATION","EU OBSERVATION"}'::text[]))
+   Rows Removed by Filter: 120109
+   Buffers: shared hit=1360 read=20935
+   I/O Timings: shared read=83.329
+   SubPlan 1
+     ->  Unique  (cost=21136.19..21136.20 rows=1 width=4) (actual time=130.216..149.557 rows=69455 loops=1)
+           Buffers: shared hit=880 read=12839
+           I/O Timings: shared read=51.729
+           ->  Sort  (cost=21136.19..21136.20 rows=1 width=4) (actual time=130.213..137.535 rows=69494 loops=1)
+                 Sort Key: edstays.hadm_id
+                 Sort Method: quicksort  Memory: 3073kB
+                 Buffers: shared hit=880 read=12839
+                 I/O Timings: shared read=51.729
+                 ->  Gather  (cost=9121.14..21136.18 rows=1 width=4) (actual time=46.577..116.553 rows=69494 loops=1)
+                       Workers Planned: 2
+                       Workers Launched: 2
+                       Buffers: shared hit=877 read=12839
+                       I/O Timings: shared read=51.729
+                       ->  Parallel Hash Join  (cost=8121.14..20136.08 rows=1 width=4) (actual time=42.645..106.838 rows=23165 loops=3)
+                             Hash Cond: ((admissions_1.hadm_id = edstays.hadm_id) AND (admissions_1.subject_id = edstays.subject_id))
+                             Buffers: shared hit=877 read=12839
+                             I/O Timings: shared read=51.729
+                             ->  Parallel Seq Scan on admissions admissions_1  (cost=0.00..11046.59 rows=129112 width=8) (actual time=0.043..42.233 rows=103707 loops=3)
+                                   Filter: ((admission_type)::text <> ALL ('{"AMBULATORY OBSERVATION","DIRECT OBSERVATION","EU OBSERVATION"}'::text[]))
+                                   Rows Removed by Filter: 40036
+                                   Buffers: shared hit=391 read=8191
+                                   I/O Timings: shared read=32.902
+                             ->  Parallel Hash  (cost=7149.99..7149.99 rows=64743 width=8) (actual time=41.432..41.433 rows=51917 loops=3)
+                                   Buckets: 262144  Batches: 1  Memory Usage: 6208kB
+                                   Buffers: shared hit=288 read=4648
+                                   I/O Timings: shared read=18.827
+                                   ->  Parallel Seq Scan on edstays  (cost=0.00..7149.99 rows=64743 width=8) (actual time=0.036..29.484 rows=51917 loops=3)
+                                         Filter: ((arrival_transport)::text = 'AMBULANCE'::text)
+                                         Rows Removed by Filter: 89778
+                                         Buffers: shared hit=288 read=4648
+                                         I/O Timings: shared read=18.827
+ Settings: search_path = 'test_mimic'
+ Planning:
+   Buffers: shared hit=223
+ Planning Time: 1.282 ms
+ Execution Time: 356.998 ms
+(42 rows)
+
+> Loop number : 5
+SET
+SET
+SET
+SET
+SET
+SET
+SET
+SET
+SET
+                                                                               QUERY PLAN                                                                                
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+ Seq Scan on admissions  (cost=21136.20..36416.30 rows=309868 width=8) (actual time=168.945..340.563 rows=311122 loops=1)
+   Filter: ((admission_type)::text <> ALL ('{"AMBULATORY OBSERVATION","DIRECT OBSERVATION","EU OBSERVATION"}'::text[]))
+   Rows Removed by Filter: 120109
+   Buffers: shared hit=1712 read=20583
+   I/O Timings: shared read=81.371
+   SubPlan 1
+     ->  Unique  (cost=21136.19..21136.20 rows=1 width=4) (actual time=130.343..149.377 rows=69455 loops=1)
+           Buffers: shared hit=1104 read=12615
+           I/O Timings: shared read=50.397
+           ->  Sort  (cost=21136.19..21136.20 rows=1 width=4) (actual time=130.340..137.475 rows=69494 loops=1)
+                 Sort Key: edstays.hadm_id
+                 Sort Method: quicksort  Memory: 3073kB
+                 Buffers: shared hit=1104 read=12615
+                 I/O Timings: shared read=50.397
+                 ->  Gather  (cost=9121.14..21136.18 rows=1 width=4) (actual time=46.977..116.868 rows=69494 loops=1)
+                       Workers Planned: 2
+                       Workers Launched: 2
+                       Buffers: shared hit=1101 read=12615
+                       I/O Timings: shared read=50.397
+                       ->  Parallel Hash Join  (cost=8121.14..20136.08 rows=1 width=4) (actual time=43.137..107.183 rows=23165 loops=3)
+                             Hash Cond: ((admissions_1.hadm_id = edstays.hadm_id) AND (admissions_1.subject_id = edstays.subject_id))
+                             Buffers: shared hit=1101 read=12615
+                             I/O Timings: shared read=50.397
+                             ->  Parallel Seq Scan on admissions admissions_1  (cost=0.00..11046.59 rows=129112 width=8) (actual time=0.037..42.044 rows=103707 loops=3)
+                                   Filter: ((admission_type)::text <> ALL ('{"AMBULATORY OBSERVATION","DIRECT OBSERVATION","EU OBSERVATION"}'::text[]))
+                                   Rows Removed by Filter: 40036
+                                   Buffers: shared hit=519 read=8063
+                                   I/O Timings: shared read=32.038
+                             ->  Parallel Hash  (cost=7149.99..7149.99 rows=64743 width=8) (actual time=41.953..41.954 rows=51917 loops=3)
+                                   Buckets: 262144  Batches: 1  Memory Usage: 6208kB
+                                   Buffers: shared hit=384 read=4552
+                                   I/O Timings: shared read=18.359
+                                   ->  Parallel Seq Scan on edstays  (cost=0.00..7149.99 rows=64743 width=8) (actual time=0.035..29.569 rows=51917 loops=3)
+                                         Filter: ((arrival_transport)::text = 'AMBULANCE'::text)
+                                         Rows Removed by Filter: 89778
+                                         Buffers: shared hit=384 read=4552
+                                         I/O Timings: shared read=18.359
+ Settings: search_path = 'test_mimic'
+ Planning:
+   Buffers: shared hit=223
+ Planning Time: 1.289 ms
+ Execution Time: 355.648 ms
+(42 rows)
+
+SET
+INSERT 0 1

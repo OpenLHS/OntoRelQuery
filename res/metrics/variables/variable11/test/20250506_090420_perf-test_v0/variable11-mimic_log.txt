@@ -1,0 +1,482 @@
+> ============================ Trial for variable11 mimic 
+min=1 max=1 inc=1
+> ============================ Input size : 1
+SET
+ pg_stat_statements_reset 
+--------------------------
+ 
+(1 row)
+
+> Loop number : 1
+SET
+SET
+SET
+SET
+SET
+SET
+SET
+SET
+SET
+                                                                                                                                                                    QUERY PLAN                                                                                                                                                                     
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+ Hash Right Join  (cost=23555509.75..31964611.59 rows=309868 width=12) (actual time=2076.022..2245.399 rows=311122 loops=1)
+   Hash Cond: (nombre_admissions_30_jours.hospitalisation = date_debut_fin_hosp_precedente.hosp_id)
+   Buffers: shared hit=640 read=7936, temp read=8354 written=4825
+   I/O Timings: shared read=31.848, temp read=30.226 write=60.124
+   CTE date_debut_fin_hosp_precedente
+     ->  Seq Scan on admissions  (cost=0.00..14505.43 rows=309868 width=37) (actual time=473.508..586.808 rows=311122 loops=1)
+           Filter: ((admission_type)::text <> ALL ('{"AMBULATORY OBSERVATION","DIRECT OBSERVATION","EU OBSERVATION"}'::text[]))
+           Rows Removed by Filter: 120109
+           Buffers: shared hit=640 read=7936
+           I/O Timings: shared read=31.848
+   ->  Subquery Scan on nombre_admissions_30_jours  (cost=23529722.62..31925990.85 rows=200 width=12) (actual time=1258.884..1352.639 rows=44606 loops=1)
+         Buffers: temp read=7733 written=2436
+         I/O Timings: temp read=27.746 write=29.698
+         ->  GroupAggregate  (cost=23529722.62..31925988.85 rows=200 width=12) (actual time=1258.880..1348.289 rows=44606 loops=1)
+               Group Key: date_debut_fin_hosp_precedente_2.hosp_id
+               Buffers: temp read=7733 written=2436
+               I/O Timings: temp read=27.746 write=29.698
+               ->  Merge Join  (cost=23529722.62..29860262.16 rows=413144939 width=4) (actual time=1258.860..1336.276 rows=51275 loops=1)
+                     Merge Cond: (date_debut_fin_hosp_precedente_3.hosp_id = date_debut_fin_hosp_precedente_2.hosp_id)
+                     Buffers: temp read=7733 written=2436
+                     I/O Timings: temp read=27.746 write=29.698
+                     ->  Sort  (cost=10927.45..10931.33 rows=1549 width=4) (actual time=151.405..182.261 rows=300556 loops=1)
+                           Sort Key: date_debut_fin_hosp_precedente_3.hosp_id
+                           Sort Method: external merge  Disk: 3536kB
+                           Buffers: temp read=2211 written=444
+                           I/O Timings: temp read=7.966 write=5.546
+                           ->  CTE Scan on date_debut_fin_hosp_precedente date_debut_fin_hosp_precedente_3  (cost=0.00..10845.38 rows=1549 width=4) (actual time=0.055..66.632 rows=300557 loops=1)
+                                 Filter: (CASE WHEN (((admission_type)::text = 'URGENT'::text) OR ((admission_type)::text = 'DIRECT EMER.'::text) OR ((admission_type)::text = 'EW EMER.'::text) OR ((admission_type)::text = 'OBSERVATION ADMIT'::text) OR ((admission_type)::text = 'SURGICAL SAME DAY ADMISSION'::text)) THEN 1 ELSE 0 END = 1)
+                                 Rows Removed by Filter: 10565
+                                 Buffers: temp read=1769 written=1
+                                 I/O Timings: temp read=6.449 write=0.014
+                     ->  Materialize  (cost=23518795.16..23785512.32 rows=53343432 width=4) (actual time=1107.385..1121.445 rows=54100 loops=1)
+                           Buffers: temp read=5522 written=1992
+                           I/O Timings: temp read=19.780 write=24.151
+                           ->  Sort  (cost=23518795.16..23652153.74 rows=53343432 width=4) (actual time=1107.379..1111.227 rows=54100 loops=1)
+                                 Sort Key: date_debut_fin_hosp_precedente_2.hosp_id
+                                 Sort Method: quicksort  Memory: 1537kB
+                                 Buffers: temp read=5522 written=1992
+                                 I/O Timings: temp read=19.780 write=24.151
+                                 ->  Merge Join  (cost=79516.65..14484567.27 rows=53343432 width=4) (actual time=258.357..1096.467 rows=54100 loops=1)
+                                       Merge Cond: (date_debut_fin_hosp_precedente_2.subject_id = date_debut_fin_hosp_precedente_1.subject_id)
+                                       Join Filter: ((EXTRACT(day FROM (date_debut_fin_hosp_precedente_2.debut_hosp - date_debut_fin_hosp_precedente_1.debut_hosp)) < '30'::numeric) AND (EXTRACT(day FROM (date_debut_fin_hosp_precedente_2.debut_hosp - date_debut_fin_hosp_precedente_1.debut_hosp)) > '0'::numeric))
+                                       Rows Removed by Join Filter: 1664810
+                                       Buffers: temp read=5522 written=1992
+                                       I/O Timings: temp read=19.780 write=24.151
+                                       ->  Sort  (cost=39758.33..40533.00 rows=309868 width=16) (actual time=131.846..169.142 rows=311122 loops=1)
+                                             Sort Key: date_debut_fin_hosp_precedente_2.subject_id
+                                             Sort Method: external merge  Disk: 7936kB
+                                             Buffers: temp read=2761 written=996
+                                             I/O Timings: temp read=10.106 write=12.223
+                                             ->  CTE Scan on date_debut_fin_hosp_precedente date_debut_fin_hosp_precedente_2  (cost=0.00..6197.36 rows=309868 width=16) (actual time=0.011..46.314 rows=311122 loops=1)
+                                                   Buffers: temp read=1769
+                                                   I/O Timings: temp read=6.773
+                                       ->  Materialize  (cost=39758.33..41307.67 rows=309868 width=12) (actual time=126.401..287.499 rows=1718910 loops=1)
+                                             Buffers: temp read=2761 written=996
+                                             I/O Timings: temp read=9.674 write=11.928
+                                             ->  Sort  (cost=39758.33..40533.00 rows=309868 width=12) (actual time=126.397..163.860 rows=311122 loops=1)
+                                                   Sort Key: date_debut_fin_hosp_precedente_1.subject_id
+                                                   Sort Method: external merge  Disk: 7936kB
+                                                   Buffers: temp read=2761 written=996
+                                                   I/O Timings: temp read=9.674 write=11.928
+                                                   ->  CTE Scan on date_debut_fin_hosp_precedente date_debut_fin_hosp_precedente_1  (cost=0.00..6197.36 rows=309868 width=12) (actual time=0.010..45.482 rows=311122 loops=1)
+                                                         Buffers: temp read=1769
+                                                         I/O Timings: temp read=6.282
+   ->  Hash  (cost=6197.36..6197.36 rows=309868 width=8) (actual time=815.294..815.296 rows=311122 loops=1)
+         Buckets: 262144  Batches: 2  Memory Usage: 8106kB
+         Buffers: shared hit=640 read=7936, temp written=2301
+         I/O Timings: shared read=31.848, temp write=29.099
+         ->  CTE Scan on date_debut_fin_hosp_precedente  (cost=0.00..6197.36 rows=309868 width=8) (actual time=473.521..741.387 rows=311122 loops=1)
+               Buffers: shared hit=640 read=7936, temp written=1768
+               I/O Timings: shared read=31.848, temp write=22.121
+ Settings: search_path = 'test_mimic'
+ Planning:
+   Buffers: shared hit=217 read=2
+   I/O Timings: shared read=9.762
+ Planning Time: 11.027 ms
+ JIT:
+   Functions: 39
+   Options: Inlining true, Optimization true, Expressions true, Deforming true
+   Timing: Generation 2.010 ms, Inlining 199.393 ms, Optimization 164.939 ms, Emission 109.287 ms, Total 475.629 ms
+ Execution Time: 2292.458 ms
+(81 rows)
+
+> Loop number : 2
+SET
+SET
+SET
+SET
+SET
+SET
+SET
+SET
+SET
+                                                                                                                                                                    QUERY PLAN                                                                                                                                                                     
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+ Hash Right Join  (cost=23555509.75..31964611.59 rows=309868 width=12) (actual time=1970.446..2141.491 rows=311122 loops=1)
+   Hash Cond: (nombre_admissions_30_jours.hospitalisation = date_debut_fin_hosp_precedente.hosp_id)
+   Buffers: shared hit=672 read=7904, temp read=8354 written=4825
+   I/O Timings: shared read=31.627, temp read=30.131 write=60.054
+   CTE date_debut_fin_hosp_precedente
+     ->  Seq Scan on admissions  (cost=0.00..14505.43 rows=309868 width=37) (actual time=367.668..480.261 rows=311122 loops=1)
+           Filter: ((admission_type)::text <> ALL ('{"AMBULATORY OBSERVATION","DIRECT OBSERVATION","EU OBSERVATION"}'::text[]))
+           Rows Removed by Filter: 120109
+           Buffers: shared hit=672 read=7904
+           I/O Timings: shared read=31.627
+   ->  Subquery Scan on nombre_admissions_30_jours  (cost=23529722.62..31925990.85 rows=200 width=12) (actual time=1259.106..1353.926 rows=44606 loops=1)
+         Buffers: temp read=7733 written=2436
+         I/O Timings: temp read=27.621 write=29.360
+         ->  GroupAggregate  (cost=23529722.62..31925988.85 rows=200 width=12) (actual time=1259.101..1349.554 rows=44606 loops=1)
+               Group Key: date_debut_fin_hosp_precedente_2.hosp_id
+               Buffers: temp read=7733 written=2436
+               I/O Timings: temp read=27.621 write=29.360
+               ->  Merge Join  (cost=23529722.62..29860262.16 rows=413144939 width=4) (actual time=1259.082..1337.199 rows=51275 loops=1)
+                     Merge Cond: (date_debut_fin_hosp_precedente_3.hosp_id = date_debut_fin_hosp_precedente_2.hosp_id)
+                     Buffers: temp read=7733 written=2436
+                     I/O Timings: temp read=27.621 write=29.360
+                     ->  Sort  (cost=10927.45..10931.33 rows=1549 width=4) (actual time=151.817..182.294 rows=300556 loops=1)
+                           Sort Key: date_debut_fin_hosp_precedente_3.hosp_id
+                           Sort Method: external merge  Disk: 3536kB
+                           Buffers: temp read=2211 written=444
+                           I/O Timings: temp read=7.867 write=5.474
+                           ->  CTE Scan on date_debut_fin_hosp_precedente date_debut_fin_hosp_precedente_3  (cost=0.00..10845.38 rows=1549 width=4) (actual time=0.057..66.558 rows=300557 loops=1)
+                                 Filter: (CASE WHEN (((admission_type)::text = 'URGENT'::text) OR ((admission_type)::text = 'DIRECT EMER.'::text) OR ((admission_type)::text = 'EW EMER.'::text) OR ((admission_type)::text = 'OBSERVATION ADMIT'::text) OR ((admission_type)::text = 'SURGICAL SAME DAY ADMISSION'::text)) THEN 1 ELSE 0 END = 1)
+                                 Rows Removed by Filter: 10565
+                                 Buffers: temp read=1769 written=1
+                                 I/O Timings: temp read=6.357 write=0.013
+                     ->  Materialize  (cost=23518795.16..23785512.32 rows=53343432 width=4) (actual time=1107.190..1121.496 rows=54100 loops=1)
+                           Buffers: temp read=5522 written=1992
+                           I/O Timings: temp read=19.754 write=23.886
+                           ->  Sort  (cost=23518795.16..23652153.74 rows=53343432 width=4) (actual time=1107.183..1111.242 rows=54100 loops=1)
+                                 Sort Key: date_debut_fin_hosp_precedente_2.hosp_id
+                                 Sort Method: quicksort  Memory: 1537kB
+                                 Buffers: temp read=5522 written=1992
+                                 I/O Timings: temp read=19.754 write=23.886
+                                 ->  Merge Join  (cost=79516.65..14484567.27 rows=53343432 width=4) (actual time=260.157..1096.279 rows=54100 loops=1)
+                                       Merge Cond: (date_debut_fin_hosp_precedente_2.subject_id = date_debut_fin_hosp_precedente_1.subject_id)
+                                       Join Filter: ((EXTRACT(day FROM (date_debut_fin_hosp_precedente_2.debut_hosp - date_debut_fin_hosp_precedente_1.debut_hosp)) < '30'::numeric) AND (EXTRACT(day FROM (date_debut_fin_hosp_precedente_2.debut_hosp - date_debut_fin_hosp_precedente_1.debut_hosp)) > '0'::numeric))
+                                       Rows Removed by Join Filter: 1664810
+                                       Buffers: temp read=5522 written=1992
+                                       I/O Timings: temp read=19.754 write=23.886
+                                       ->  Sort  (cost=39758.33..40533.00 rows=309868 width=16) (actual time=131.724..169.618 rows=311122 loops=1)
+                                             Sort Key: date_debut_fin_hosp_precedente_2.subject_id
+                                             Sort Method: external merge  Disk: 7936kB
+                                             Buffers: temp read=2761 written=996
+                                             I/O Timings: temp read=10.232 write=11.872
+                                             ->  CTE Scan on date_debut_fin_hosp_precedente date_debut_fin_hosp_precedente_2  (cost=0.00..6197.36 rows=309868 width=16) (actual time=0.013..46.267 rows=311122 loops=1)
+                                                   Buffers: temp read=1769
+                                                   I/O Timings: temp read=6.864
+                                       ->  Materialize  (cost=39758.33..41307.67 rows=309868 width=12) (actual time=128.326..288.270 rows=1718910 loops=1)
+                                             Buffers: temp read=2761 written=996
+                                             I/O Timings: temp read=9.522 write=12.013
+                                             ->  Sort  (cost=39758.33..40533.00 rows=309868 width=12) (actual time=128.322..165.685 rows=311122 loops=1)
+                                                   Sort Key: date_debut_fin_hosp_precedente_1.subject_id
+                                                   Sort Method: external merge  Disk: 7936kB
+                                                   Buffers: temp read=2761 written=996
+                                                   I/O Timings: temp read=9.522 write=12.013
+                                                   ->  CTE Scan on date_debut_fin_hosp_precedente date_debut_fin_hosp_precedente_1  (cost=0.00..6197.36 rows=309868 width=12) (actual time=0.010..47.354 rows=311122 loops=1)
+                                                         Buffers: temp read=1769
+                                                         I/O Timings: temp read=6.232
+   ->  Hash  (cost=6197.36..6197.36 rows=309868 width=8) (actual time=709.630..709.631 rows=311122 loops=1)
+         Buckets: 262144  Batches: 2  Memory Usage: 8106kB
+         Buffers: shared hit=672 read=7904, temp written=2301
+         I/O Timings: shared read=31.627, temp write=29.309
+         ->  CTE Scan on date_debut_fin_hosp_precedente  (cost=0.00..6197.36 rows=309868 width=8) (actual time=367.680..635.255 rows=311122 loops=1)
+               Buffers: shared hit=672 read=7904, temp written=1768
+               I/O Timings: shared read=31.627, temp write=21.847
+ Settings: search_path = 'test_mimic'
+ Planning:
+   Buffers: shared hit=219
+ Planning Time: 1.054 ms
+ JIT:
+   Functions: 39
+   Options: Inlining true, Optimization true, Expressions true, Deforming true
+   Timing: Generation 2.061 ms, Inlining 97.613 ms, Optimization 163.557 ms, Emission 106.540 ms, Total 369.772 ms
+ Execution Time: 2187.601 ms
+(80 rows)
+
+> Loop number : 3
+SET
+SET
+SET
+SET
+SET
+SET
+SET
+SET
+SET
+                                                                                                                                                                    QUERY PLAN                                                                                                                                                                     
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+ Hash Right Join  (cost=23555509.75..31964611.59 rows=309868 width=12) (actual time=1964.564..2134.488 rows=311122 loops=1)
+   Hash Cond: (nombre_admissions_30_jours.hospitalisation = date_debut_fin_hosp_precedente.hosp_id)
+   Buffers: shared hit=704 read=7872, temp read=8354 written=4825
+   I/O Timings: shared read=31.661, temp read=30.247 write=58.640
+   CTE date_debut_fin_hosp_precedente
+     ->  Seq Scan on admissions  (cost=0.00..14505.43 rows=309868 width=37) (actual time=368.277..480.792 rows=311122 loops=1)
+           Filter: ((admission_type)::text <> ALL ('{"AMBULATORY OBSERVATION","DIRECT OBSERVATION","EU OBSERVATION"}'::text[]))
+           Rows Removed by Filter: 120109
+           Buffers: shared hit=704 read=7872
+           I/O Timings: shared read=31.661
+   ->  Subquery Scan on nombre_admissions_30_jours  (cost=23529722.62..31925990.85 rows=200 width=12) (actual time=1255.210..1349.679 rows=44606 loops=1)
+         Buffers: temp read=7733 written=2436
+         I/O Timings: temp read=27.744 write=28.687
+         ->  GroupAggregate  (cost=23529722.62..31925988.85 rows=200 width=12) (actual time=1255.206..1345.295 rows=44606 loops=1)
+               Group Key: date_debut_fin_hosp_precedente_2.hosp_id
+               Buffers: temp read=7733 written=2436
+               I/O Timings: temp read=27.744 write=28.687
+               ->  Merge Join  (cost=23529722.62..29860262.16 rows=413144939 width=4) (actual time=1255.187..1332.947 rows=51275 loops=1)
+                     Merge Cond: (date_debut_fin_hosp_precedente_3.hosp_id = date_debut_fin_hosp_precedente_2.hosp_id)
+                     Buffers: temp read=7733 written=2436
+                     I/O Timings: temp read=27.744 write=28.687
+                     ->  Sort  (cost=10927.45..10931.33 rows=1549 width=4) (actual time=150.514..180.827 rows=300556 loops=1)
+                           Sort Key: date_debut_fin_hosp_precedente_3.hosp_id
+                           Sort Method: external merge  Disk: 3536kB
+                           Buffers: temp read=2211 written=444
+                           I/O Timings: temp read=7.813 write=5.254
+                           ->  CTE Scan on date_debut_fin_hosp_precedente date_debut_fin_hosp_precedente_3  (cost=0.00..10845.38 rows=1549 width=4) (actual time=0.056..66.439 rows=300557 loops=1)
+                                 Filter: (CASE WHEN (((admission_type)::text = 'URGENT'::text) OR ((admission_type)::text = 'DIRECT EMER.'::text) OR ((admission_type)::text = 'EW EMER.'::text) OR ((admission_type)::text = 'OBSERVATION ADMIT'::text) OR ((admission_type)::text = 'SURGICAL SAME DAY ADMISSION'::text)) THEN 1 ELSE 0 END = 1)
+                                 Rows Removed by Filter: 10565
+                                 Buffers: temp read=1769 written=1
+                                 I/O Timings: temp read=6.397 write=0.013
+                     ->  Materialize  (cost=23518795.16..23785512.32 rows=53343432 width=4) (actual time=1104.596..1118.715 rows=54100 loops=1)
+                           Buffers: temp read=5522 written=1992
+                           I/O Timings: temp read=19.931 write=23.433
+                           ->  Sort  (cost=23518795.16..23652153.74 rows=53343432 width=4) (actual time=1104.591..1108.529 rows=54100 loops=1)
+                                 Sort Key: date_debut_fin_hosp_precedente_2.hosp_id
+                                 Sort Method: quicksort  Memory: 1537kB
+                                 Buffers: temp read=5522 written=1992
+                                 I/O Timings: temp read=19.931 write=23.433
+                                 ->  Merge Join  (cost=79516.65..14484567.27 rows=53343432 width=4) (actual time=259.581..1093.678 rows=54100 loops=1)
+                                       Merge Cond: (date_debut_fin_hosp_precedente_2.subject_id = date_debut_fin_hosp_precedente_1.subject_id)
+                                       Join Filter: ((EXTRACT(day FROM (date_debut_fin_hosp_precedente_2.debut_hosp - date_debut_fin_hosp_precedente_1.debut_hosp)) < '30'::numeric) AND (EXTRACT(day FROM (date_debut_fin_hosp_precedente_2.debut_hosp - date_debut_fin_hosp_precedente_1.debut_hosp)) > '0'::numeric))
+                                       Rows Removed by Join Filter: 1664810
+                                       Buffers: temp read=5522 written=1992
+                                       I/O Timings: temp read=19.931 write=23.433
+                                       ->  Sort  (cost=39758.33..40533.00 rows=309868 width=16) (actual time=130.833..168.239 rows=311122 loops=1)
+                                             Sort Key: date_debut_fin_hosp_precedente_2.subject_id
+                                             Sort Method: external merge  Disk: 7936kB
+                                             Buffers: temp read=2761 written=996
+                                             I/O Timings: temp read=10.275 write=11.512
+                                             ->  CTE Scan on date_debut_fin_hosp_precedente date_debut_fin_hosp_precedente_2  (cost=0.00..6197.36 rows=309868 width=16) (actual time=0.012..46.141 rows=311122 loops=1)
+                                                   Buffers: temp read=1769
+                                                   I/O Timings: temp read=6.930
+                                       ->  Materialize  (cost=39758.33..41307.67 rows=309868 width=12) (actual time=128.642..288.501 rows=1718910 loops=1)
+                                             Buffers: temp read=2761 written=996
+                                             I/O Timings: temp read=9.656 write=11.921
+                                             ->  Sort  (cost=39758.33..40533.00 rows=309868 width=12) (actual time=128.638..165.980 rows=311122 loops=1)
+                                                   Sort Key: date_debut_fin_hosp_precedente_1.subject_id
+                                                   Sort Method: external merge  Disk: 7936kB
+                                                   Buffers: temp read=2761 written=996
+                                                   I/O Timings: temp read=9.656 write=11.921
+                                                   ->  CTE Scan on date_debut_fin_hosp_precedente date_debut_fin_hosp_precedente_1  (cost=0.00..6197.36 rows=309868 width=12) (actual time=0.011..48.173 rows=311122 loops=1)
+                                                         Buffers: temp read=1769
+                                                         I/O Timings: temp read=6.294
+   ->  Hash  (cost=6197.36..6197.36 rows=309868 width=8) (actual time=707.607..707.609 rows=311122 loops=1)
+         Buckets: 262144  Batches: 2  Memory Usage: 8106kB
+         Buffers: shared hit=704 read=7872, temp written=2301
+         I/O Timings: shared read=31.661, temp write=28.613
+         ->  CTE Scan on date_debut_fin_hosp_precedente  (cost=0.00..6197.36 rows=309868 width=8) (actual time=368.290..635.211 rows=311122 loops=1)
+               Buffers: shared hit=704 read=7872, temp written=1768
+               I/O Timings: shared read=31.661, temp write=21.740
+ Settings: search_path = 'test_mimic'
+ Planning:
+   Buffers: shared hit=219
+ Planning Time: 1.057 ms
+ JIT:
+   Functions: 39
+   Options: Inlining true, Optimization true, Expressions true, Deforming true
+   Timing: Generation 2.051 ms, Inlining 98.376 ms, Optimization 163.088 ms, Emission 106.871 ms, Total 370.386 ms
+ Execution Time: 2181.075 ms
+(80 rows)
+
+> Loop number : 4
+SET
+SET
+SET
+SET
+SET
+SET
+SET
+SET
+SET
+                                                                                                                                                                    QUERY PLAN                                                                                                                                                                     
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+ Hash Right Join  (cost=23555509.75..31964611.59 rows=309868 width=12) (actual time=1962.165..2132.329 rows=311122 loops=1)
+   Hash Cond: (nombre_admissions_30_jours.hospitalisation = date_debut_fin_hosp_precedente.hosp_id)
+   Buffers: shared hit=736 read=7840, temp read=8354 written=4825
+   I/O Timings: shared read=31.315, temp read=30.084 write=58.516
+   CTE date_debut_fin_hosp_precedente
+     ->  Seq Scan on admissions  (cost=0.00..14505.43 rows=309868 width=37) (actual time=366.874..478.964 rows=311122 loops=1)
+           Filter: ((admission_type)::text <> ALL ('{"AMBULATORY OBSERVATION","DIRECT OBSERVATION","EU OBSERVATION"}'::text[]))
+           Rows Removed by Filter: 120109
+           Buffers: shared hit=736 read=7840
+           I/O Timings: shared read=31.315
+   ->  Subquery Scan on nombre_admissions_30_jours  (cost=23529722.62..31925990.85 rows=200 width=12) (actual time=1253.860..1348.452 rows=44606 loops=1)
+         Buffers: temp read=7733 written=2436
+         I/O Timings: temp read=27.576 write=28.425
+         ->  GroupAggregate  (cost=23529722.62..31925988.85 rows=200 width=12) (actual time=1253.856..1344.055 rows=44606 loops=1)
+               Group Key: date_debut_fin_hosp_precedente_2.hosp_id
+               Buffers: temp read=7733 written=2436
+               I/O Timings: temp read=27.576 write=28.425
+               ->  Merge Join  (cost=23529722.62..29860262.16 rows=413144939 width=4) (actual time=1253.835..1331.707 rows=51275 loops=1)
+                     Merge Cond: (date_debut_fin_hosp_precedente_3.hosp_id = date_debut_fin_hosp_precedente_2.hosp_id)
+                     Buffers: temp read=7733 written=2436
+                     I/O Timings: temp read=27.576 write=28.425
+                     ->  Sort  (cost=10927.45..10931.33 rows=1549 width=4) (actual time=150.489..180.943 rows=300556 loops=1)
+                           Sort Key: date_debut_fin_hosp_precedente_3.hosp_id
+                           Sort Method: external merge  Disk: 3536kB
+                           Buffers: temp read=2211 written=444
+                           I/O Timings: temp read=7.861 write=5.246
+                           ->  CTE Scan on date_debut_fin_hosp_precedente date_debut_fin_hosp_precedente_3  (cost=0.00..10845.38 rows=1549 width=4) (actual time=0.053..66.420 rows=300557 loops=1)
+                                 Filter: (CASE WHEN (((admission_type)::text = 'URGENT'::text) OR ((admission_type)::text = 'DIRECT EMER.'::text) OR ((admission_type)::text = 'EW EMER.'::text) OR ((admission_type)::text = 'OBSERVATION ADMIT'::text) OR ((admission_type)::text = 'SURGICAL SAME DAY ADMISSION'::text)) THEN 1 ELSE 0 END = 1)
+                                 Rows Removed by Filter: 10565
+                                 Buffers: temp read=1769 written=1
+                                 I/O Timings: temp read=6.407 write=0.013
+                     ->  Materialize  (cost=23518795.16..23785512.32 rows=53343432 width=4) (actual time=1103.277..1117.407 rows=54100 loops=1)
+                           Buffers: temp read=5522 written=1992
+                           I/O Timings: temp read=19.715 write=23.178
+                           ->  Sort  (cost=23518795.16..23652153.74 rows=53343432 width=4) (actual time=1103.272..1107.225 rows=54100 loops=1)
+                                 Sort Key: date_debut_fin_hosp_precedente_2.hosp_id
+                                 Sort Method: quicksort  Memory: 1537kB
+                                 Buffers: temp read=5522 written=1992
+                                 I/O Timings: temp read=19.715 write=23.178
+                                 ->  Merge Join  (cost=79516.65..14484567.27 rows=53343432 width=4) (actual time=258.534..1092.284 rows=54100 loops=1)
+                                       Merge Cond: (date_debut_fin_hosp_precedente_2.subject_id = date_debut_fin_hosp_precedente_1.subject_id)
+                                       Join Filter: ((EXTRACT(day FROM (date_debut_fin_hosp_precedente_2.debut_hosp - date_debut_fin_hosp_precedente_1.debut_hosp)) < '30'::numeric) AND (EXTRACT(day FROM (date_debut_fin_hosp_precedente_2.debut_hosp - date_debut_fin_hosp_precedente_1.debut_hosp)) > '0'::numeric))
+                                       Rows Removed by Join Filter: 1664810
+                                       Buffers: temp read=5522 written=1992
+                                       I/O Timings: temp read=19.715 write=23.178
+                                       ->  Sort  (cost=39758.33..40533.00 rows=309868 width=16) (actual time=130.868..167.968 rows=311122 loops=1)
+                                             Sort Key: date_debut_fin_hosp_precedente_2.subject_id
+                                             Sort Method: external merge  Disk: 7936kB
+                                             Buffers: temp read=2761 written=996
+                                             I/O Timings: temp read=10.108 write=11.605
+                                             ->  CTE Scan on date_debut_fin_hosp_precedente date_debut_fin_hosp_precedente_2  (cost=0.00..6197.36 rows=309868 width=16) (actual time=0.011..46.084 rows=311122 loops=1)
+                                                   Buffers: temp read=1769
+                                                   I/O Timings: temp read=6.794
+                                       ->  Materialize  (cost=39758.33..41307.67 rows=309868 width=12) (actual time=127.562..287.215 rows=1718910 loops=1)
+                                             Buffers: temp read=2761 written=996
+                                             I/O Timings: temp read=9.608 write=11.573
+                                             ->  Sort  (cost=39758.33..40533.00 rows=309868 width=12) (actual time=127.558..164.653 rows=311122 loops=1)
+                                                   Sort Key: date_debut_fin_hosp_precedente_1.subject_id
+                                                   Sort Method: external merge  Disk: 7936kB
+                                                   Buffers: temp read=2761 written=996
+                                                   I/O Timings: temp read=9.608 write=11.573
+                                                   ->  CTE Scan on date_debut_fin_hosp_precedente date_debut_fin_hosp_precedente_1  (cost=0.00..6197.36 rows=309868 width=12) (actual time=0.011..47.429 rows=311122 loops=1)
+                                                         Buffers: temp read=1769
+                                                         I/O Timings: temp read=6.299
+   ->  Hash  (cost=6197.36..6197.36 rows=309868 width=8) (actual time=706.601..706.603 rows=311122 loops=1)
+         Buckets: 262144  Batches: 2  Memory Usage: 8106kB
+         Buffers: shared hit=736 read=7840, temp written=2301
+         I/O Timings: shared read=31.315, temp write=28.726
+         ->  CTE Scan on date_debut_fin_hosp_precedente  (cost=0.00..6197.36 rows=309868 width=8) (actual time=366.887..633.657 rows=311122 loops=1)
+               Buffers: shared hit=736 read=7840, temp written=1768
+               I/O Timings: shared read=31.315, temp write=21.771
+ Settings: search_path = 'test_mimic'
+ Planning:
+   Buffers: shared hit=219
+ Planning Time: 1.062 ms
+ JIT:
+   Functions: 39
+   Options: Inlining true, Optimization true, Expressions true, Deforming true
+   Timing: Generation 2.043 ms, Inlining 98.062 ms, Optimization 162.812 ms, Emission 106.048 ms, Total 368.965 ms
+ Execution Time: 2178.718 ms
+(80 rows)
+
+> Loop number : 5
+SET
+SET
+SET
+SET
+SET
+SET
+SET
+SET
+SET
+                                                                                                                                                                    QUERY PLAN                                                                                                                                                                     
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+ Hash Right Join  (cost=23555509.75..31964611.59 rows=309868 width=12) (actual time=1961.562..2130.947 rows=311122 loops=1)
+   Hash Cond: (nombre_admissions_30_jours.hospitalisation = date_debut_fin_hosp_precedente.hosp_id)
+   Buffers: shared hit=768 read=7808, temp read=8354 written=4825
+   I/O Timings: shared read=31.167, temp read=30.077 write=58.186
+   CTE date_debut_fin_hosp_precedente
+     ->  Seq Scan on admissions  (cost=0.00..14505.43 rows=309868 width=37) (actual time=366.104..478.236 rows=311122 loops=1)
+           Filter: ((admission_type)::text <> ALL ('{"AMBULATORY OBSERVATION","DIRECT OBSERVATION","EU OBSERVATION"}'::text[]))
+           Rows Removed by Filter: 120109
+           Buffers: shared hit=768 read=7808
+           I/O Timings: shared read=31.167
+   ->  Subquery Scan on nombre_admissions_30_jours  (cost=23529722.62..31925990.85 rows=200 width=12) (actual time=1254.277..1348.965 rows=44606 loops=1)
+         Buffers: temp read=7733 written=2436
+         I/O Timings: temp read=27.584 write=28.344
+         ->  GroupAggregate  (cost=23529722.62..31925988.85 rows=200 width=12) (actual time=1254.272..1344.577 rows=44606 loops=1)
+               Group Key: date_debut_fin_hosp_precedente_2.hosp_id
+               Buffers: temp read=7733 written=2436
+               I/O Timings: temp read=27.584 write=28.344
+               ->  Merge Join  (cost=23529722.62..29860262.16 rows=413144939 width=4) (actual time=1254.254..1332.120 rows=51275 loops=1)
+                     Merge Cond: (date_debut_fin_hosp_precedente_3.hosp_id = date_debut_fin_hosp_precedente_2.hosp_id)
+                     Buffers: temp read=7733 written=2436
+                     I/O Timings: temp read=27.584 write=28.344
+                     ->  Sort  (cost=10927.45..10931.33 rows=1549 width=4) (actual time=150.609..180.927 rows=300556 loops=1)
+                           Sort Key: date_debut_fin_hosp_precedente_3.hosp_id
+                           Sort Method: external merge  Disk: 3536kB
+                           Buffers: temp read=2211 written=444
+                           I/O Timings: temp read=7.842 write=5.231
+                           ->  CTE Scan on date_debut_fin_hosp_precedente date_debut_fin_hosp_precedente_3  (cost=0.00..10845.38 rows=1549 width=4) (actual time=0.055..66.662 rows=300557 loops=1)
+                                 Filter: (CASE WHEN (((admission_type)::text = 'URGENT'::text) OR ((admission_type)::text = 'DIRECT EMER.'::text) OR ((admission_type)::text = 'EW EMER.'::text) OR ((admission_type)::text = 'OBSERVATION ADMIT'::text) OR ((admission_type)::text = 'SURGICAL SAME DAY ADMISSION'::text)) THEN 1 ELSE 0 END = 1)
+                                 Rows Removed by Filter: 10565
+                                 Buffers: temp read=1769 written=1
+                                 I/O Timings: temp read=6.440 write=0.013
+                     ->  Materialize  (cost=23518795.16..23785512.32 rows=53343432 width=4) (actual time=1103.567..1117.774 rows=54100 loops=1)
+                           Buffers: temp read=5522 written=1992
+                           I/O Timings: temp read=19.742 write=23.113
+                           ->  Sort  (cost=23518795.16..23652153.74 rows=53343432 width=4) (actual time=1103.561..1107.532 rows=54100 loops=1)
+                                 Sort Key: date_debut_fin_hosp_precedente_2.hosp_id
+                                 Sort Method: quicksort  Memory: 1537kB
+                                 Buffers: temp read=5522 written=1992
+                                 I/O Timings: temp read=19.742 write=23.113
+                                 ->  Merge Join  (cost=79516.65..14484567.27 rows=53343432 width=4) (actual time=258.425..1092.694 rows=54100 loops=1)
+                                       Merge Cond: (date_debut_fin_hosp_precedente_2.subject_id = date_debut_fin_hosp_precedente_1.subject_id)
+                                       Join Filter: ((EXTRACT(day FROM (date_debut_fin_hosp_precedente_2.debut_hosp - date_debut_fin_hosp_precedente_1.debut_hosp)) < '30'::numeric) AND (EXTRACT(day FROM (date_debut_fin_hosp_precedente_2.debut_hosp - date_debut_fin_hosp_precedente_1.debut_hosp)) > '0'::numeric))
+                                       Rows Removed by Join Filter: 1664810
+                                       Buffers: temp read=5522 written=1992
+                                       I/O Timings: temp read=19.742 write=23.113
+                                       ->  Sort  (cost=39758.33..40533.00 rows=309868 width=16) (actual time=130.753..168.110 rows=311122 loops=1)
+                                             Sort Key: date_debut_fin_hosp_precedente_2.subject_id
+                                             Sort Method: external merge  Disk: 7936kB
+                                             Buffers: temp read=2761 written=996
+                                             I/O Timings: temp read=10.155 write=11.526
+                                             ->  CTE Scan on date_debut_fin_hosp_precedente date_debut_fin_hosp_precedente_2  (cost=0.00..6197.36 rows=309868 width=16) (actual time=0.012..46.101 rows=311122 loops=1)
+                                                   Buffers: temp read=1769
+                                                   I/O Timings: temp read=6.824
+                                       ->  Materialize  (cost=39758.33..41307.67 rows=309868 width=12) (actual time=127.568..287.160 rows=1718910 loops=1)
+                                             Buffers: temp read=2761 written=996
+                                             I/O Timings: temp read=9.588 write=11.587
+                                             ->  Sort  (cost=39758.33..40533.00 rows=309868 width=12) (actual time=127.564..164.792 rows=311122 loops=1)
+                                                   Sort Key: date_debut_fin_hosp_precedente_1.subject_id
+                                                   Sort Method: external merge  Disk: 7936kB
+                                                   Buffers: temp read=2761 written=996
+                                                   I/O Timings: temp read=9.588 write=11.587
+                                                   ->  CTE Scan on date_debut_fin_hosp_precedente date_debut_fin_hosp_precedente_1  (cost=0.00..6197.36 rows=309868 width=12) (actual time=0.011..47.394 rows=311122 loops=1)
+                                                         Buffers: temp read=1769
+                                                         I/O Timings: temp read=6.272
+   ->  Hash  (cost=6197.36..6197.36 rows=309868 width=8) (actual time=705.514..705.516 rows=311122 loops=1)
+         Buckets: 262144  Batches: 2  Memory Usage: 8106kB
+         Buffers: shared hit=768 read=7808, temp written=2301
+         I/O Timings: shared read=31.167, temp write=28.414
+         ->  CTE Scan on date_debut_fin_hosp_precedente  (cost=0.00..6197.36 rows=309868 width=8) (actual time=366.115..632.749 rows=311122 loops=1)
+               Buffers: shared hit=768 read=7808, temp written=1768
+               I/O Timings: shared read=31.167, temp write=21.528
+ Settings: search_path = 'test_mimic'
+ Planning:
+   Buffers: shared hit=219
+ Planning Time: 1.099 ms
+ JIT:
+   Functions: 39
+   Options: Inlining true, Optimization true, Expressions true, Deforming true
+   Timing: Generation 2.064 ms, Inlining 97.262 ms, Optimization 162.764 ms, Emission 106.144 ms, Total 368.234 ms
+ Execution Time: 2179.063 ms
+(80 rows)
+
+SET
+INSERT 0 1

@@ -1,0 +1,7 @@
+= Documentation
+
+This folder contains the technical documentation.
+
+* survey-report.pdf : a comparative survey of ontology-based database querying solutions.
+
+* evaluation-report.pdf : queries specifications of the use case.

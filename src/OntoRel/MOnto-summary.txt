@@ -1,0 +1,35 @@
+
+======================================================= 
+MOnto summary
+======================================================= 
+Original ontology : http://purl.obolibrary.org/obo/MPHPO/MPHPO_ontorel-slim.owl
+Alias : MPHPO_ontorel-slim.owl
+@en Label : null
+
+--------------------------------------- 
+Original ontology
+--------------------------------------- 
+Nb. classes          : 41
+Nb. data properties  : 4
+Nb. object properties: 17
+Nb. isa axioms       : 16
+Nb. data axioms      : 10
+Nb. class axioms     : 42
+
+--------------------------------------- 
+Reduced ontology (axiom complexity reduction)
+--------------------------------------- 
+Nb. classes          : 41
+Nb. data properties  : 4
+Nb. object properties: 17
+Nb. axioms: 55
+Nb. isa axioms       : 16
+Nb. data axioms      : 10
+Nb. class axioms     : 29
+Nb. reduced class axioms: 0
+
+--------------------------------------- 
+Other
+--------------------------------------- 
+Execution time: 0 sec
+Output total size: 130 KB

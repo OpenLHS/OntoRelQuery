@@ -1,0 +1,118 @@
+> ============================ Trial for variable07 ontorelMaterialized 
+min=1 max=1 inc=1
+> ============================ Input size : 1
+SET
+ pg_stat_statements_reset 
+--------------------------
+ 
+(1 row)
+
+> Loop number : 1
+SET
+SET
+SET
+SET
+SET
+SET
+SET
+SET
+SET
+                                                                   QUERY PLAN                                                                    
+-------------------------------------------------------------------------------------------------------------------------------------------------
+ Seq Scan on niveau_urgence_par_hospitalisation_vue  (cost=0.00..9432.25 rows=311122 width=48) (actual time=14.416..546.584 rows=311122 loops=1)
+   Buffers: shared read=2432
+   I/O Timings: shared read=486.251
+ Settings: search_path = 'test_mimic'
+ Planning:
+   Buffers: shared hit=26 read=1
+   I/O Timings: shared read=0.451
+ Planning Time: 0.706 ms
+ Execution Time: 560.329 ms
+(9 rows)
+
+> Loop number : 2
+SET
+SET
+SET
+SET
+SET
+SET
+SET
+SET
+SET
+                                                                  QUERY PLAN                                                                   
+-----------------------------------------------------------------------------------------------------------------------------------------------
+ Seq Scan on niveau_urgence_par_hospitalisation_vue  (cost=0.00..9432.25 rows=311122 width=48) (actual time=0.009..63.274 rows=311122 loops=1)
+   Buffers: shared hit=2432
+ Settings: search_path = 'test_mimic'
+ Planning:
+   Buffers: shared hit=27
+ Planning Time: 0.261 ms
+ Execution Time: 76.948 ms
+(7 rows)
+
+> Loop number : 3
+SET
+SET
+SET
+SET
+SET
+SET
+SET
+SET
+SET
+                                                                  QUERY PLAN                                                                   
+-----------------------------------------------------------------------------------------------------------------------------------------------
+ Seq Scan on niveau_urgence_par_hospitalisation_vue  (cost=0.00..9432.25 rows=311122 width=48) (actual time=0.008..63.048 rows=311122 loops=1)
+   Buffers: shared hit=2432
+ Settings: search_path = 'test_mimic'
+ Planning:
+   Buffers: shared hit=27
+ Planning Time: 0.251 ms
+ Execution Time: 76.834 ms
+(7 rows)
+
+> Loop number : 4
+SET
+SET
+SET
+SET
+SET
+SET
+SET
+SET
+SET
+                                                                  QUERY PLAN                                                                   
+-----------------------------------------------------------------------------------------------------------------------------------------------
+ Seq Scan on niveau_urgence_par_hospitalisation_vue  (cost=0.00..9432.25 rows=311122 width=48) (actual time=0.008..63.189 rows=311122 loops=1)
+   Buffers: shared hit=2432
+ Settings: search_path = 'test_mimic'
+ Planning:
+   Buffers: shared hit=27
+ Planning Time: 0.256 ms
+ Execution Time: 76.836 ms
+(7 rows)
+
+> Loop number : 5
+SET
+SET
+SET
+SET
+SET
+SET
+SET
+SET
+SET
+                                                                  QUERY PLAN                                                                   
+-----------------------------------------------------------------------------------------------------------------------------------------------
+ Seq Scan on niveau_urgence_par_hospitalisation_vue  (cost=0.00..9432.25 rows=311122 width=48) (actual time=0.008..64.070 rows=311122 loops=1)
+   Buffers: shared hit=2432
+ Settings: search_path = 'test_mimic'
+ Planning:
+   Buffers: shared hit=27
+ Planning Time: 0.247 ms
+ Execution Time: 77.863 ms
+(7 rows)
+
+SET
+INSERT 0 1

@@ -1,0 +1,161 @@
+> ============================ Trial for variable12 ontorelMaterialized 
+min=1 max=1 inc=1
+> ============================ Input size : 1
+SET
+ pg_stat_statements_reset 
+--------------------------
+ 
+(1 row)
+
+> Loop number : 1
+SET
+SET
+SET
+SET
+SET
+SET
+SET
+SET
+SET
+                                                              QUERY PLAN                                                              
+--------------------------------------------------------------------------------------------------------------------------------------
+ Hash Left Join  (cost=1946.74..8647.22 rows=311122 width=20) (actual time=40.920..434.888 rows=311122 loops=1)
+   Hash Cond: ((h.hospitalisation)::uuid = (a.hospitalisation)::uuid)
+   Buffers: shared read=2112
+   I/O Timings: shared read=282.787
+   ->  Seq Scan on hospitalisation_vue h  (cost=0.00..4839.22 rows=311122 width=16) (actual time=10.836..299.615 rows=311122 loops=1)
+         Buffers: shared read=1728
+         I/O Timings: shared read=273.343
+   ->  Hash  (cost=1078.55..1078.55 rows=69455 width=16) (actual time=29.230..29.232 rows=69455 loops=1)
+         Buckets: 131072  Batches: 1  Memory Usage: 4280kB
+         Buffers: shared read=384
+         I/O Timings: shared read=9.443
+         ->  Seq Scan on ambulance_vue a  (cost=0.00..1078.55 rows=69455 width=16) (actual time=1.331..15.321 rows=69455 loops=1)
+               Buffers: shared read=384
+               I/O Timings: shared read=9.443
+ Settings: search_path = 'test_mimic'
+ Planning:
+   Buffers: shared hit=108 read=2 dirtied=1
+   I/O Timings: shared read=0.761
+ Planning Time: 1.465 ms
+ Execution Time: 449.430 ms
+(20 rows)
+
+> Loop number : 2
+SET
+SET
+SET
+SET
+SET
+SET
+SET
+SET
+SET
+                                                             QUERY PLAN                                                             
+------------------------------------------------------------------------------------------------------------------------------------
+ Hash Left Join  (cost=1946.74..8647.22 rows=311122 width=20) (actual time=23.318..155.604 rows=311122 loops=1)
+   Hash Cond: ((h.hospitalisation)::uuid = (a.hospitalisation)::uuid)
+   Buffers: shared hit=2112
+   ->  Seq Scan on hospitalisation_vue h  (cost=0.00..4839.22 rows=311122 width=16) (actual time=0.006..27.811 rows=311122 loops=1)
+         Buffers: shared hit=1728
+   ->  Hash  (cost=1078.55..1078.55 rows=69455 width=16) (actual time=22.472..22.473 rows=69455 loops=1)
+         Buckets: 131072  Batches: 1  Memory Usage: 4280kB
+         Buffers: shared hit=384
+         ->  Seq Scan on ambulance_vue a  (cost=0.00..1078.55 rows=69455 width=16) (actual time=0.009..6.641 rows=69455 loops=1)
+               Buffers: shared hit=384
+ Settings: search_path = 'test_mimic'
+ Planning:
+   Buffers: shared hit=110
+ Planning Time: 0.687 ms
+ Execution Time: 169.769 ms
+(15 rows)
+
+> Loop number : 3
+SET
+SET
+SET
+SET
+SET
+SET
+SET
+SET
+SET
+                                                             QUERY PLAN                                                             
+------------------------------------------------------------------------------------------------------------------------------------
+ Hash Left Join  (cost=1946.74..8647.22 rows=311122 width=20) (actual time=20.588..136.082 rows=311122 loops=1)
+   Hash Cond: ((h.hospitalisation)::uuid = (a.hospitalisation)::uuid)
+   Buffers: shared hit=2112
+   ->  Seq Scan on hospitalisation_vue h  (cost=0.00..4839.22 rows=311122 width=16) (actual time=0.005..27.358 rows=311122 loops=1)
+         Buffers: shared hit=1728
+   ->  Hash  (cost=1078.55..1078.55 rows=69455 width=16) (actual time=19.730..19.731 rows=69455 loops=1)
+         Buckets: 131072  Batches: 1  Memory Usage: 4280kB
+         Buffers: shared hit=384
+         ->  Seq Scan on ambulance_vue a  (cost=0.00..1078.55 rows=69455 width=16) (actual time=0.007..6.421 rows=69455 loops=1)
+               Buffers: shared hit=384
+ Settings: search_path = 'test_mimic'
+ Planning:
+   Buffers: shared hit=110
+ Planning Time: 0.644 ms
+ Execution Time: 150.136 ms
+(15 rows)
+
+> Loop number : 4
+SET
+SET
+SET
+SET
+SET
+SET
+SET
+SET
+SET
+                                                             QUERY PLAN                                                             
+------------------------------------------------------------------------------------------------------------------------------------
+ Hash Left Join  (cost=1946.74..8647.22 rows=311122 width=20) (actual time=21.281..139.176 rows=311122 loops=1)
+   Hash Cond: ((h.hospitalisation)::uuid = (a.hospitalisation)::uuid)
+   Buffers: shared hit=2112
+   ->  Seq Scan on hospitalisation_vue h  (cost=0.00..4839.22 rows=311122 width=16) (actual time=0.005..27.141 rows=311122 loops=1)
+         Buffers: shared hit=1728
+   ->  Hash  (cost=1078.55..1078.55 rows=69455 width=16) (actual time=20.415..20.417 rows=69455 loops=1)
+         Buckets: 131072  Batches: 1  Memory Usage: 4280kB
+         Buffers: shared hit=384
+         ->  Seq Scan on ambulance_vue a  (cost=0.00..1078.55 rows=69455 width=16) (actual time=0.008..6.501 rows=69455 loops=1)
+               Buffers: shared hit=384
+ Settings: search_path = 'test_mimic'
+ Planning:
+   Buffers: shared hit=110
+ Planning Time: 0.661 ms
+ Execution Time: 153.109 ms
+(15 rows)
+
+> Loop number : 5
+SET
+SET
+SET
+SET
+SET
+SET
+SET
+SET
+SET
+                                                             QUERY PLAN                                                             
+------------------------------------------------------------------------------------------------------------------------------------
+ Hash Left Join  (cost=1946.74..8647.22 rows=311122 width=20) (actual time=20.668..136.528 rows=311122 loops=1)
+   Hash Cond: ((h.hospitalisation)::uuid = (a.hospitalisation)::uuid)
+   Buffers: shared hit=2112
+   ->  Seq Scan on hospitalisation_vue h  (cost=0.00..4839.22 rows=311122 width=16) (actual time=0.006..27.152 rows=311122 loops=1)
+         Buffers: shared hit=1728
+   ->  Hash  (cost=1078.55..1078.55 rows=69455 width=16) (actual time=19.831..19.832 rows=69455 loops=1)
+         Buckets: 131072  Batches: 1  Memory Usage: 4280kB
+         Buffers: shared hit=384
+         ->  Seq Scan on ambulance_vue a  (cost=0.00..1078.55 rows=69455 width=16) (actual time=0.009..6.409 rows=69455 loops=1)
+               Buffers: shared hit=384
+ Settings: search_path = 'test_mimic'
+ Planning:
+   Buffers: shared hit=110
+ Planning Time: 0.670 ms
+ Execution Time: 150.469 ms
+(15 rows)
+
+SET
+INSERT 0 1
