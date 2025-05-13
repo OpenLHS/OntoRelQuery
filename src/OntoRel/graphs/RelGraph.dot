@@ -1,0 +1,248 @@
+digraph G {
+  splines=polyline;
+  rankdir=LR;
+  "HOSO_0000085" [ label="HOSO_0000085::HOSO_0000085::
+hospitalization starting with ICU stay" shape="box" ];
+  "HOSO_0000031" [ label="HOSO_0000031::HOSO_0000031::
+hospitalization" shape="box" ];
+  "HOSO_0000012" [ label="HOSO_0000012::HOSO_0000012::
+healthcare organization clinical visit" shape="box" ];
+  "IOIO_0000014" [ label="IOIO_0000014::IOIO_0000014::
+human identifier" shape="box" ];
+  "MPHPO_0000010" [ label="MPHPO_0000010::MPHPO_0000010::
+MPHPO human biological sex information content entity" shape="box" ];
+  "IOIO_0000011" [ label="IOIO_0000011::IOIO_0000011::
+human biological sex information content entity" shape="box" ];
+  "HOSO_0000124" [ label="HOSO_0000124::HOSO_0000124::
+healthcare organization clinical visit pathological condition impact statement" shape="box" ];
+  "HOSO_0000003" [ label="HOSO_0000003::HOSO_0000003::
+healthcare service organism specification" shape="box" ];
+  "HOSO_0000138" [ label="HOSO_0000138::HOSO_0000138::
+healthcare provider identifier" shape="box" ];
+  "IOIO_0000006" [ label="IOIO_0000006::IOIO_0000006::
+human death temporal information" shape="box" ];
+  "HOSO_0000126" [ label="HOSO_0000126::HOSO_0000126::
+pathological condition impact type on clinical visit" shape="box" ];
+  "MPHPO_0000002" [ label="MPHPO_0000002::MPHPO_0000002::
+MPHPO pathological condition sub-group name " shape="box" ];
+  "HEPRO_0000017" [ label="HEPRO_0000017::HEPRO_0000017::
+pathological condition sub-group name" shape="box" ];
+  "HOSO_0000079" [ label="HOSO_0000079::HOSO_0000079::
+healthcare physician service" shape="box" ];
+  "HOSO_0000008" [ label="HOSO_0000008::HOSO_0000008::
+healthcare organization" shape="box" ];
+  "MPHPO_0000004" [ label="MPHPO_0000004::MPHPO_0000004::
+MPHPO HOSD ending temporal information " shape="box" ];
+  "HOSO_0000100" [ label="HOSO_0000100::HOSO_0000100::
+healthcare organization service delivery identifier" shape="box" ];
+  "HOSO_0000011" [ label="HOSO_0000011::HOSO_0000011::
+healthcare organization service delivery" shape="box" ];
+  "HOSO_0000055" [ label="HOSO_0000055::HOSO_0000055::
+healthcare organization service delivery beginning statement" shape="box" ];
+  "MPHPO_0000007" [ label="MPHPO_0000007::MPHPO_0000007::
+MPHPO hospitalization admission urgency level specification " shape="box" ];
+  "HOSO_0000074" [ label="HOSO_0000074::HOSO_0000074::
+clinical visit agreement specification" shape="box" ];
+  "MPHPO_0000009" [ label="MPHPO_0000009::MPHPO_0000009::
+MPHPO human birth date" shape="box" ];
+  "IOIO_0000005" [ label="IOIO_0000005::IOIO_0000005::
+human birth temporal information" shape="box" ];
+  "NCBITaxon_9606" [ label="NCBITaxon_9606::NCBITaxon_9606::
+Homo sapiens" shape="box" ];
+  "IOIO_0000001" [ label="IOIO_0000001::IOIO_0000001::
+human birth statement" shape="box" ];
+  "IOIO_0000023" [ label="IOIO_0000023::IOIO_0000023::
+living environment type" shape="box" ];
+  "HOSO_0000072" [ label="HOSO_0000072::HOSO_0000072::
+ED by ambulance initiated hospitalization" shape="box" ];
+  "HOSO_0000084" [ label="HOSO_0000084::HOSO_0000084::
+healthcare physician service identifier" shape="box" ];
+  "IOIO_0000015" [ label="IOIO_0000015::IOIO_0000015::
+human biological sex statement" shape="box" ];
+  "HOSO_0000080" [ label="HOSO_0000080::HOSO_0000080::
+living environment type prior to clinical visit statement" shape="box" ];
+  "IOIO_0000003" [ label="IOIO_0000003::IOIO_0000003::
+human death statement" shape="box" ];
+  "MPHPO_0000001" [ label="MPHPO_0000001::MPHPO_0000001::
+MPHPO pathological condition impact type on clinical visit " shape="box" ];
+  "HOSO_0000137" [ label="HOSO_0000137::HOSO_0000137::
+human clinical visit specified patient" shape="box" ];
+  "MPHPO_0000011" [ label="MPHPO_0000011::MPHPO_0000011::
+MPHPO human death date" shape="box" ];
+  "MPHPO_0000003" [ label="MPHPO_0000003::MPHPO_0000003::
+MPHPO HOSD beginning temporal information" shape="box" ];
+  "HOSO_0000056" [ label="HOSO_0000056::HOSO_0000056::
+healthcare organization service delivery ending statement" shape="box" ];
+  "HOSO_0000078" [ label="HOSO_0000078::HOSO_0000078::
+hospitalization admitting physician specification" shape="box" ];
+  "MPHPO_0000005" [ label="MPHPO_0000005::MPHPO_0000005::
+MPHPO living environment type " shape="box" ];
+  "HOSO_0000032" [ label="HOSO_0000032::HOSO_0000032::
+emergency department visit" shape="box" ];
+  "MPHPO_0000006" [ label="MPHPO_0000006::MPHPO_0000006::
+MPHPO healthcare physician service identifier " shape="box" ];
+  "HOSO_0000009" [ label="HOSO_0000009::HOSO_0000009::
+healthcare provider" shape="box" ];
+  "MPHPO_0000011_Ontorel-Core_0000004_Ontorel-Core_0000001" [ label="MPHPO_0000011_Ontorel-Core_0000004_Ontorel-Core_0000001::MPHPO_0000011_Ontorel-Core_0000004_Ontorel-Core_0000001::
+MPHPO human death date has temporal value ISO8601DateTime" penwidth="4" shape="tab" ];
+  "MPHPO_0000010_Ontorel-Core_0000002_string" [ label="MPHPO_0000010_Ontorel-Core_0000002_string::MPHPO_0000010_Ontorel-Core_0000002_string::
+MPHPO human biological sex information content entity has textual value string" penwidth="4" shape="tab" ];
+  "MPHPO_0000006_Ontorel-Core_0000002_string" [ label="MPHPO_0000006_Ontorel-Core_0000002_string::MPHPO_0000006_Ontorel-Core_0000002_string::
+MPHPO healthcare physician service identifier  has textual value string" penwidth="4" shape="tab" ];
+  "MPHPO_0000001_Ontorel-Core_0000002_string" [ label="MPHPO_0000001_Ontorel-Core_0000002_string::MPHPO_0000001_Ontorel-Core_0000002_string::
+MPHPO pathological condition impact type on clinical visit  has textual value string" penwidth="4" shape="tab" ];
+  "MPHPO_0000007_Ontorel-Core_0000002_string" [ label="MPHPO_0000007_Ontorel-Core_0000002_string::MPHPO_0000007_Ontorel-Core_0000002_string::
+MPHPO hospitalization admission urgency level specification  has textual value string" penwidth="4" shape="tab" ];
+  "MPHPO_0000004_Ontorel-Core_0000004_Ontorel-Core_0000001" [ label="MPHPO_0000004_Ontorel-Core_0000004_Ontorel-Core_0000001::MPHPO_0000004_Ontorel-Core_0000004_Ontorel-Core_0000001::
+MPHPO HOSD ending temporal information  has temporal value ISO8601DateTime" penwidth="4" shape="tab" ];
+  "MPHPO_0000005_Ontorel-Core_0000002_string" [ label="MPHPO_0000005_Ontorel-Core_0000002_string::MPHPO_0000005_Ontorel-Core_0000002_string::
+MPHPO living environment type  has textual value string" penwidth="4" shape="tab" ];
+  "MPHPO_0000003_Ontorel-Core_0000004_Ontorel-Core_0000001" [ label="MPHPO_0000003_Ontorel-Core_0000004_Ontorel-Core_0000001::MPHPO_0000003_Ontorel-Core_0000004_Ontorel-Core_0000001::
+MPHPO HOSD beginning temporal information has temporal value ISO8601DateTime" penwidth="4" shape="tab" ];
+  "MPHPO_0000009_Ontorel-Core_0000004_Ontorel-Core_0000001" [ label="MPHPO_0000009_Ontorel-Core_0000004_Ontorel-Core_0000001::MPHPO_0000009_Ontorel-Core_0000004_Ontorel-Core_0000001::
+MPHPO human birth date has temporal value ISO8601DateTime" penwidth="4" shape="tab" ];
+  "MPHPO_0000002_Ontorel-Core_0000002_string" [ label="MPHPO_0000002_Ontorel-Core_0000002_string::MPHPO_0000002_Ontorel-Core_0000002_string::
+MPHPO pathological condition sub-group name  has textual value string" penwidth="4" shape="tab" ];
+  "IOIO_0000014_IAO_0000219_NCBITaxon_9606" [ label="IOIO_0000014_IAO_0000219_NCBITaxon_9606::IOIO_0000014_IAO_0000219_NCBITaxon_9606::
+human identifier denotes Homo sapiens" shape="box" ];
+  "HOSO_0000124_RO_0002180_HOSO_0000100" [ label="HOSO_0000124_RO_0002180_HOSO_0000100::HOSO_0000124_RO_0002180_HOSO_0000100::
+healthcare organization clinical visit pathological condition impact statement has component healthcare organization service delivery identifier" shape="box" ];
+  "HOSO_0000124_RO_0002180_HEPRO_0000017" [ label="HOSO_0000124_RO_0002180_HEPRO_0000017::HOSO_0000124_RO_0002180_HEPRO_0000017::
+healthcare organization clinical visit pathological condition impact statement has component pathological condition sub-group name" shape="box" ];
+  "HOSO_0000124_RO_0002180_HOSO_0000126" [ label="HOSO_0000124_RO_0002180_HOSO_0000126::HOSO_0000124_RO_0002180_HOSO_0000126::
+healthcare organization clinical visit pathological condition impact statement has component pathological condition impact type on clinical visit" shape="box" ];
+  "HOSO_0000138_IAO_0000219_HOSO_0000009" [ label="HOSO_0000138_IAO_0000219_HOSO_0000009::HOSO_0000138_IAO_0000219_HOSO_0000009::
+healthcare provider identifier denotes healthcare provider" shape="box" ];
+  "IOIO_0000006_OpenLHS-Core_0000070_IOIO_0000003" [ label="IOIO_0000006_OpenLHS-Core_0000070_IOIO_0000003::IOIO_0000006_OpenLHS-Core_0000070_IOIO_0000003::
+human death temporal information component of human death statement" shape="box" ];
+  "HOSO_0000079_RO_0002350_HOSO_0000008" [ label="HOSO_0000079_RO_0002350_HOSO_0000008::HOSO_0000079_RO_0002350_HOSO_0000008::
+healthcare physician service member of healthcare organization" shape="box" ];
+  "MPHPO_0000004_OpenLHS-Core_0000070_HOSO_0000056" [ label="MPHPO_0000004_OpenLHS-Core_0000070_HOSO_0000056::MPHPO_0000004_OpenLHS-Core_0000070_HOSO_0000056::
+MPHPO HOSD ending temporal information  component of healthcare organization service delivery ending statement" shape="box" ];
+  "HOSO_0000100_IAO_0000219_HOSO_0000011" [ label="HOSO_0000100_IAO_0000219_HOSO_0000011::HOSO_0000100_IAO_0000219_HOSO_0000011::
+healthcare organization service delivery identifier denotes healthcare organization service delivery" shape="box" ];
+  "HOSO_0000055_RO_0002180_HOSO_0000100" [ label="HOSO_0000055_RO_0002180_HOSO_0000100::HOSO_0000055_RO_0002180_HOSO_0000100::
+healthcare organization service delivery beginning statement has component healthcare organization service delivery identifier" shape="box" ];
+  "IOIO_0000001_RO_0002180_IOIO_0000005" [ label="IOIO_0000001_RO_0002180_IOIO_0000005::IOIO_0000001_RO_0002180_IOIO_0000005::
+human birth statement has component human birth temporal information" shape="box" ];
+  "IOIO_0000001_RO_0002180_IOIO_0000014" [ label="IOIO_0000001_RO_0002180_IOIO_0000014::IOIO_0000001_RO_0002180_IOIO_0000014::
+human birth statement has component human identifier" shape="box" ];
+  "HOSO_0000084_IAO_0000219_HOSO_0000079" [ label="HOSO_0000084_IAO_0000219_HOSO_0000079::HOSO_0000084_IAO_0000219_HOSO_0000079::
+healthcare physician service identifier denotes healthcare physician service" shape="box" ];
+  "HOSO_0000084_IAO_0000219_HOSO_0000008" [ label="HOSO_0000084_IAO_0000219_HOSO_0000008::HOSO_0000084_IAO_0000219_HOSO_0000008::
+healthcare physician service identifier denotes healthcare organization" shape="box" ];
+  "IOIO_0000015_RO_0002180_IOIO_0000014" [ label="IOIO_0000015_RO_0002180_IOIO_0000014::IOIO_0000015_RO_0002180_IOIO_0000014::
+human biological sex statement has component human identifier" shape="box" ];
+  "IOIO_0000015_RO_0002180_IOIO_0000011" [ label="IOIO_0000015_RO_0002180_IOIO_0000011::IOIO_0000015_RO_0002180_IOIO_0000011::
+human biological sex statement has component human biological sex information content entity" shape="box" ];
+  "IOIO_0000005_OpenLHS-Core_0000070_IOIO_0000001" [ label="IOIO_0000005_OpenLHS-Core_0000070_IOIO_0000001::IOIO_0000005_OpenLHS-Core_0000070_IOIO_0000001::
+human birth temporal information component of human birth statement" shape="box" ];
+  "HOSO_0000080_RO_0002180_IOIO_0000023" [ label="HOSO_0000080_RO_0002180_IOIO_0000023::HOSO_0000080_RO_0002180_IOIO_0000023::
+living environment type prior to clinical visit statement has component living environment type" shape="box" ];
+  "HOSO_0000080_RO_0002180_HOSO_0000100" [ label="HOSO_0000080_RO_0002180_HOSO_0000100::HOSO_0000080_RO_0002180_HOSO_0000100::
+living environment type prior to clinical visit statement has component healthcare organization service delivery identifier" shape="box" ];
+  "IOIO_0000003_RO_0002180_IOIO_0000006" [ label="IOIO_0000003_RO_0002180_IOIO_0000006::IOIO_0000003_RO_0002180_IOIO_0000006::
+human death statement has component human death temporal information" shape="box" ];
+  "IOIO_0000003_RO_0002180_IOIO_0000014" [ label="IOIO_0000003_RO_0002180_IOIO_0000014::IOIO_0000003_RO_0002180_IOIO_0000014::
+human death statement has component human identifier" shape="box" ];
+  "HOSO_0000137_IAO_0000235_HOSO_0000003" [ label="HOSO_0000137_IAO_0000235_HOSO_0000003::HOSO_0000137_IAO_0000235_HOSO_0000003::
+human clinical visit specified patient denoted by healthcare service organism specification" shape="box" ];
+  "MPHPO_0000003_OpenLHS-Core_0000070_HOSO_0000055" [ label="MPHPO_0000003_OpenLHS-Core_0000070_HOSO_0000055::MPHPO_0000003_OpenLHS-Core_0000070_HOSO_0000055::
+MPHPO HOSD beginning temporal information component of healthcare organization service delivery beginning statement" shape="box" ];
+  "HOSO_0000012_OpenLHS-Core_0000004_HOSO_0000074" [ label="HOSO_0000012_OpenLHS-Core_0000004_HOSO_0000074::HOSO_0000012_OpenLHS-Core_0000004_HOSO_0000074::
+healthcare organization clinical visit is directed by clinical visit agreement specification" shape="box" ];
+  "HOSO_0000012_OpenLHS-Core_0000004_HOSO_0000003" [ label="HOSO_0000012_OpenLHS-Core_0000004_HOSO_0000003::HOSO_0000012_OpenLHS-Core_0000004_HOSO_0000003::
+healthcare organization clinical visit is directed by healthcare service organism specification" shape="box" ];
+  "HOSO_0000012_RO_0002180_HOSO_0000012" [ label="HOSO_0000012_RO_0002180_HOSO_0000012::HOSO_0000012_RO_0002180_HOSO_0000012::
+healthcare organization clinical visit has component healthcare organization clinical visit" shape="box" ];
+  "HOSO_0000056_RO_0002180_HOSO_0000100" [ label="HOSO_0000056_RO_0002180_HOSO_0000100::HOSO_0000056_RO_0002180_HOSO_0000100::
+healthcare organization service delivery ending statement has component healthcare organization service delivery identifier" shape="box" ];
+  "HOSO_0000078_BFO_0000051_HOSO_0000138" [ label="HOSO_0000078_BFO_0000051_HOSO_0000138::HOSO_0000078_BFO_0000051_HOSO_0000138::
+hospitalization admitting physician specification has part healthcare provider identifier" shape="box" ];
+  "HOSO_0000009_RO_0002350_HOSO_0000008" [ label="HOSO_0000009_RO_0002350_HOSO_0000008::HOSO_0000009_RO_0002350_HOSO_0000008::
+healthcare provider member of healthcare organization" shape="box" ];
+  "HOSO_0000085" -> "HOSO_0000031" [ label="\"fk0_HOSO_0000085\"" ];
+  "HOSO_0000031" -> "HOSO_0000012" [ label="\"fk0_HOSO_0000031\"" ];
+  "MPHPO_0000010" -> "IOIO_0000011" [ label="\"fk0_MPHPO_0000010\"" ];
+  "MPHPO_0000002" -> "HEPRO_0000017" [ label="\"fk0_MPHPO_0000002\"" ];
+  "HOSO_0000079" -> "HOSO_0000008" [ label="\"fk0_HOSO_0000079\"" ];
+  "MPHPO_0000007" -> "HOSO_0000074" [ label="\"fk0_MPHPO_0000007\"" ];
+  "MPHPO_0000009" -> "IOIO_0000005" [ label="\"fk0_MPHPO_0000009\"" ];
+  "HOSO_0000072" -> "HOSO_0000031" [ label="\"fk0_HOSO_0000072\"" ];
+  "MPHPO_0000001" -> "HOSO_0000126" [ label="\"fk0_MPHPO_0000001\"" ];
+  "HOSO_0000137" -> "NCBITaxon_9606" [ label="\"fk0_HOSO_0000137\"" ];
+  "MPHPO_0000011" -> "IOIO_0000006" [ label="\"fk0_MPHPO_0000011\"" ];
+  "HOSO_0000012" -> "HOSO_0000011" [ label="\"fk0_HOSO_0000012\"" ];
+  "HOSO_0000078" -> "HOSO_0000074" [ label="\"fk0_HOSO_0000078\"" ];
+  "MPHPO_0000005" -> "IOIO_0000023" [ label="\"fk0_MPHPO_0000005\"" ];
+  "HOSO_0000032" -> "HOSO_0000012" [ label="\"fk0_HOSO_0000032\"" ];
+  "MPHPO_0000006" -> "HOSO_0000084" [ label="\"fk0_MPHPO_0000006\"" ];
+  "MPHPO_0000011_Ontorel-Core_0000004_Ontorel-Core_0000001" -> "MPHPO_0000011" [ label="\"fk0_MPHPO_0000011_Ontorel-Core_0000004_Ontorel-Core_0000001\"" ];
+  "MPHPO_0000010_Ontorel-Core_0000002_string" -> "MPHPO_0000010" [ label="\"fk0_MPHPO_0000010_Ontorel-Core_0000002_string\"" ];
+  "MPHPO_0000006_Ontorel-Core_0000002_string" -> "MPHPO_0000006" [ label="\"fk0_MPHPO_0000006_Ontorel-Core_0000002_string\"" ];
+  "MPHPO_0000001_Ontorel-Core_0000002_string" -> "MPHPO_0000001" [ label="\"fk0_MPHPO_0000001_Ontorel-Core_0000002_string\"" ];
+  "MPHPO_0000007_Ontorel-Core_0000002_string" -> "MPHPO_0000007" [ label="\"fk0_MPHPO_0000007_Ontorel-Core_0000002_string\"" ];
+  "MPHPO_0000004_Ontorel-Core_0000004_Ontorel-Core_0000001" -> "MPHPO_0000004" [ label="\"fk0_MPHPO_0000004_Ontorel-Core_0000004_Ontorel-Core_0000001\"" ];
+  "MPHPO_0000005_Ontorel-Core_0000002_string" -> "MPHPO_0000005" [ label="\"fk0_MPHPO_0000005_Ontorel-Core_0000002_string\"" ];
+  "MPHPO_0000003_Ontorel-Core_0000004_Ontorel-Core_0000001" -> "MPHPO_0000003" [ label="\"fk0_MPHPO_0000003_Ontorel-Core_0000004_Ontorel-Core_0000001\"" ];
+  "MPHPO_0000009_Ontorel-Core_0000004_Ontorel-Core_0000001" -> "MPHPO_0000009" [ label="\"fk0_MPHPO_0000009_Ontorel-Core_0000004_Ontorel-Core_0000001\"" ];
+  "MPHPO_0000002_Ontorel-Core_0000002_string" -> "MPHPO_0000002" [ label="\"fk0_MPHPO_0000002_Ontorel-Core_0000002_string\"" ];
+  "IOIO_0000014_IAO_0000219_NCBITaxon_9606" -> "IOIO_0000014" [ label="\"fk0_IOIO_0000014_IAO_0000219_NCBITaxon_9606\"" ];
+  "IOIO_0000014_IAO_0000219_NCBITaxon_9606" -> "NCBITaxon_9606" [ label="\"fk1_IOIO_0000014_IAO_0000219_NCBITaxon_9606\"" ];
+  "HOSO_0000124_RO_0002180_HOSO_0000100" -> "HOSO_0000100" [ label="\"fk1_HOSO_0000124_RO_0002180_HOSO_0000100\"" ];
+  "HOSO_0000124_RO_0002180_HOSO_0000100" -> "HOSO_0000124" [ label="\"fk0_HOSO_0000124_RO_0002180_HOSO_0000100\"" ];
+  "HOSO_0000124_RO_0002180_HEPRO_0000017" -> "HEPRO_0000017" [ label="\"fk1_HOSO_0000124_RO_0002180_HEPRO_0000017\"" ];
+  "HOSO_0000124_RO_0002180_HEPRO_0000017" -> "HOSO_0000124" [ label="\"fk0_HOSO_0000124_RO_0002180_HEPRO_0000017\"" ];
+  "HOSO_0000124_RO_0002180_HOSO_0000126" -> "HOSO_0000124" [ label="\"fk0_HOSO_0000124_RO_0002180_HOSO_0000126\"" ];
+  "HOSO_0000124_RO_0002180_HOSO_0000126" -> "HOSO_0000126" [ label="\"fk1_HOSO_0000124_RO_0002180_HOSO_0000126\"" ];
+  "HOSO_0000138_IAO_0000219_HOSO_0000009" -> "HOSO_0000138" [ label="\"fk0_HOSO_0000138_IAO_0000219_HOSO_0000009\"" ];
+  "HOSO_0000138_IAO_0000219_HOSO_0000009" -> "HOSO_0000009" [ label="\"fk1_HOSO_0000138_IAO_0000219_HOSO_0000009\"" ];
+  "IOIO_0000006_OpenLHS-Core_0000070_IOIO_0000003" -> "IOIO_0000003" [ label="\"fk1_IOIO_0000006_OpenLHS-Core_0000070_IOIO_0000003\"" ];
+  "IOIO_0000006_OpenLHS-Core_0000070_IOIO_0000003" -> "IOIO_0000006" [ label="\"fk0_IOIO_0000006_OpenLHS-Core_0000070_IOIO_0000003\"" ];
+  "HOSO_0000079_RO_0002350_HOSO_0000008" -> "HOSO_0000079" [ label="\"fk0_HOSO_0000079_RO_0002350_HOSO_0000008\"" ];
+  "HOSO_0000079_RO_0002350_HOSO_0000008" -> "HOSO_0000008" [ label="\"fk1_HOSO_0000079_RO_0002350_HOSO_0000008\"" ];
+  "MPHPO_0000004_OpenLHS-Core_0000070_HOSO_0000056" -> "MPHPO_0000004" [ label="\"fk0_MPHPO_0000004_OpenLHS-Core_0000070_HOSO_0000056\"" ];
+  "MPHPO_0000004_OpenLHS-Core_0000070_HOSO_0000056" -> "HOSO_0000056" [ label="\"fk1_MPHPO_0000004_OpenLHS-Core_0000070_HOSO_0000056\"" ];
+  "HOSO_0000100_IAO_0000219_HOSO_0000011" -> "HOSO_0000011" [ label="\"fk1_HOSO_0000100_IAO_0000219_HOSO_0000011\"" ];
+  "HOSO_0000100_IAO_0000219_HOSO_0000011" -> "HOSO_0000100" [ label="\"fk0_HOSO_0000100_IAO_0000219_HOSO_0000011\"" ];
+  "HOSO_0000055_RO_0002180_HOSO_0000100" -> "HOSO_0000100" [ label="\"fk1_HOSO_0000055_RO_0002180_HOSO_0000100\"" ];
+  "HOSO_0000055_RO_0002180_HOSO_0000100" -> "HOSO_0000055" [ label="\"fk0_HOSO_0000055_RO_0002180_HOSO_0000100\"" ];
+  "IOIO_0000001_RO_0002180_IOIO_0000005" -> "IOIO_0000001" [ label="\"fk0_IOIO_0000001_RO_0002180_IOIO_0000005\"" ];
+  "IOIO_0000001_RO_0002180_IOIO_0000005" -> "IOIO_0000005" [ label="\"fk1_IOIO_0000001_RO_0002180_IOIO_0000005\"" ];
+  "IOIO_0000001_RO_0002180_IOIO_0000014" -> "IOIO_0000014" [ label="\"fk1_IOIO_0000001_RO_0002180_IOIO_0000014\"" ];
+  "IOIO_0000001_RO_0002180_IOIO_0000014" -> "IOIO_0000001" [ label="\"fk0_IOIO_0000001_RO_0002180_IOIO_0000014\"" ];
+  "HOSO_0000084_IAO_0000219_HOSO_0000079" -> "HOSO_0000079" [ label="\"fk1_HOSO_0000084_IAO_0000219_HOSO_0000079\"" ];
+  "HOSO_0000084_IAO_0000219_HOSO_0000079" -> "HOSO_0000084" [ label="\"fk0_HOSO_0000084_IAO_0000219_HOSO_0000079\"" ];
+  "HOSO_0000084_IAO_0000219_HOSO_0000008" -> "HOSO_0000008" [ label="\"fk1_HOSO_0000084_IAO_0000219_HOSO_0000008\"" ];
+  "HOSO_0000084_IAO_0000219_HOSO_0000008" -> "HOSO_0000084" [ label="\"fk0_HOSO_0000084_IAO_0000219_HOSO_0000008\"" ];
+  "IOIO_0000015_RO_0002180_IOIO_0000014" -> "IOIO_0000015" [ label="\"fk0_IOIO_0000015_RO_0002180_IOIO_0000014\"" ];
+  "IOIO_0000015_RO_0002180_IOIO_0000014" -> "IOIO_0000014" [ label="\"fk1_IOIO_0000015_RO_0002180_IOIO_0000014\"" ];
+  "IOIO_0000015_RO_0002180_IOIO_0000011" -> "IOIO_0000015" [ label="\"fk0_IOIO_0000015_RO_0002180_IOIO_0000011\"" ];
+  "IOIO_0000015_RO_0002180_IOIO_0000011" -> "IOIO_0000011" [ label="\"fk1_IOIO_0000015_RO_0002180_IOIO_0000011\"" ];
+  "IOIO_0000005_OpenLHS-Core_0000070_IOIO_0000001" -> "IOIO_0000005" [ label="\"fk0_IOIO_0000005_OpenLHS-Core_0000070_IOIO_0000001\"" ];
+  "IOIO_0000005_OpenLHS-Core_0000070_IOIO_0000001" -> "IOIO_0000001" [ label="\"fk1_IOIO_0000005_OpenLHS-Core_0000070_IOIO_0000001\"" ];
+  "HOSO_0000080_RO_0002180_IOIO_0000023" -> "HOSO_0000080" [ label="\"fk0_HOSO_0000080_RO_0002180_IOIO_0000023\"" ];
+  "HOSO_0000080_RO_0002180_IOIO_0000023" -> "IOIO_0000023" [ label="\"fk1_HOSO_0000080_RO_0002180_IOIO_0000023\"" ];
+  "HOSO_0000080_RO_0002180_HOSO_0000100" -> "HOSO_0000100" [ label="\"fk1_HOSO_0000080_RO_0002180_HOSO_0000100\"" ];
+  "HOSO_0000080_RO_0002180_HOSO_0000100" -> "HOSO_0000080" [ label="\"fk0_HOSO_0000080_RO_0002180_HOSO_0000100\"" ];
+  "IOIO_0000003_RO_0002180_IOIO_0000006" -> "IOIO_0000003" [ label="\"fk0_IOIO_0000003_RO_0002180_IOIO_0000006\"" ];
+  "IOIO_0000003_RO_0002180_IOIO_0000006" -> "IOIO_0000006" [ label="\"fk1_IOIO_0000003_RO_0002180_IOIO_0000006\"" ];
+  "IOIO_0000003_RO_0002180_IOIO_0000014" -> "IOIO_0000014" [ label="\"fk1_IOIO_0000003_RO_0002180_IOIO_0000014\"" ];
+  "IOIO_0000003_RO_0002180_IOIO_0000014" -> "IOIO_0000003" [ label="\"fk0_IOIO_0000003_RO_0002180_IOIO_0000014\"" ];
+  "HOSO_0000137_IAO_0000235_HOSO_0000003" -> "HOSO_0000003" [ label="\"fk1_HOSO_0000137_IAO_0000235_HOSO_0000003\"" ];
+  "HOSO_0000137_IAO_0000235_HOSO_0000003" -> "HOSO_0000137" [ label="\"fk0_HOSO_0000137_IAO_0000235_HOSO_0000003\"" ];
+  "MPHPO_0000003_OpenLHS-Core_0000070_HOSO_0000055" -> "MPHPO_0000003" [ label="\"fk0_MPHPO_0000003_OpenLHS-Core_0000070_HOSO_0000055\"" ];
+  "MPHPO_0000003_OpenLHS-Core_0000070_HOSO_0000055" -> "HOSO_0000055" [ label="\"fk1_MPHPO_0000003_OpenLHS-Core_0000070_HOSO_0000055\"" ];
+  "HOSO_0000012_OpenLHS-Core_0000004_HOSO_0000074" -> "HOSO_0000074" [ label="\"fk1_HOSO_0000012_OpenLHS-Core_0000004_HOSO_0000074\"" ];
+  "HOSO_0000012_OpenLHS-Core_0000004_HOSO_0000074" -> "HOSO_0000012" [ label="\"fk0_HOSO_0000012_OpenLHS-Core_0000004_HOSO_0000074\"" ];
+  "HOSO_0000012_OpenLHS-Core_0000004_HOSO_0000003" -> "HOSO_0000003" [ label="\"fk1_HOSO_0000012_OpenLHS-Core_0000004_HOSO_0000003\"" ];
+  "HOSO_0000012_OpenLHS-Core_0000004_HOSO_0000003" -> "HOSO_0000012" [ label="\"fk0_HOSO_0000012_OpenLHS-Core_0000004_HOSO_0000003\"" ];
+  "HOSO_0000012_RO_0002180_HOSO_0000012" -> "HOSO_0000012" [ label="\"fk1_HOSO_0000012_RO_0002180_HOSO_0000012\"" ];
+  "HOSO_0000012_RO_0002180_HOSO_0000012" -> "HOSO_0000012" [ label="\"fk0_HOSO_0000012_RO_0002180_HOSO_0000012\"" ];
+  "HOSO_0000056_RO_0002180_HOSO_0000100" -> "HOSO_0000056" [ label="\"fk0_HOSO_0000056_RO_0002180_HOSO_0000100\"" ];
+  "HOSO_0000056_RO_0002180_HOSO_0000100" -> "HOSO_0000100" [ label="\"fk1_HOSO_0000056_RO_0002180_HOSO_0000100\"" ];
+  "HOSO_0000078_BFO_0000051_HOSO_0000138" -> "HOSO_0000138" [ label="\"fk1_HOSO_0000078_BFO_0000051_HOSO_0000138\"" ];
+  "HOSO_0000078_BFO_0000051_HOSO_0000138" -> "HOSO_0000078" [ label="\"fk0_HOSO_0000078_BFO_0000051_HOSO_0000138\"" ];
+  "HOSO_0000009_RO_0002350_HOSO_0000008" -> "HOSO_0000009" [ label="\"fk0_HOSO_0000009_RO_0002350_HOSO_0000008\"" ];
+  "HOSO_0000009_RO_0002350_HOSO_0000008" -> "HOSO_0000008" [ label="\"fk1_HOSO_0000009_RO_0002350_HOSO_0000008\"" ];
+}

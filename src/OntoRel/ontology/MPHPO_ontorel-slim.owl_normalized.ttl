@@ -1,0 +1,647 @@
+@prefix : <http://purl.obolibrary.org/obo/MPHPO/MPHPO_ontorel-slim.owl#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@base <http://purl.obolibrary.org/obo/MPHPO/MPHPO_ontorel-slim.owl#> .
+
+<http://purl.obolibrary.org/obo/MPHPO/MPHPO_ontorel-slim.owl> rdf:type owl:Ontology .
+
+#################################################################
+#    Datatypes
+#################################################################
+
+###  http://purl.obolibrary.org/obo/Ontorel-Core_0000001
+<http://purl.obolibrary.org/obo/Ontorel-Core_0000001> rdf:type rdfs:Datatype ;
+                                                      rdfs:label "ISO8601DateTime"@en .
+
+
+###  http://www.w3.org/1999/02/22-rdf-syntax-ns#langString
+rdf:langString rdf:type rdfs:Datatype .
+
+
+###  http://www.w3.org/2001/XMLSchema#string
+xsd:string rdf:type rdfs:Datatype .
+
+
+#################################################################
+#    Object Properties
+#################################################################
+
+###  http://purl.obolibrary.org/obo/BFO_0000051
+<http://purl.obolibrary.org/obo/BFO_0000051> rdf:type owl:ObjectProperty ;
+                                             rdfs:label "has part"@en .
+
+
+###  http://purl.obolibrary.org/obo/BFO_0000054
+<http://purl.obolibrary.org/obo/BFO_0000054> rdf:type owl:ObjectProperty ;
+                                             rdfs:comment "Paraphrase of elucidation: a relation between a realizable entity and a process, where there is some material entity that is bearer of the realizable entity and participates in the process, and the realizable entity comes to be realized in the course of the process"@en ;
+                                             rdfs:label "realized in"@en .
+
+
+###  http://purl.obolibrary.org/obo/BFO_0000055
+<http://purl.obolibrary.org/obo/BFO_0000055> rdf:type owl:ObjectProperty ;
+                                             rdfs:comment "Paraphrase of elucidation: a relation between a process and a realizable entity, where there is some material entity that is bearer of the realizable entity and participates in the process, and the realizable entity comes to be realized in the course of the process"@en ;
+                                             rdfs:label "realizes"@en .
+
+
+###  http://purl.obolibrary.org/obo/HOSO_0000001
+<http://purl.obolibrary.org/obo/HOSO_0000001> rdf:type owl:ObjectProperty ;
+                                              rdfs:label "has participating performer"@en .
+
+
+###  http://purl.obolibrary.org/obo/HOSO_0000002
+<http://purl.obolibrary.org/obo/HOSO_0000002> rdf:type owl:ObjectProperty ;
+                                              rdfs:label "has participating recipient"@en .
+
+
+###  http://purl.obolibrary.org/obo/IAO_0000136
+<http://purl.obolibrary.org/obo/IAO_0000136> rdf:type owl:ObjectProperty ;
+                                             rdfs:label "is about"@en .
+
+
+###  http://purl.obolibrary.org/obo/IAO_0000219
+<http://purl.obolibrary.org/obo/IAO_0000219> rdf:type owl:ObjectProperty ;
+                                             rdfs:subPropertyOf <http://purl.obolibrary.org/obo/IAO_0000136> ;
+                                             rdfs:comment ""@en ;
+                                             rdfs:label "denotes"@en .
+
+
+###  http://purl.obolibrary.org/obo/IAO_0000235
+<http://purl.obolibrary.org/obo/IAO_0000235> rdf:type owl:ObjectProperty ;
+                                             rdfs:label "denoted by"@en .
+
+
+###  http://purl.obolibrary.org/obo/OBI_0000299
+<http://purl.obolibrary.org/obo/OBI_0000299> rdf:type owl:ObjectProperty ;
+                                             rdfs:label "has_specified_output"@en .
+
+
+###  http://purl.obolibrary.org/obo/OpenLHS-Core_0000004
+<http://purl.obolibrary.org/obo/OpenLHS-Core_0000004> rdf:type owl:ObjectProperty ;
+                                                      rdfs:label "is directed by"@en .
+
+
+###  http://purl.obolibrary.org/obo/OpenLHS-Core_0000070
+<http://purl.obolibrary.org/obo/OpenLHS-Core_0000070> rdf:type owl:ObjectProperty ;
+                                                      rdfs:label "component of"@en .
+
+
+###  http://purl.obolibrary.org/obo/RO_0000087
+<http://purl.obolibrary.org/obo/RO_0000087> rdf:type owl:ObjectProperty ;
+                                            rdfs:label "has role"@en .
+
+
+###  http://purl.obolibrary.org/obo/RO_0002087
+<http://purl.obolibrary.org/obo/RO_0002087> rdf:type owl:ObjectProperty ;
+                                            rdfs:comment "X immediately_preceded_by Y iff: end(X) simultaneous_with start(Y)"@en ;
+                                            rdfs:label "immediately preceded by"@en .
+
+
+###  http://purl.obolibrary.org/obo/RO_0002090
+<http://purl.obolibrary.org/obo/RO_0002090> rdf:type owl:ObjectProperty ;
+                                            rdfs:comment "X immediately_precedes_Y iff: end(X) simultaneous_with start(Y)"@en ;
+                                            rdfs:label "immediately precedes"@en .
+
+
+###  http://purl.obolibrary.org/obo/RO_0002180
+<http://purl.obolibrary.org/obo/RO_0002180> rdf:type owl:ObjectProperty ;
+                                            rdfs:subPropertyOf <http://purl.obolibrary.org/obo/BFO_0000051> ;
+                                            rdfs:label "has component"@en .
+
+
+###  http://purl.obolibrary.org/obo/RO_0002350
+<http://purl.obolibrary.org/obo/RO_0002350> rdf:type owl:ObjectProperty ;
+                                            rdfs:label "member of"@en .
+
+
+###  http://purl.obolibrary.org/obo/RO_0002479
+<http://purl.obolibrary.org/obo/RO_0002479> rdf:type owl:ObjectProperty ;
+                                            rdfs:label "has part that occurs in"@en .
+
+
+#################################################################
+#    Data properties
+#################################################################
+
+###  http://purl.obolibrary.org/obo/Ontorel-Core_0000002
+<http://purl.obolibrary.org/obo/Ontorel-Core_0000002> rdf:type owl:DatatypeProperty ;
+                                                      rdfs:subPropertyOf owl:topDataProperty ;
+                                                      rdfs:label "has textual value"@en .
+
+
+###  http://purl.obolibrary.org/obo/Ontorel-Core_0000003
+<http://purl.obolibrary.org/obo/Ontorel-Core_0000003> rdf:type owl:DatatypeProperty ;
+                                                      rdfs:subPropertyOf owl:topDataProperty ;
+                                                      rdfs:label "has numerical value"@en .
+
+
+###  http://purl.obolibrary.org/obo/Ontorel-Core_0000004
+<http://purl.obolibrary.org/obo/Ontorel-Core_0000004> rdf:type owl:DatatypeProperty ;
+                                                      rdfs:subPropertyOf owl:topDataProperty ;
+                                                      rdfs:label "has temporal value"@en .
+
+
+###  http://www.w3.org/2002/07/owl#topDataProperty
+owl:topDataProperty rdf:type owl:DatatypeProperty .
+
+
+#################################################################
+#    Classes
+#################################################################
+
+###  http://purl.obolibrary.org/obo/HEPRO_0000017
+<http://purl.obolibrary.org/obo/HEPRO_0000017> rdf:type owl:Class ;
+                                               rdfs:comment "We suppose that if an ICE is about a group of particular entities, it is also about each of these entities."@en ;
+                                               rdfs:label "pathological condition sub-group name"@en .
+
+
+###  http://purl.obolibrary.org/obo/HOSO_0000003
+<http://purl.obolibrary.org/obo/HOSO_0000003> rdf:type owl:Class ;
+                                              rdfs:label "healthcare service organism specification"@en .
+
+
+###  http://purl.obolibrary.org/obo/HOSO_0000008
+<http://purl.obolibrary.org/obo/HOSO_0000008> rdf:type owl:Class ;
+                                              rdfs:label "healthcare organization"@en .
+
+
+###  http://purl.obolibrary.org/obo/HOSO_0000009
+<http://purl.obolibrary.org/obo/HOSO_0000009> rdf:type owl:Class ;
+                                              rdfs:subClassOf [ rdf:type owl:Restriction ;
+                                                                owl:onProperty <http://purl.obolibrary.org/obo/RO_0002350> ;
+                                                                owl:minQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                                owl:onClass <http://purl.obolibrary.org/obo/HOSO_0000008>
+                                                              ] ;
+                                              rdfs:label "healthcare provider"@en .
+
+
+###  http://purl.obolibrary.org/obo/HOSO_0000011
+<http://purl.obolibrary.org/obo/HOSO_0000011> rdf:type owl:Class ;
+                                              rdfs:label "healthcare organization service delivery"@en .
+
+
+###  http://purl.obolibrary.org/obo/HOSO_0000012
+<http://purl.obolibrary.org/obo/HOSO_0000012> rdf:type owl:Class ;
+                                              rdfs:subClassOf <http://purl.obolibrary.org/obo/HOSO_0000011> ,
+                                                              [ rdf:type owl:Restriction ;
+                                                                owl:onProperty <http://purl.obolibrary.org/obo/OpenLHS-Core_0000004> ;
+                                                                owl:minQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                                owl:onClass <http://purl.obolibrary.org/obo/HOSO_0000003>
+                                                              ] ,
+                                                              [ rdf:type owl:Restriction ;
+                                                                owl:onProperty <http://purl.obolibrary.org/obo/OpenLHS-Core_0000004> ;
+                                                                owl:minQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                                owl:onClass <http://purl.obolibrary.org/obo/HOSO_0000074>
+                                                              ] ,
+                                                              [ rdf:type owl:Restriction ;
+                                                                owl:onProperty <http://purl.obolibrary.org/obo/RO_0002180> ;
+                                                                owl:minQualifiedCardinality "0"^^xsd:nonNegativeInteger ;
+                                                                owl:onClass <http://purl.obolibrary.org/obo/HOSO_0000012>
+                                                              ] ,
+                                                              [ rdf:type owl:Restriction ;
+                                                                owl:onProperty <http://purl.obolibrary.org/obo/OpenLHS-Core_0000004> ;
+                                                                owl:maxQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                                owl:onClass <http://purl.obolibrary.org/obo/HOSO_0000003>
+                                                              ] ;
+                                              rdfs:label "healthcare organization clinical visit"@en .
+
+
+###  http://purl.obolibrary.org/obo/HOSO_0000031
+<http://purl.obolibrary.org/obo/HOSO_0000031> rdf:type owl:Class ;
+                                              rdfs:subClassOf <http://purl.obolibrary.org/obo/HOSO_0000012> ;
+                                              rdfs:label "hospitalization"@en .
+
+
+###  http://purl.obolibrary.org/obo/HOSO_0000032
+<http://purl.obolibrary.org/obo/HOSO_0000032> rdf:type owl:Class ;
+                                              rdfs:subClassOf <http://purl.obolibrary.org/obo/HOSO_0000012> ;
+                                              rdfs:label "emergency department visit"@en .
+
+
+###  http://purl.obolibrary.org/obo/HOSO_0000055
+<http://purl.obolibrary.org/obo/HOSO_0000055> rdf:type owl:Class ;
+                                              rdfs:subClassOf [ rdf:type owl:Restriction ;
+                                                                owl:onProperty <http://purl.obolibrary.org/obo/RO_0002180> ;
+                                                                owl:minQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                                owl:onClass <http://purl.obolibrary.org/obo/HOSO_0000100>
+                                                              ] ;
+                                              rdfs:label "healthcare organization service delivery beginning statement"@en .
+
+
+###  http://purl.obolibrary.org/obo/HOSO_0000056
+<http://purl.obolibrary.org/obo/HOSO_0000056> rdf:type owl:Class ;
+                                              rdfs:subClassOf [ rdf:type owl:Restriction ;
+                                                                owl:onProperty <http://purl.obolibrary.org/obo/RO_0002180> ;
+                                                                owl:minQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                                owl:onClass <http://purl.obolibrary.org/obo/HOSO_0000100>
+                                                              ] ;
+                                              rdfs:label "healthcare organization service delivery ending statement"@en .
+
+
+###  http://purl.obolibrary.org/obo/HOSO_0000072
+<http://purl.obolibrary.org/obo/HOSO_0000072> rdf:type owl:Class ;
+                                              rdfs:subClassOf <http://purl.obolibrary.org/obo/HOSO_0000031> ;
+                                              rdfs:label "ED by ambulance initiated hospitalization"@en .
+
+
+###  http://purl.obolibrary.org/obo/HOSO_0000074
+<http://purl.obolibrary.org/obo/HOSO_0000074> rdf:type owl:Class ;
+                                              rdfs:label "clinical visit agreement specification"@en .
+
+
+###  http://purl.obolibrary.org/obo/HOSO_0000078
+<http://purl.obolibrary.org/obo/HOSO_0000078> rdf:type owl:Class ;
+                                              rdfs:subClassOf <http://purl.obolibrary.org/obo/HOSO_0000074> ,
+                                                              [ rdf:type owl:Restriction ;
+                                                                owl:onProperty <http://purl.obolibrary.org/obo/BFO_0000051> ;
+                                                                owl:minQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                                owl:onClass <http://purl.obolibrary.org/obo/HOSO_0000138>
+                                                              ] ;
+                                              rdfs:label "hospitalization admitting physician specification"@en .
+
+
+###  http://purl.obolibrary.org/obo/HOSO_0000079
+<http://purl.obolibrary.org/obo/HOSO_0000079> rdf:type owl:Class ;
+                                              rdfs:subClassOf <http://purl.obolibrary.org/obo/HOSO_0000008> ,
+                                                              [ rdf:type owl:Restriction ;
+                                                                owl:onProperty <http://purl.obolibrary.org/obo/RO_0002350> ;
+                                                                owl:minQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                                owl:onClass <http://purl.obolibrary.org/obo/HOSO_0000008>
+                                                              ] ;
+                                              rdfs:comment "It is often a sub-organization of a department. Ex: General internal medicine service is under the medicine department."@en ;
+                                              rdfs:label "healthcare physician service"@en .
+
+
+###  http://purl.obolibrary.org/obo/HOSO_0000080
+<http://purl.obolibrary.org/obo/HOSO_0000080> rdf:type owl:Class ;
+                                              rdfs:subClassOf [ rdf:type owl:Restriction ;
+                                                                owl:onProperty <http://purl.obolibrary.org/obo/RO_0002180> ;
+                                                                owl:minQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                                owl:onClass <http://purl.obolibrary.org/obo/HOSO_0000100>
+                                                              ] ,
+                                                              [ rdf:type owl:Restriction ;
+                                                                owl:onProperty <http://purl.obolibrary.org/obo/RO_0002180> ;
+                                                                owl:minQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                                owl:onClass <http://purl.obolibrary.org/obo/IOIO_0000023>
+                                                              ] ;
+                                              rdfs:label "living environment type prior to clinical visit statement"@en .
+
+
+###  http://purl.obolibrary.org/obo/HOSO_0000084
+<http://purl.obolibrary.org/obo/HOSO_0000084> rdf:type owl:Class ;
+                                              rdfs:subClassOf [ rdf:type owl:Restriction ;
+                                                                owl:onProperty <http://purl.obolibrary.org/obo/IAO_0000219> ;
+                                                                owl:minQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                                owl:onClass <http://purl.obolibrary.org/obo/HOSO_0000008>
+                                                              ] ,
+                                                              [ rdf:type owl:Restriction ;
+                                                                owl:onProperty <http://purl.obolibrary.org/obo/IAO_0000219> ;
+                                                                owl:minQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                                owl:onClass <http://purl.obolibrary.org/obo/HOSO_0000079>
+                                                              ] ,
+                                                              [ rdf:type owl:Restriction ;
+                                                                owl:onProperty <http://purl.obolibrary.org/obo/IAO_0000219> ;
+                                                                owl:maxQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                                owl:onClass <http://purl.obolibrary.org/obo/HOSO_0000008>
+                                                              ] ,
+                                                              [ rdf:type owl:Restriction ;
+                                                                owl:onProperty <http://purl.obolibrary.org/obo/IAO_0000219> ;
+                                                                owl:maxQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                                owl:onClass <http://purl.obolibrary.org/obo/HOSO_0000079>
+                                                              ] ;
+                                              rdfs:label "healthcare physician service identifier"@en .
+
+
+###  http://purl.obolibrary.org/obo/HOSO_0000085
+<http://purl.obolibrary.org/obo/HOSO_0000085> rdf:type owl:Class ;
+                                              rdfs:subClassOf <http://purl.obolibrary.org/obo/HOSO_0000031> ;
+                                              rdfs:label "hospitalization starting with ICU stay"@en .
+
+
+###  http://purl.obolibrary.org/obo/HOSO_0000100
+<http://purl.obolibrary.org/obo/HOSO_0000100> rdf:type owl:Class ;
+                                              rdfs:subClassOf [ rdf:type owl:Restriction ;
+                                                                owl:onProperty <http://purl.obolibrary.org/obo/IAO_0000219> ;
+                                                                owl:minQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                                owl:onClass <http://purl.obolibrary.org/obo/HOSO_0000011>
+                                                              ] ;
+                                              rdfs:label "healthcare organization service delivery identifier"@en .
+
+
+###  http://purl.obolibrary.org/obo/HOSO_0000124
+<http://purl.obolibrary.org/obo/HOSO_0000124> rdf:type owl:Class ;
+                                              rdfs:subClassOf [ rdf:type owl:Restriction ;
+                                                                owl:onProperty <http://purl.obolibrary.org/obo/RO_0002180> ;
+                                                                owl:minQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                                owl:onClass <http://purl.obolibrary.org/obo/HEPRO_0000017>
+                                                              ] ,
+                                                              [ rdf:type owl:Restriction ;
+                                                                owl:onProperty <http://purl.obolibrary.org/obo/RO_0002180> ;
+                                                                owl:minQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                                owl:onClass <http://purl.obolibrary.org/obo/HOSO_0000100>
+                                                              ] ,
+                                                              [ rdf:type owl:Restriction ;
+                                                                owl:onProperty <http://purl.obolibrary.org/obo/RO_0002180> ;
+                                                                owl:minQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                                owl:onClass <http://purl.obolibrary.org/obo/HOSO_0000126>
+                                                              ] ;
+                                              rdfs:label "healthcare organization clinical visit pathological condition impact statement"@en .
+
+
+###  http://purl.obolibrary.org/obo/HOSO_0000126
+<http://purl.obolibrary.org/obo/HOSO_0000126> rdf:type owl:Class ;
+                                              rdfs:label "pathological condition impact type on clinical visit"@en .
+
+
+###  http://purl.obolibrary.org/obo/HOSO_0000137
+<http://purl.obolibrary.org/obo/HOSO_0000137> rdf:type owl:Class ;
+                                              rdfs:subClassOf <http://purl.obolibrary.org/obo/NCBITaxon_9606> ,
+                                                              [ rdf:type owl:Restriction ;
+                                                                owl:onProperty <http://purl.obolibrary.org/obo/IAO_0000235> ;
+                                                                owl:minQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                                owl:onClass <http://purl.obolibrary.org/obo/HOSO_0000003>
+                                                              ] ;
+                                              rdfs:label "human clinical visit specified patient"@en .
+
+
+###  http://purl.obolibrary.org/obo/HOSO_0000138
+<http://purl.obolibrary.org/obo/HOSO_0000138> rdf:type owl:Class ;
+                                              rdfs:subClassOf [ rdf:type owl:Restriction ;
+                                                                owl:onProperty <http://purl.obolibrary.org/obo/IAO_0000219> ;
+                                                                owl:minQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                                owl:onClass <http://purl.obolibrary.org/obo/HOSO_0000009>
+                                                              ] ;
+                                              rdfs:label "healthcare provider identifier"@en .
+
+
+###  http://purl.obolibrary.org/obo/IOIO_0000001
+<http://purl.obolibrary.org/obo/IOIO_0000001> rdf:type owl:Class ;
+                                              rdfs:subClassOf [ rdf:type owl:Restriction ;
+                                                                owl:onProperty <http://purl.obolibrary.org/obo/RO_0002180> ;
+                                                                owl:minQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                                owl:onClass <http://purl.obolibrary.org/obo/IOIO_0000005>
+                                                              ] ,
+                                                              [ rdf:type owl:Restriction ;
+                                                                owl:onProperty <http://purl.obolibrary.org/obo/RO_0002180> ;
+                                                                owl:minQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                                owl:onClass <http://purl.obolibrary.org/obo/IOIO_0000014>
+                                                              ] ;
+                                              rdfs:label "human birth statement"@en .
+
+
+###  http://purl.obolibrary.org/obo/IOIO_0000003
+<http://purl.obolibrary.org/obo/IOIO_0000003> rdf:type owl:Class ;
+                                              rdfs:subClassOf [ rdf:type owl:Restriction ;
+                                                                owl:onProperty <http://purl.obolibrary.org/obo/RO_0002180> ;
+                                                                owl:minQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                                owl:onClass <http://purl.obolibrary.org/obo/IOIO_0000006>
+                                                              ] ,
+                                                              [ rdf:type owl:Restriction ;
+                                                                owl:onProperty <http://purl.obolibrary.org/obo/RO_0002180> ;
+                                                                owl:minQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                                owl:onClass <http://purl.obolibrary.org/obo/IOIO_0000014>
+                                                              ] ;
+                                              rdfs:label "human death statement"@en .
+
+
+###  http://purl.obolibrary.org/obo/IOIO_0000005
+<http://purl.obolibrary.org/obo/IOIO_0000005> rdf:type owl:Class ;
+                                              rdfs:subClassOf [ rdf:type owl:Restriction ;
+                                                                owl:onProperty <http://purl.obolibrary.org/obo/OpenLHS-Core_0000070> ;
+                                                                owl:minQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                                owl:onClass <http://purl.obolibrary.org/obo/IOIO_0000001>
+                                                              ] ;
+                                              rdfs:label "human birth temporal information"@en .
+
+
+###  http://purl.obolibrary.org/obo/IOIO_0000006
+<http://purl.obolibrary.org/obo/IOIO_0000006> rdf:type owl:Class ;
+                                              rdfs:subClassOf [ rdf:type owl:Restriction ;
+                                                                owl:onProperty <http://purl.obolibrary.org/obo/OpenLHS-Core_0000070> ;
+                                                                owl:minQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                                owl:onClass <http://purl.obolibrary.org/obo/IOIO_0000003>
+                                                              ] ;
+                                              rdfs:label "human death temporal information"@en .
+
+
+###  http://purl.obolibrary.org/obo/IOIO_0000011
+<http://purl.obolibrary.org/obo/IOIO_0000011> rdf:type owl:Class ;
+                                              rdfs:label "human biological sex information content entity"@en .
+
+
+###  http://purl.obolibrary.org/obo/IOIO_0000014
+<http://purl.obolibrary.org/obo/IOIO_0000014> rdf:type owl:Class ;
+                                              rdfs:subClassOf [ rdf:type owl:Restriction ;
+                                                                owl:onProperty <http://purl.obolibrary.org/obo/IAO_0000219> ;
+                                                                owl:minQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                                owl:onClass <http://purl.obolibrary.org/obo/NCBITaxon_9606>
+                                                              ] ;
+                                              rdfs:label "human identifier"@en .
+
+
+###  http://purl.obolibrary.org/obo/IOIO_0000015
+<http://purl.obolibrary.org/obo/IOIO_0000015> rdf:type owl:Class ;
+                                              rdfs:subClassOf [ rdf:type owl:Restriction ;
+                                                                owl:onProperty <http://purl.obolibrary.org/obo/RO_0002180> ;
+                                                                owl:minQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                                owl:onClass <http://purl.obolibrary.org/obo/IOIO_0000011>
+                                                              ] ,
+                                                              [ rdf:type owl:Restriction ;
+                                                                owl:onProperty <http://purl.obolibrary.org/obo/RO_0002180> ;
+                                                                owl:minQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                                owl:onClass <http://purl.obolibrary.org/obo/IOIO_0000014>
+                                                              ] ;
+                                              rdfs:label "human biological sex statement"@en .
+
+
+###  http://purl.obolibrary.org/obo/IOIO_0000023
+<http://purl.obolibrary.org/obo/IOIO_0000023> rdf:type owl:Class ;
+                                              rdfs:label "living environment type"@en .
+
+
+###  http://purl.obolibrary.org/obo/MPHPO_0000001
+<http://purl.obolibrary.org/obo/MPHPO_0000001> rdf:type owl:Class ;
+                                               rdfs:subClassOf <http://purl.obolibrary.org/obo/HOSO_0000126> ,
+                                                               [ rdf:type owl:Restriction ;
+                                                                 owl:onProperty <http://purl.obolibrary.org/obo/Ontorel-Core_0000002> ;
+                                                                 owl:minQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                                 owl:onDataRange xsd:string
+                                                               ] ,
+                                                               [ rdf:type owl:Restriction ;
+                                                                 owl:onProperty <http://purl.obolibrary.org/obo/Ontorel-Core_0000002> ;
+                                                                 owl:maxQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                                 owl:onDataRange xsd:string
+                                                               ] ;
+                                               rdfs:comment "Parent class with data property."@en ;
+                                               rdfs:label "MPHPO pathological condition impact type on clinical visit "@en .
+
+
+###  http://purl.obolibrary.org/obo/MPHPO_0000002
+<http://purl.obolibrary.org/obo/MPHPO_0000002> rdf:type owl:Class ;
+                                               rdfs:subClassOf <http://purl.obolibrary.org/obo/HEPRO_0000017> ,
+                                                               [ rdf:type owl:Restriction ;
+                                                                 owl:onProperty <http://purl.obolibrary.org/obo/Ontorel-Core_0000002> ;
+                                                                 owl:minQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                                 owl:onDataRange xsd:string
+                                                               ] ,
+                                                               [ rdf:type owl:Restriction ;
+                                                                 owl:onProperty <http://purl.obolibrary.org/obo/Ontorel-Core_0000002> ;
+                                                                 owl:maxQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                                 owl:onDataRange xsd:string
+                                                               ] ;
+                                               rdfs:comment "Parent class with data property."@en ;
+                                               rdfs:label "MPHPO pathological condition sub-group name "@en .
+
+
+###  http://purl.obolibrary.org/obo/MPHPO_0000003
+<http://purl.obolibrary.org/obo/MPHPO_0000003> rdf:type owl:Class ;
+                                               rdfs:subClassOf [ rdf:type owl:Restriction ;
+                                                                 owl:onProperty <http://purl.obolibrary.org/obo/OpenLHS-Core_0000070> ;
+                                                                 owl:minQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                                 owl:onClass <http://purl.obolibrary.org/obo/HOSO_0000055>
+                                                               ] ,
+                                                               [ rdf:type owl:Restriction ;
+                                                                 owl:onProperty <http://purl.obolibrary.org/obo/Ontorel-Core_0000004> ;
+                                                                 owl:minQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                                 owl:onDataRange <http://purl.obolibrary.org/obo/Ontorel-Core_0000001>
+                                                               ] ,
+                                                               [ rdf:type owl:Restriction ;
+                                                                 owl:onProperty <http://purl.obolibrary.org/obo/Ontorel-Core_0000004> ;
+                                                                 owl:maxQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                                 owl:onDataRange <http://purl.obolibrary.org/obo/Ontorel-Core_0000001>
+                                                               ] ;
+                                               rdfs:comment "Parent class with data property."@en ;
+                                               rdfs:label "MPHPO HOSD beginning temporal information"@en .
+
+
+###  http://purl.obolibrary.org/obo/MPHPO_0000004
+<http://purl.obolibrary.org/obo/MPHPO_0000004> rdf:type owl:Class ;
+                                               rdfs:subClassOf [ rdf:type owl:Restriction ;
+                                                                 owl:onProperty <http://purl.obolibrary.org/obo/OpenLHS-Core_0000070> ;
+                                                                 owl:minQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                                 owl:onClass <http://purl.obolibrary.org/obo/HOSO_0000056>
+                                                               ] ,
+                                                               [ rdf:type owl:Restriction ;
+                                                                 owl:onProperty <http://purl.obolibrary.org/obo/Ontorel-Core_0000004> ;
+                                                                 owl:minQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                                 owl:onDataRange <http://purl.obolibrary.org/obo/Ontorel-Core_0000001>
+                                                               ] ,
+                                                               [ rdf:type owl:Restriction ;
+                                                                 owl:onProperty <http://purl.obolibrary.org/obo/Ontorel-Core_0000004> ;
+                                                                 owl:maxQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                                 owl:onDataRange <http://purl.obolibrary.org/obo/Ontorel-Core_0000001>
+                                                               ] ;
+                                               rdfs:comment "Parent class with data property."@en ;
+                                               rdfs:label "MPHPO HOSD ending temporal information "@en .
+
+
+###  http://purl.obolibrary.org/obo/MPHPO_0000005
+<http://purl.obolibrary.org/obo/MPHPO_0000005> rdf:type owl:Class ;
+                                               rdfs:subClassOf <http://purl.obolibrary.org/obo/IOIO_0000023> ,
+                                                               [ rdf:type owl:Restriction ;
+                                                                 owl:onProperty <http://purl.obolibrary.org/obo/Ontorel-Core_0000002> ;
+                                                                 owl:minQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                                 owl:onDataRange xsd:string
+                                                               ] ,
+                                                               [ rdf:type owl:Restriction ;
+                                                                 owl:onProperty <http://purl.obolibrary.org/obo/Ontorel-Core_0000002> ;
+                                                                 owl:maxQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                                 owl:onDataRange xsd:string
+                                                               ] ;
+                                               rdfs:comment "Parent class with data property."@en ;
+                                               rdfs:label "MPHPO living environment type "@en .
+
+
+###  http://purl.obolibrary.org/obo/MPHPO_0000006
+<http://purl.obolibrary.org/obo/MPHPO_0000006> rdf:type owl:Class ;
+                                               rdfs:subClassOf <http://purl.obolibrary.org/obo/HOSO_0000084> ,
+                                                               [ rdf:type owl:Restriction ;
+                                                                 owl:onProperty <http://purl.obolibrary.org/obo/Ontorel-Core_0000002> ;
+                                                                 owl:minQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                                 owl:onDataRange xsd:string
+                                                               ] ,
+                                                               [ rdf:type owl:Restriction ;
+                                                                 owl:onProperty <http://purl.obolibrary.org/obo/Ontorel-Core_0000002> ;
+                                                                 owl:maxQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                                 owl:onDataRange xsd:string
+                                                               ] ;
+                                               rdfs:comment "Parent class with data property."@en ;
+                                               rdfs:label "MPHPO healthcare physician service identifier "@en .
+
+
+###  http://purl.obolibrary.org/obo/MPHPO_0000007
+<http://purl.obolibrary.org/obo/MPHPO_0000007> rdf:type owl:Class ;
+                                               rdfs:subClassOf <http://purl.obolibrary.org/obo/HOSO_0000074> ,
+                                                               [ rdf:type owl:Restriction ;
+                                                                 owl:onProperty <http://purl.obolibrary.org/obo/Ontorel-Core_0000002> ;
+                                                                 owl:minQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                                 owl:onDataRange xsd:string
+                                                               ] ,
+                                                               [ rdf:type owl:Restriction ;
+                                                                 owl:onProperty <http://purl.obolibrary.org/obo/Ontorel-Core_0000002> ;
+                                                                 owl:maxQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                                 owl:onDataRange xsd:string
+                                                               ] ;
+                                               rdfs:comment "Parent class with data property."@en ;
+                                               rdfs:label "MPHPO hospitalization admission urgency level specification "@en .
+
+
+###  http://purl.obolibrary.org/obo/MPHPO_0000009
+<http://purl.obolibrary.org/obo/MPHPO_0000009> rdf:type owl:Class ;
+                                               rdfs:subClassOf <http://purl.obolibrary.org/obo/IOIO_0000005> ,
+                                                               [ rdf:type owl:Restriction ;
+                                                                 owl:onProperty <http://purl.obolibrary.org/obo/Ontorel-Core_0000004> ;
+                                                                 owl:minQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                                 owl:onDataRange <http://purl.obolibrary.org/obo/Ontorel-Core_0000001>
+                                                               ] ,
+                                                               [ rdf:type owl:Restriction ;
+                                                                 owl:onProperty <http://purl.obolibrary.org/obo/Ontorel-Core_0000004> ;
+                                                                 owl:maxQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                                 owl:onDataRange <http://purl.obolibrary.org/obo/Ontorel-Core_0000001>
+                                                               ] ;
+                                               rdfs:comment "Parent class with data property."@en ;
+                                               rdfs:label "MPHPO human birth date"@en .
+
+
+###  http://purl.obolibrary.org/obo/MPHPO_0000010
+<http://purl.obolibrary.org/obo/MPHPO_0000010> rdf:type owl:Class ;
+                                               rdfs:subClassOf <http://purl.obolibrary.org/obo/IOIO_0000011> ,
+                                                               [ rdf:type owl:Restriction ;
+                                                                 owl:onProperty <http://purl.obolibrary.org/obo/Ontorel-Core_0000002> ;
+                                                                 owl:minQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                                 owl:onDataRange xsd:string
+                                                               ] ,
+                                                               [ rdf:type owl:Restriction ;
+                                                                 owl:onProperty <http://purl.obolibrary.org/obo/Ontorel-Core_0000002> ;
+                                                                 owl:maxQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                                 owl:onDataRange xsd:string
+                                                               ] ;
+                                               rdfs:comment "Parent class with data property."@en ;
+                                               rdfs:label "MPHPO human biological sex information content entity"@en .
+
+
+###  http://purl.obolibrary.org/obo/MPHPO_0000011
+<http://purl.obolibrary.org/obo/MPHPO_0000011> rdf:type owl:Class ;
+                                               rdfs:subClassOf <http://purl.obolibrary.org/obo/IOIO_0000006> ,
+                                                               [ rdf:type owl:Restriction ;
+                                                                 owl:onProperty <http://purl.obolibrary.org/obo/Ontorel-Core_0000004> ;
+                                                                 owl:minQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                                 owl:onDataRange <http://purl.obolibrary.org/obo/Ontorel-Core_0000001>
+                                                               ] ,
+                                                               [ rdf:type owl:Restriction ;
+                                                                 owl:onProperty <http://purl.obolibrary.org/obo/Ontorel-Core_0000004> ;
+                                                                 owl:maxQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                                 owl:onDataRange <http://purl.obolibrary.org/obo/Ontorel-Core_0000001>
+                                                               ] ;
+                                               rdfs:comment "Parent class with data property."@en ;
+                                               rdfs:label "MPHPO human death date"@en .
+
+
+###  http://purl.obolibrary.org/obo/NCBITaxon_9606
+<http://purl.obolibrary.org/obo/NCBITaxon_9606> rdf:type owl:Class ;
+                                                rdfs:label "Homo sapiens"@en .
+
+
+###  Generated by the OWL API (version 5.5.0) https://github.com/owlcs/owlapi/

@@ -1,0 +1,134 @@
+
+======================================================= 
+Long view identifiers anomalies
+======================================================= 
+  Note : if the identifier is long, the IRI idenfiers will be used.
+
+--------------------------------------- 
+Long view name and attributes identifiers
+--------------------------------------- 
+
+
+
+
+  View name @en: healthcare organization clinical visit pathological condition impact statement
+    View attribute @en: uid healthcare organization clinical visit pathological condition impact statement
+
+
+
+
+
+
+
+
+
+
+    View attribute @en: uid healthcare organization service delivery beginning statement
+
+    View attribute @en: uid MPHPO hospitalization admission urgency level specification 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    View attribute @en: uid MPHPO pathological condition impact type on clinical visit 
+
+
+
+
+
+
+
+
+
+
+
+    View attribute IRIMPHPO_0000011_Ontorel-Core_0000004_Ontorel-Core_0000001_Ontorel-Core_0000004
+
+  View name @en: MPHPO human biological sex information content entity has textual value string
+
+  View name @en: MPHPO healthcare physician service identifier  has textual value string
+
+  View name @en: MPHPO pathological condition impact type on clinical visit  has textual value string
+    View attribute @en: uid MPHPO pathological condition impact type on clinical visit 
+
+  View name @en: MPHPO hospitalization admission urgency level specification  has textual value string
+    View attribute @en: uid MPHPO hospitalization admission urgency level specification 
+
+  View name @en: MPHPO HOSD ending temporal information  has temporal value ISO8601DateTime
+    View attribute IRIMPHPO_0000004_Ontorel-Core_0000004_Ontorel-Core_0000001_Ontorel-Core_0000004
+
+
+  View name @en: MPHPO HOSD beginning temporal information has temporal value ISO8601DateTime
+    View attribute IRIMPHPO_0000003_Ontorel-Core_0000004_Ontorel-Core_0000001_Ontorel-Core_0000004
+
+    View attribute IRIMPHPO_0000009_Ontorel-Core_0000004_Ontorel-Core_0000001_Ontorel-Core_0000004
+
+  View name @en: MPHPO pathological condition sub-group name  has textual value string
+
+
+  View name @en: healthcare organization clinical visit pathological condition impact statement has component healthcare organization service delivery identifier
+    View attribute @en: uid healthcare organization clinical visit pathological condition impact statement
+
+  View name @en: healthcare organization clinical visit pathological condition impact statement has component pathological condition sub-group name
+    View attribute @en: uid healthcare organization clinical visit pathological condition impact statement
+
+  View name @en: healthcare organization clinical visit pathological condition impact statement has component pathological condition impact type on clinical visit
+    View attribute @en: uid healthcare organization clinical visit pathological condition impact statement
+
+
+  View name @en: human death temporal information component of human death statement
+
+
+  View name @en: MPHPO HOSD ending temporal information  component of healthcare organization service delivery ending statement
+
+  View name @en: healthcare organization service delivery identifier denotes healthcare organization service delivery
+
+  View name @en: healthcare organization service delivery beginning statement has component healthcare organization service delivery identifier
+    View attribute @en: uid healthcare organization service delivery beginning statement
+
+  View name @en: human birth statement has component human birth temporal information
+
+
+  View name @en: healthcare physician service identifier denotes healthcare physician service
+
+  View name @en: healthcare physician service identifier denotes healthcare organization
+
+
+  View name @en: human biological sex statement has component human biological sex information content entity
+
+  View name @en: human birth temporal information component of human birth statement
+
+  View name @en: living environment type prior to clinical visit statement has component living environment type
+
+  View name @en: living environment type prior to clinical visit statement has component healthcare organization service delivery identifier
+
+  View name @en: human death statement has component human death temporal information
+
+
+  View name @en: human clinical visit specified patient denoted by healthcare service organism specification
+
+  View name @en: MPHPO HOSD beginning temporal information component of healthcare organization service delivery beginning statement
+    View attribute @en: uid healthcare organization service delivery beginning statement
+
+  View name @en: healthcare organization clinical visit is directed by clinical visit agreement specification
+
+  View name @en: healthcare organization clinical visit is directed by healthcare service organism specification
+
+  View name @en: healthcare organization clinical visit has component healthcare organization clinical visit
+
+  View name @en: healthcare organization service delivery ending statement has component healthcare organization service delivery identifier
+
+  View name @en: hospitalization admitting physician specification has part healthcare provider identifier
+
+

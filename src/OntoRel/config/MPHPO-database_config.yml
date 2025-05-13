@@ -1,0 +1,19 @@
+# Default database configurations
+schemaName: MPHPO
+rdbmsName:
+  - postgresql
+owlSqlTypeMapperFilePath: postgresql_owlsqltype_config.yaml
+defaultKeyName: uid
+defaultKeyDomainName: uid_domain
+defaultKeyType: UUID
+defaultAttributeName : value
+defaultAttributeDomaineName: value_domain
+defaultAttributeType: TEXT
+maxIdentifierLength: 62
+useIriAsTableId: false
+normalizeDatatype: false
+generateOpTable: false
+removeThingTable: true
+languages:
+  - en
+  - fr
