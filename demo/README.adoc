@@ -10,7 +10,6 @@
 == Introduction
 
 OntoRelQuery is a tool for generating and executing queries using an ontology. This tool provides a command-line interface for querying relational data using ontology-based models.
-
 The primary purpose of OntoRelQuery is to bridge the gap between ontological models and relational databases. By leveraging ontological relationships defined in graph structures, the tool allows users to create complex queries without having to understand the underlying database schema in detail. This approach provides a higher level of abstraction and better alignment with domain models.
 
 This guide will walk you through the complete setup process, including:
@@ -22,7 +21,7 @@ This guide will walk you through the complete setup process, including:
 
 == Environment setup
 
-This section will guide you through setting up the environment for the demonstraction.
+This section will guide you through setting up the environment for the demonstration.
 
 === Pre-requisites
 
@@ -59,10 +58,10 @@ cd src/OntoRel/database
 +
 [source,bash]
 ----
-psql -U postgres -d mimiciv -f 100-MPHPO_cre-table_v0_20240820-1631.sql
-psql -U postgres -d mimiciv -f 110-MPHPO_cre-participationCheck-fct_v0_20240820-1631.sql
-psql -U postgres -d mimiciv -f 200-MPHPO_cre-view-iri_v0_20240820-1631.sql
-psql -U postgres -d mimiciv -f 210-MPHPO_cre-view-en_v0_20240820-1631.sql
+psql -U postgres -d mimiciv -f 100-MPHPO_cre-table_v0_20240821-1340.sql
+psql -U postgres -d mimiciv -f 110-MPHPO_cre-participationCheck-fct_v0_20240821-1340.sql
+psql -U postgres -d mimiciv -f 200-MPHPO_cre-view-iri_v0_20240821-1340.sql
+psql -U postgres -d mimiciv -f 210-MPHPO_cre-view-en_v0_20240821-1340.sql
 ----
 . Navigate to the directory containing the SQL scripts for the data:
 +
@@ -94,15 +93,15 @@ cd src/OntoRelCat
 psql -U postgres -d mimiciv -f 1000_ontorelcat_pub.sql
 psql -U postgres -d mimiciv -f 1010_ontorelcat_pri.sql
 -- store procedures for the ontorelquery app
-psql -U postgres -d mimiciv -f 3000_ontorelcat_api_ontorelquery_pub.sql
-psql -U postgres -d mimiciv -f 3010_ontorelcat_api_ontorelquery_pri.sql
+psql -U postgres -d mimiciv -f ontorelquery/3000_ontorelcat_api_ontorelquery_pub.sql
+psql -U postgres -d mimiciv -f ontorelquery/3010_ontorelcat_api_ontorelquery_pri.sql
 ----
 
 . Insert the data into the OntoRelCat:
 +
 [source,bash]
 ----
-psql -U postgres -d mimiciv -f OntoRel/database/1003-MPHPO_OntoRelCat_ins_v0_20240820-1631.sql
+psql -U postgres -d mimiciv -f OntoRel/database/1003-MPHPO_OntoRelCat_ins_v0_20240821-1340.sql
 ----
 
 == Setting up OntoRelQuery
@@ -236,7 +235,7 @@ This section will guide you through running and using the OntoRelQuery tool.
 +
 [source,bash]
 ----
-java -jar OntoRelQuery.jar --configuration OntoRelQuery_config.yml
+java -jar OntoRelQuery-1.0.0-SNAPSHOT.jar --configuration OntoRelQuery_config.yml
 ----
 
 If you're using environment variables for the database credentials, make sure they are set before running the command.
@@ -453,7 +452,7 @@ digraph G {
   "HOSO_0000011" [label="healthcare organization service delivery"];
   "HOSO_0000012" [label="healthcare organization clinical visit"];
   "HOSO_0000031" [label="hospitalization"];
-  
+
   "MPHPO_0000003" -> "HOSO_0000055" [label="component of"];
   "HOSO_0000055" -> "HOSO_0000100" [label="has component"];
   "HOSO_0000100" -> "HOSO_0000011" [label="denotes"];
@@ -635,3 +634,4 @@ For questions, bug reports, or feature requests, please contact:
 Developed by https://griis.ca/[GRIIS] - Groupe de recherche interdisciplinaire en informatique de la santé, Université de Sherbrooke (Québec) J1K 2R1, CANADA.
 
 Thank you for using OntoRelQuery!
+
