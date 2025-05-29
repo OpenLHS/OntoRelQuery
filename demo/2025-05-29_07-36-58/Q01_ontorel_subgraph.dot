@@ -1,0 +1,25 @@
+digraph OntoRelSubgraph {
+  // Subgraph generated from path: MPHPO HOSD beginning temporal information (MPHPO_0000003) -> (MPHPO HOSD beginning temporal information component of healthcare organization service delivery beginning statement [MPHPO_0000003_OpenLHS-Core_0000070_HOSO_0000055]) -> healthcare organization service delivery beginning statement (HOSO_0000055) -> (healthcare organization service delivery beginning statement has component healthcare organization service delivery identifier [HOSO_0000055_RO_0002180_HOSO_0000100]) -> healthcare organization service delivery identifier (HOSO_0000100) -> (healthcare organization service delivery identifier denotes healthcare organization service delivery [HOSO_0000100_IAO_0000219_HOSO_0000011]) -> healthcare organization service delivery (HOSO_0000011) -> healthcare organization clinical visit (HOSO_0000012) -> hospitalization (HOSO_0000031)
+  // Generated on: 2025-05-29T07:36:58.533434
+
+  1 [ shape="box" color="blue" label="healthcare organization service delivery identifier" ];
+  2 [ shape="box" color="blue" label="healthcare organization clinical visit" ];
+  3 [ shape="box" color="blue" label="healthcare organization service delivery beginning statement" ];
+  4 [ shape="Mdiamond" color="red" label="healthcare organization service delivery identifier denotes healthcare organization service delivery" ];
+  5 [ shape="box" color="blue" label="healthcare organization service delivery" ];
+  6 [ shape="doubleoctagon" color="green" label="MPHPO HOSD beginning temporal information has temporal value ISO8601DateTime" ];
+  7 [ shape="Mdiamond" color="red" label="MPHPO HOSD beginning temporal information component of healthcare organization service delivery beginning statement" ];
+  8 [ shape="box" color="blue" label="MPHPO HOSD beginning temporal information" ];
+  9 [ shape="box" color="blue" label="hospitalization" ];
+  10 [ shape="Mdiamond" color="red" label="healthcare organization service delivery beginning statement has component healthcare organization service delivery identifier" ];
+
+  9 -> 2 [ color="blue" style="dashed" label="isa:HOSO_0000012_uid" ];
+  2 -> 5 [ color="blue" style="dashed" label="isa:HOSO_0000011_uid" ];
+  8 -> 6 [ color="green" label="dp:MPHPO_0000003_uid" ];
+  1 -> 4 [ color="red" label="op:HOSO_0000100_uid" ];
+  4 -> 5 [ color="red" label="op:HOSO_0000011_uid" ];
+  3 -> 10 [ color="red" label="op:HOSO_0000055_uid" ];
+  10 -> 1 [ color="red" label="op:HOSO_0000100_uid" ];
+  8 -> 7 [ color="red" label="op:MPHPO_0000003_uid" ];
+  7 -> 3 [ color="red" label="op:HOSO_0000055_uid" ];
+}
