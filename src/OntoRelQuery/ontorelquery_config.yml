@@ -4,7 +4,6 @@ database:
   host: localhost
   port: 5433
   databaseId: mimiciv
-  ontorelcatSchemaId: ontorelcat_pri
   ontorelSchemaId: MPHPO
   ontorelcatApi: ontorelcat_api_ontorelquery
   username: ${DB_USER:postgres}
@@ -32,3 +31,7 @@ connection:
   sshUsername: ${DB_USER:user}
   sshPassword: ${DB_PASSWORD:your_password}
   sshKeyFile:
+
+# ===== Workflow configuration ========
+Path:
+  workingPath: /OntoRelQuery/
