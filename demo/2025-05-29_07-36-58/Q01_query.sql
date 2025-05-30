@@ -1,0 +1,27 @@
+select
+  "MPHPO_0000003"."MPHPO_0000003_uid" as "uid MPHPO HOSD beginning temporal information",
+  "MPHPO_0000003_OpenLHS-Core_0000070_HOSO_0000055"."HOSO_0000055_uid" as "uid healthcare organization service delivery beginning statement",
+  "HOSO_0000055_RO_0002180_HOSO_0000100"."HOSO_0000100_uid" as "uid healthcare organization service delivery identifier",
+  "HOSO_0000100_IAO_0000219_HOSO_0000011"."HOSO_0000011_uid" as "uid healthcare organization service delivery",
+  "HOSO_0000012"."HOSO_0000012_uid" as "uid healthcare organization clinical visit",
+  "HOSO_0000031"."HOSO_0000031_uid" as "uid hospitalization",
+  "MPHPO_0000003_Ontorel-Core_0000004_Ontorel-Core_0000001"."MPHPO_0000003_Ontorel-Core_0000004_Ontorel-Core_0000001_Ontorel" as "has temporal value"
+from "MPHPO"."MPHPO_0000003"
+  join "MPHPO"."MPHPO_0000003_OpenLHS-Core_0000070_HOSO_0000055"
+    on "MPHPO_0000003_OpenLHS-Core_0000070_HOSO_0000055"."MPHPO_0000003_uid" = "MPHPO_0000003"."MPHPO_0000003_uid"
+  join "MPHPO"."HOSO_0000055"
+    on "MPHPO_0000003_OpenLHS-Core_0000070_HOSO_0000055"."HOSO_0000055_uid" = "HOSO_0000055"."HOSO_0000055_uid"
+  join "MPHPO"."HOSO_0000055_RO_0002180_HOSO_0000100"
+    on "HOSO_0000055_RO_0002180_HOSO_0000100"."HOSO_0000055_uid" = "HOSO_0000055"."HOSO_0000055_uid"
+  join "MPHPO"."HOSO_0000100"
+    on "HOSO_0000055_RO_0002180_HOSO_0000100"."HOSO_0000100_uid" = "HOSO_0000100"."HOSO_0000100_uid"
+  join "MPHPO"."HOSO_0000100_IAO_0000219_HOSO_0000011"
+    on "HOSO_0000100_IAO_0000219_HOSO_0000011"."HOSO_0000100_uid" = "HOSO_0000100"."HOSO_0000100_uid"
+  join "MPHPO"."HOSO_0000011"
+    on "HOSO_0000100_IAO_0000219_HOSO_0000011"."HOSO_0000011_uid" = "HOSO_0000011"."HOSO_0000011_uid"
+  join "MPHPO"."HOSO_0000012"
+    on "HOSO_0000012"."HOSO_0000012_uid" = "HOSO_0000011"."HOSO_0000011_uid"
+  join "MPHPO"."HOSO_0000031"
+    on "HOSO_0000031"."HOSO_0000031_uid" = "HOSO_0000012"."HOSO_0000012_uid"
+  join "MPHPO"."MPHPO_0000003_Ontorel-Core_0000004_Ontorel-Core_0000001"
+    on "MPHPO_0000003_Ontorel-Core_0000004_Ontorel-Core_0000001"."MPHPO_0000003_uid" = "MPHPO_0000003"."MPHPO_0000003_uid"

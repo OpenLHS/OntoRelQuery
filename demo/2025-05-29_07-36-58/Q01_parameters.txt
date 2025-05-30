@@ -1,0 +1,6 @@
+QUERY PARAMETERS
+===============
+
+Options:
+  - from: http://purl.obolibrary.org/obo/MPHPO_0000003
+  - to: http://purl.obolibrary.org/obo/HOSO_0000031

@@ -11,7 +11,7 @@
 OntoRelQuery, an approach designed to simplify the formulation and management of queries. Our approach combines three tasks: (1) a query design expressed through ontologies, (2) a query implementation expressed using the relational model, and (3) a data extraction for query handling. 
 
 == Repository content
-__demo__ : required artefacts to run the demonstration. +
+__demo__ : documentation and results of a demonstration. +
 __doc__ : contains technical reports. +
 __res__ : contains the evaluation results. +
 

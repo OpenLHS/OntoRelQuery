@@ -1,0 +1,23 @@
+strict digraph G {
+  labelloc=t;
+  label="Subgraph: MPHPO_0000003 → HOSO_0000031";
+  splines=polyline;
+  rankdir=LR;
+  1 [ shape="ellipse" label="\"HOSO_0000100\"@
+healthcare organization service delivery identifier" ];
+  2 [ shape="ellipse" label="\"HOSO_0000012\"@
+healthcare organization clinical visit" ];
+  3 [ shape="ellipse" label="\"HOSO_0000055\"@
+healthcare organization service delivery beginning statement" ];
+  4 [ shape="ellipse" label="\"HOSO_0000011\"@
+healthcare organization service delivery" ];
+  5 [ shape="ellipse" color="green" style="filled" label="\"MPHPO_0000003\"@
+MPHPO HOSD beginning temporal information" ];
+  6 [ shape="ellipse" color="red" style="filled" label="\"HOSO_0000031\"@
+hospitalization" ];
+  2 -> 4 [ style="solid" ];
+  6 -> 2 [ style="solid" ];
+  1 -> 4 [ style="solid" label="\"denotes\"" ];
+  3 -> 1 [ style="solid" label="\"has component\"" ];
+  5 -> 3 [ style="solid" label="\"component of\"" ];
+}

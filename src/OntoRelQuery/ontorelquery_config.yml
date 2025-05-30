@@ -1,0 +1,37 @@
+# ========  Database connection configurations ========
+database:
+  rdbms: postgresql
+  host: localhost
+  port: 5433
+  databaseId: mimiciv
+  ontorelSchemaId: MPHPO
+  ontorelcatApi: ontorelcat_api_ontorelquery
+  username: ${DB_USER:postgres}
+  password: ${DB_PASSWORD:$}
+
+# ======== Graph files configuration ========
+graphs:
+  ontoGraphFile: ${ONTO_GRAPH_FILE:OntoRel/graphs/OntoGraph.dot}
+  ontoRelGraphFile: ${ONTOREL_GRAPH_FILE:OntoRel/graphs/OntoRelGraph.dot}
+
+# ======== Query configuration ========
+query:
+  ontoreluuid: ${ONTOREL_UUID:8f937ca7-8bdc-40da-9548-ece5eca439cb}
+  queryLanguage: ${QUERY_LANGUAGE:en}
+  cacheSize: 100
+  cacheExpirationMinutes: 30
+  maxQueryResults: 1000
+  defaultTimeout: 30
+
+# ======== Connection type SSH tunnel configuration ========
+connection:
+  useSshTunnel: false
+  sshHost: localhost
+  sshPort: 22
+  sshUsername: ${DB_USER:user}
+  sshPassword: ${DB_PASSWORD:your_password}
+  sshKeyFile:
+
+# ===== Workflow configuration ========
+Path:
+  workingPath: /OntoRelQuery/

@@ -1,0 +1,13 @@
+SELECTED PATH:
+==============
+
+MPHPO HOSD beginning temporal information (MPHPO_0000003) -> (MPHPO HOSD beginning temporal information component of healthcare organization service delivery beginning statement [MPHPO_0000003_OpenLHS-Core_0000070_HOSO_0000055]) -> healthcare organization service delivery beginning statement (HOSO_0000055) -> (healthcare organization service delivery beginning statement has component healthcare organization service delivery identifier [HOSO_0000055_RO_0002180_HOSO_0000100]) -> healthcare organization service delivery identifier (HOSO_0000100) -> (healthcare organization service delivery identifier denotes healthcare organization service delivery [HOSO_0000100_IAO_0000219_HOSO_0000011]) -> healthcare organization service delivery (HOSO_0000011) -> healthcare organization clinical visit (HOSO_0000012) -> hospitalization (HOSO_0000031)
+
+AVAILABLE PATHS IN ONTOGRAPH:
+============================
+
+  1. (MPHPO HOSD beginning temporal information (MPHPO_0000003)) -[component of [OBJECT_PROPERTY]]-> (healthcare organization service delivery beginning statement (HOSO_0000055)) -[has component [OBJECT_PROPERTY]]-> (healthcare organization service delivery identifier (HOSO_0000100)) -[denotes [OBJECT_PROPERTY]]-> (healthcare organization service delivery (HOSO_0000011)) -[ISA]-> (healthcare organization clinical visit (HOSO_0000012)) -[ISA]-> (hospitalization (HOSO_0000031))
+
+AVAILABLE PATHS IN ONTORELGRAPH:
+===============================
+

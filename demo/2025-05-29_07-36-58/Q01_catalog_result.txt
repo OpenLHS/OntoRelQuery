@@ -1,0 +1,35 @@
+TABLE VERIFICATION REPORT
+========================
+
+Table ID: MPHPO_0000003
+  - Found as CLASS: MPHPO HOSD beginning temporal information (IRI: http://purl.obolibrary.org/obo/MPHPO_0000003)
+
+Table ID: MPHPO_0000003_OpenLHS-Core_0000070_HOSO_0000055
+  - Found as CLASS AXIOM: Domain: MPHPO HOSD beginning temporal information, Property: component of, Range: healthcare organization service delivery beginning statement (IRI: http://purl.obolibrary.org/obo/OpenLHS-Core_0000070)
+
+Table ID: HOSO_0000055
+  - Found as CLASS: healthcare organization service delivery beginning statement (IRI: http://purl.obolibrary.org/obo/HOSO_0000055)
+
+Table ID: HOSO_0000055_RO_0002180_HOSO_0000100
+  - Found as CLASS AXIOM: Domain: healthcare organization service delivery beginning statement, Property: has component, Range: healthcare organization service delivery identifier (IRI: http://purl.obolibrary.org/obo/RO_0002180)
+
+Table ID: HOSO_0000100
+  - Found as CLASS: healthcare organization service delivery identifier (IRI: http://purl.obolibrary.org/obo/HOSO_0000100)
+
+Table ID: HOSO_0000100_IAO_0000219_HOSO_0000011
+  - Found as CLASS AXIOM: Domain: healthcare organization service delivery identifier, Property: denotes, Range: healthcare organization service delivery (IRI: http://purl.obolibrary.org/obo/IAO_0000219)
+
+Table ID: HOSO_0000011
+  - Found as CLASS: healthcare organization service delivery (IRI: http://purl.obolibrary.org/obo/HOSO_0000011)
+
+Table ID: HOSO_0000012
+  - Found as CLASS: healthcare organization clinical visit (IRI: http://purl.obolibrary.org/obo/HOSO_0000012)
+
+Table ID: HOSO_0000031
+  - Found as CLASS: hospitalization (IRI: http://purl.obolibrary.org/obo/HOSO_0000031)
+
+Table ID: MPHPO_0000003_Ontorel-Core_0000004_Ontorel-Core_0000001
+  - Found as DATA AXIOM: Domain: MPHPO HOSD beginning temporal information, Property: has temporal value, Range: ISO8601DateTime (IRI: http://purl.obolibrary.org/obo/Ontorel-Core_0000004)
+
+
+
